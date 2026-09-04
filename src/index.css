@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: #3f3a3a;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, #fde8e4 0%, transparent 55%),
+    radial-gradient(ellipse 70% 45% at 95% 5%, #e4f0ea 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, #e8eef8 0%, transparent 45%),
+    #f7f4f1;
+}

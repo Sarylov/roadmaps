@@ -1,0 +1,1178 @@
+{
+  "title": "BACKEND ROADMAP: NODE.JS",
+  "description": "Roadmap для backend-разработчика с фокусом на Node.js и TypeScript. CORE — обязательно, KILLER — особенно важно для уверенного понимания и собеседований, OPT — полезно для расширения кругозора.",
+  "stack": {
+    "runtime": "Node.js",
+    "language": "TypeScript",
+    "framework": "NestJS",
+    "secondary_framework": "Fastify",
+    "primary_database": "PostgreSQL",
+    "cache": "Redis",
+    "containers": "Docker",
+    "cloud": "AWS"
+  },
+  "levels": [
+    {
+      "id": "phase-00-javascript",
+      "level": 0,
+      "title": "УРОВЕНЬ 0: JAVASCRIPT ДЛЯ BACKEND",
+      "topics": [
+        {
+          "id": "topic-js-core",
+          "title": "JavaScript Core",
+          "priority": "CORE",
+          "description": "Язык, на котором работает Node.js backend.",
+          "items": [
+            "types",
+            "scope",
+            "closures",
+            "objects",
+            "prototypes",
+            "classes",
+            "modules",
+            "error handling"
+          ]
+        },
+        {
+          "id": "topic-async-js",
+          "title": "Async JavaScript",
+          "priority": "KILLER",
+          "description": "Асинхронность и конкурентное выполнение кода.",
+          "items": [
+            "callbacks",
+            "Promise",
+            "async/await",
+            "Promise.all",
+            "Promise.race",
+            "error propagation"
+          ]
+        },
+        {
+          "id": "topic-event-loop",
+          "title": "Event Loop",
+          "priority": "KILLER",
+          "description": "Модель выполнения JavaScript и основа Node.js.",
+          "items": [
+            "call stack",
+            "microtasks",
+            "macrotasks",
+            "event loop",
+            "blocking",
+            "non-blocking"
+          ]
+        },
+        {
+          "id": "topic-memory-gc",
+          "title": "Memory & GC",
+          "priority": "OPT",
+          "description": "Понимание памяти и причин утечек в долгоживущих процессах.",
+          "items": [
+            "heap",
+            "stack",
+            "garbage collection",
+            "memory leaks",
+            "WeakMap",
+            "WeakRef"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-01-typescript",
+      "level": 1,
+      "title": "УРОВЕНЬ 1: TYPESCRIPT",
+      "topics": [
+        {
+          "id": "topic-ts-basics",
+          "title": "Основы TypeScript",
+          "priority": "CORE",
+          "description": "Типовая модель backend-приложения и его контрактов.",
+          "items": [
+            "interfaces",
+            "unions",
+            "intersections",
+            "type aliases",
+            "narrowing",
+            "enums"
+          ]
+        },
+        {
+          "id": "topic-ts-functions",
+          "title": "Функции и объекты",
+          "priority": "CORE",
+          "description": "Типизация функций, объектов и reusable-компонентов.",
+          "items": [
+            "function types",
+            "optional properties",
+            "readonly",
+            "generic functions"
+          ]
+        },
+        {
+          "id": "topic-ts-generics",
+          "title": "Generics",
+          "priority": "KILLER",
+          "description": "Переиспользуемые типизированные API и абстракции.",
+          "items": [
+            "constraints",
+            "generic functions",
+            "generic classes",
+            "API design"
+          ]
+        },
+        {
+          "id": "topic-ts-advanced",
+          "title": "Advanced Types",
+          "priority": "OPT",
+          "description": "Продвинутые средства построения типов.",
+          "items": [
+            "conditional types",
+            "mapped types",
+            "infer",
+            "template literal types"
+          ]
+        },
+        {
+          "id": "topic-ts-utility",
+          "title": "Utility Types",
+          "priority": "CORE",
+          "description": "Готовые типовые преобразования, постоянно используемые в проектах.",
+          "items": [
+            "Pick",
+            "Omit",
+            "Partial",
+            "Required",
+            "Record",
+            "ReturnType"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-02-nodejs",
+      "level": 2,
+      "title": "УРОВЕНЬ 2: NODE.JS",
+      "topics": [
+        {
+          "id": "topic-node-runtime",
+          "title": "Node.js Runtime",
+          "priority": "KILLER",
+          "description": "Как Node.js запускает код и управляет конкурентностью.",
+          "items": [
+            "runtime architecture",
+            "event loop",
+            "libuv",
+            "process",
+            "environment",
+            "signals"
+          ]
+        },
+        {
+          "id": "topic-node-apis",
+          "title": "Node.js APIs",
+          "priority": "CORE",
+          "description": "Базовые модули runtime, необходимые для backend-разработки.",
+          "items": [
+            "fs",
+            "path",
+            "URL",
+            "events",
+            "timers",
+            "crypto"
+          ]
+        },
+        {
+          "id": "topic-node-modules",
+          "title": "Modules & Packages",
+          "priority": "CORE",
+          "description": "Модульная система и управление зависимостями.",
+          "items": [
+            "ESM",
+            "CommonJS",
+            "package.json",
+            "exports/imports",
+            "npm"
+          ]
+        },
+        {
+          "id": "topic-node-streams",
+          "title": "Streams",
+          "priority": "KILLER",
+          "description": "Потоковая обработка данных и контроль скорости потребления.",
+          "items": [
+            "readable",
+            "writable",
+            "duplex",
+            "transform",
+            "backpressure"
+          ]
+        },
+        {
+          "id": "topic-workers",
+          "title": "Workers & Processes",
+          "priority": "OPT",
+          "description": "Работа с CPU-bound задачами и отдельными процессами.",
+          "items": [
+            "worker_threads",
+            "child_process",
+            "cluster",
+            "CPU-bound tasks"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-03-http",
+      "level": 3,
+      "title": "УРОВЕНЬ 3: HTTP И WEB",
+      "topics": [
+        {
+          "id": "topic-http",
+          "title": "HTTP",
+          "priority": "KILLER",
+          "description": "Протокол, поверх которого строится большая часть backend API.",
+          "items": [
+            "methods",
+            "status codes",
+            "headers",
+            "cookies",
+            "content types",
+            "caching"
+          ]
+        },
+        {
+          "id": "topic-http-modern",
+          "title": "HTTP/2 / HTTP/3",
+          "priority": "OPT",
+          "description": "Современные версии HTTP и их особенности.",
+          "items": [
+            "multiplexing",
+            "streams",
+            "QUIC"
+          ]
+        },
+        {
+          "id": "topic-rest",
+          "title": "REST API",
+          "priority": "CORE",
+          "description": "Проектирование понятных и предсказуемых HTTP API.",
+          "items": [
+            "resources",
+            "CRUD",
+            "pagination",
+            "filtering",
+            "sorting",
+            "versioning"
+          ]
+        },
+        {
+          "id": "topic-api-design",
+          "title": "API Design",
+          "priority": "KILLER",
+          "description": "Практические правила построения надёжных API.",
+          "items": [
+            "idempotency",
+            "validation",
+            "error format",
+            "rate limiting",
+            "API contracts"
+          ]
+        },
+        {
+          "id": "topic-websocket",
+          "title": "WebSockets",
+          "priority": "OPT",
+          "description": "Realtime-коммуникация между клиентом и сервером.",
+          "items": [
+            "connections",
+            "events",
+            "reconnect",
+            "heartbeat",
+            "scaling"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-04-sql-postgres",
+      "level": 4,
+      "title": "УРОВЕНЬ 4: SQL И POSTGRESQL",
+      "topics": [
+        {
+          "id": "topic-sql",
+          "title": "SQL",
+          "priority": "KILLER",
+          "description": "Основной язык работы с реляционными данными.",
+          "items": [
+            "SELECT",
+            "WHERE",
+            "JOIN",
+            "GROUP BY",
+            "HAVING",
+            "subqueries",
+            "CTE",
+            "window functions"
+          ]
+        },
+        {
+          "id": "topic-data-modeling",
+          "title": "Data Modeling",
+          "priority": "KILLER",
+          "description": "Проектирование структуры данных и связей между сущностями.",
+          "items": [
+            "entities",
+            "relations",
+            "primary keys",
+            "foreign keys",
+            "normalization",
+            "denormalization"
+          ]
+        },
+        {
+          "id": "topic-indexes",
+          "title": "Indexes",
+          "priority": "KILLER",
+          "description": "Ускорение запросов и понимание стоимости доступа к данным.",
+          "items": [
+            "B-tree",
+            "composite indexes",
+            "unique indexes",
+            "covering indexes",
+            "selectivity"
+          ]
+        },
+        {
+          "id": "topic-transactions",
+          "title": "Transactions",
+          "priority": "KILLER",
+          "description": "Гарантии корректности данных при конкурентных изменениях.",
+          "items": [
+            "ACID",
+            "isolation levels",
+            "locks",
+            "deadlocks",
+            "commit",
+            "rollback"
+          ]
+        },
+        {
+          "id": "topic-postgresql",
+          "title": "PostgreSQL",
+          "priority": "CORE",
+          "description": "Основная relational database в Node.js backend stack.",
+          "items": [
+            "schema",
+            "migrations",
+            "constraints",
+            "JSONB",
+            "arrays",
+            "extensions"
+          ]
+        },
+        {
+          "id": "topic-query-optimization",
+          "title": "Query Optimization",
+          "priority": "OPT",
+          "description": "Поиск узких мест и анализ планов выполнения.",
+          "items": [
+            "EXPLAIN",
+            "EXPLAIN ANALYZE",
+            "query plans",
+            "sequential scan",
+            "index scan"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-05-framework",
+      "level": 5,
+      "title": "УРОВЕНЬ 5: NODE.JS BACKEND FRAMEWORK",
+      "topics": [
+        {
+          "id": "topic-fastify",
+          "title": "Fastify",
+          "priority": "CORE",
+          "description": "Лёгкий framework для понимания HTTP lifecycle и производительного Node.js API.",
+          "items": [
+            "server",
+            "routes",
+            "hooks",
+            "plugins",
+            "decorators",
+            "validation",
+            "serialization"
+          ]
+        },
+        {
+          "id": "topic-nestjs",
+          "title": "NestJS",
+          "priority": "KILLER",
+          "description": "Основной framework для структурированного production backend на Node.js.",
+          "items": [
+            "modules",
+            "controllers",
+            "providers",
+            "dependency injection",
+            "guards",
+            "pipes",
+            "interceptors",
+            "filters"
+          ]
+        },
+        {
+          "id": "topic-backend-architecture",
+          "title": "Архитектура приложения",
+          "priority": "KILLER",
+          "description": "Разделение ответственности между слоями backend-приложения.",
+          "items": [
+            "controller",
+            "service",
+            "repository",
+            "DTO",
+            "domain",
+            "dependency injection"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-06-data-access",
+      "level": 6,
+      "title": "УРОВЕНЬ 6: ORM И DATA ACCESS",
+      "topics": [
+        {
+          "id": "topic-orm",
+          "title": "ORM",
+          "priority": "CORE",
+          "description": "Абстракция работы с БД внутри TypeScript-приложения.",
+          "items": [
+            "Prisma",
+            "Drizzle",
+            "TypeORM",
+            "schema",
+            "migrations",
+            "relations",
+            "transactions"
+          ]
+        },
+        {
+          "id": "topic-query-builder",
+          "title": "Query Builder",
+          "priority": "OPT",
+          "description": "Гибкое построение сложных запросов без полного перехода на raw SQL.",
+          "items": [
+            "joins",
+            "dynamic queries",
+            "aggregations"
+          ]
+        },
+        {
+          "id": "topic-data-patterns",
+          "title": "Data Access Patterns",
+          "priority": "KILLER",
+          "description": "Паттерны доступа к данным и контроль типичных проблем.",
+          "items": [
+            "repository",
+            "unit of work",
+            "transactions",
+            "N+1 problem",
+            "connection pooling"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-07-security",
+      "level": 7,
+      "title": "УРОВЕНЬ 7: AUTH & SECURITY",
+      "topics": [
+        {
+          "id": "topic-authentication",
+          "title": "Authentication",
+          "priority": "KILLER",
+          "description": "Идентификация пользователей и управление сессиями.",
+          "items": [
+            "sessions",
+            "cookies",
+            "JWT",
+            "access tokens",
+            "refresh tokens",
+            "password hashing"
+          ]
+        },
+        {
+          "id": "topic-authorization",
+          "title": "Authorization",
+          "priority": "KILLER",
+          "description": "Контроль того, кому и какие действия разрешены.",
+          "items": [
+            "roles",
+            "permissions",
+            "RBAC",
+            "ABAC"
+          ]
+        },
+        {
+          "id": "topic-web-security",
+          "title": "Web Security",
+          "priority": "KILLER",
+          "description": "Основные уязвимости и защита backend API.",
+          "items": [
+            "XSS",
+            "CSRF",
+            "CORS",
+            "SQL injection",
+            "SSRF",
+            "path traversal"
+          ]
+        },
+        {
+          "id": "topic-security-engineering",
+          "title": "Security Engineering",
+          "priority": "CORE",
+          "description": "Безопасное хранение секретов и обработка пользовательского ввода.",
+          "items": [
+            "secrets",
+            "encryption",
+            "hashing",
+            "secure headers",
+            "rate limiting",
+            "input validation"
+          ]
+        },
+        {
+          "id": "topic-oauth",
+          "title": "OAuth 2.0 / OpenID Connect",
+          "priority": "OPT",
+          "description": "Стандартные протоколы делегированной авторизации и identity.",
+          "items": [
+            "authorization code",
+            "PKCE",
+            "scopes",
+            "ID token"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-08-cache-redis",
+      "level": 8,
+      "title": "УРОВЕНЬ 8: CACHING & REDIS",
+      "topics": [
+        {
+          "id": "topic-caching",
+          "title": "Caching",
+          "priority": "KILLER",
+          "description": "Ускорение чтения и снижение нагрузки на основную БД.",
+          "items": [
+            "cache-aside",
+            "TTL",
+            "invalidation",
+            "cache stampede",
+            "cache warming"
+          ]
+        },
+        {
+          "id": "topic-redis",
+          "title": "Redis",
+          "priority": "CORE",
+          "description": "Высокопроизводительное in-memory хранилище и вспомогательная инфраструктура backend.",
+          "items": [
+            "strings",
+            "hashes",
+            "sets",
+            "sorted sets",
+            "TTL"
+          ]
+        },
+        {
+          "id": "topic-redis-advanced",
+          "title": "Redis Advanced",
+          "priority": "OPT",
+          "description": "Продвинутые сценарии использования Redis.",
+          "items": [
+            "Pub/Sub",
+            "Streams",
+            "distributed locks",
+            "rate limiting"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-09-async-backend",
+      "level": 9,
+      "title": "УРОВЕНЬ 9: ASYNC BACKEND",
+      "topics": [
+        {
+          "id": "topic-queues",
+          "title": "Queues",
+          "priority": "KILLER",
+          "description": "Фоновая обработка задач и разгрузка synchronous request path.",
+          "items": [
+            "jobs",
+            "retries",
+            "delays",
+            "dead letter queue",
+            "concurrency"
+          ]
+        },
+        {
+          "id": "topic-message-brokers",
+          "title": "Message Brokers",
+          "priority": "CORE",
+          "description": "Асинхронное взаимодействие между сервисами и worker-процессами.",
+          "items": [
+            "RabbitMQ",
+            "Kafka",
+            "producers",
+            "consumers"
+          ]
+        },
+        {
+          "id": "topic-event-driven",
+          "title": "Event-Driven Architecture",
+          "priority": "KILLER",
+          "description": "Архитектура, построенная вокруг событий и асинхронного взаимодействия.",
+          "items": [
+            "events",
+            "producers",
+            "consumers",
+            "delivery guarantees",
+            "idempotency"
+          ]
+        },
+        {
+          "id": "topic-kafka-advanced",
+          "title": "Kafka Advanced",
+          "priority": "OPT",
+          "description": "Глубокое понимание Kafka для высоконагруженных систем.",
+          "items": [
+            "partitions",
+            "consumer groups",
+            "ordering",
+            "replay",
+            "delivery semantics"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-10-testing",
+      "level": 10,
+      "title": "УРОВЕНЬ 10: TESTING",
+      "topics": [
+        {
+          "id": "topic-unit-testing",
+          "title": "Unit Testing",
+          "priority": "CORE",
+          "description": "Изолированная проверка бизнес-логики.",
+          "items": [
+            "Jest",
+            "Vitest",
+            "mocks",
+            "spies",
+            "fixtures"
+          ]
+        },
+        {
+          "id": "topic-integration-testing",
+          "title": "Integration Testing",
+          "priority": "KILLER",
+          "description": "Проверка взаимодействия кода с БД, API и другими компонентами.",
+          "items": [
+            "database",
+            "repositories",
+            "API",
+            "Testcontainers"
+          ]
+        },
+        {
+          "id": "topic-e2e",
+          "title": "E2E Testing",
+          "priority": "CORE",
+          "description": "Проверка backend-системы через реальные пользовательские сценарии.",
+          "items": [
+            "HTTP flows",
+            "authentication",
+            "database state",
+            "realistic scenarios"
+          ]
+        },
+        {
+          "id": "topic-testing-strategy",
+          "title": "Testing Strategy",
+          "priority": "KILLER",
+          "description": "Выбор правильного уровня тестов и поддержание их стабильности.",
+          "items": [
+            "test pyramid",
+            "isolation",
+            "flaky tests",
+            "contract testing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-11-linux-docker",
+      "level": 11,
+      "title": "УРОВЕНЬ 11: LINUX & DOCKER",
+      "topics": [
+        {
+          "id": "topic-linux",
+          "title": "Linux",
+          "priority": "CORE",
+          "description": "ОС-основа большинства production backend-сред.",
+          "items": [
+            "processes",
+            "permissions",
+            "filesystem",
+            "networking",
+            "signals",
+            "environment"
+          ]
+        },
+        {
+          "id": "topic-docker",
+          "title": "Docker",
+          "priority": "KILLER",
+          "description": "Контейнеризация Node.js приложения и его окружения.",
+          "items": [
+            "images",
+            "containers",
+            "volumes",
+            "networks",
+            "Dockerfile",
+            "multi-stage builds"
+          ]
+        },
+        {
+          "id": "topic-compose",
+          "title": "Docker Compose",
+          "priority": "CORE",
+          "description": "Локальное и тестовое окружение из нескольких сервисов.",
+          "items": [
+            "services",
+            "networks",
+            "volumes",
+            "environment"
+          ]
+        },
+        {
+          "id": "topic-reverse-proxy",
+          "title": "Reverse Proxy",
+          "priority": "OPT",
+          "description": "Промежуточный слой перед backend-приложением.",
+          "items": [
+            "Nginx",
+            "TLS",
+            "load balancing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-12-observability",
+      "level": 12,
+      "title": "УРОВЕНЬ 12: OBSERVABILITY",
+      "topics": [
+        {
+          "id": "topic-logging",
+          "title": "Logging",
+          "priority": "CORE",
+          "description": "Диагностика поведения системы через структурированные логи.",
+          "items": [
+            "structured logs",
+            "log levels",
+            "correlation IDs"
+          ]
+        },
+        {
+          "id": "topic-metrics",
+          "title": "Metrics",
+          "priority": "CORE",
+          "description": "Количественная оценка здоровья и производительности системы.",
+          "items": [
+            "latency",
+            "throughput",
+            "error rate",
+            "saturation"
+          ]
+        },
+        {
+          "id": "topic-tracing",
+          "title": "Distributed Tracing",
+          "priority": "KILLER",
+          "description": "Отслеживание запроса через несколько сервисов и компонентов.",
+          "items": [
+            "spans",
+            "traces",
+            "context propagation"
+          ]
+        },
+        {
+          "id": "topic-opentelemetry",
+          "title": "OpenTelemetry",
+          "priority": "OPT",
+          "description": "Стандартная инструментализация backend для telemetry.",
+          "items": [
+            "traces",
+            "metrics",
+            "instrumentation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-13-architecture",
+      "level": 13,
+      "title": "УРОВЕНЬ 13: ARCHITECTURE",
+      "topics": [
+        {
+          "id": "topic-clean-architecture",
+          "title": "Clean Architecture",
+          "priority": "CORE",
+          "description": "Границы слоёв и направление зависимостей в приложении.",
+          "items": [
+            "layers",
+            "dependencies",
+            "boundaries"
+          ]
+        },
+        {
+          "id": "topic-solid",
+          "title": "SOLID",
+          "priority": "CORE",
+          "description": "Принципы поддерживаемого объектно-ориентированного кода.",
+          "items": [
+            "SRP",
+            "OCP",
+            "LSP",
+            "ISP",
+            "DIP"
+          ]
+        },
+        {
+          "id": "topic-design-patterns",
+          "title": "Design Patterns",
+          "priority": "OPT",
+          "description": "Классические решения повторяющихся архитектурных задач.",
+          "items": [
+            "factory",
+            "adapter",
+            "strategy",
+            "facade",
+            "observer"
+          ]
+        },
+        {
+          "id": "topic-ddd",
+          "title": "DDD Basics",
+          "priority": "KILLER",
+          "description": "Моделирование сложной бизнес-логики вокруг предметной области.",
+          "items": [
+            "domain",
+            "entity",
+            "value object",
+            "aggregate",
+            "repository",
+            "bounded context"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-14-system-design",
+      "level": 14,
+      "title": "УРОВЕНЬ 14: SYSTEM DESIGN",
+      "topics": [
+        {
+          "id": "topic-requirements",
+          "title": "Requirements",
+          "priority": "CORE",
+          "description": "Определение границ и требований системы до выбора технологий.",
+          "items": [
+            "functional requirements",
+            "non-functional requirements",
+            "constraints",
+            "trade-offs"
+          ]
+        },
+        {
+          "id": "topic-capacity-estimation",
+          "title": "Capacity Estimation",
+          "priority": "KILLER",
+          "description": "Оценка нагрузки, ресурсов и роста системы.",
+          "items": [
+            "RPS",
+            "traffic",
+            "storage",
+            "bandwidth",
+            "growth"
+          ]
+        },
+        {
+          "id": "topic-scalability",
+          "title": "Scalability",
+          "priority": "KILLER",
+          "description": "Масштабирование сервисов по мере роста нагрузки.",
+          "items": [
+            "vertical scaling",
+            "horizontal scaling",
+            "stateless services",
+            "load balancing"
+          ]
+        },
+        {
+          "id": "topic-distributed-systems",
+          "title": "Distributed Systems",
+          "priority": "KILLER",
+          "description": "Основы построения систем из нескольких независимых компонентов.",
+          "items": [
+            "consistency",
+            "availability",
+            "partition tolerance",
+            "replication",
+            "leader/follower"
+          ]
+        },
+        {
+          "id": "topic-system-cache",
+          "title": "Caching",
+          "priority": "CORE",
+          "description": "Кэширование на разных уровнях архитектуры.",
+          "items": [
+            "CDN",
+            "application cache",
+            "database cache",
+            "invalidation"
+          ]
+        },
+        {
+          "id": "topic-db-at-scale",
+          "title": "Databases at Scale",
+          "priority": "KILLER",
+          "description": "Масштабирование хранения и чтения данных.",
+          "items": [
+            "replication",
+            "partitioning",
+            "sharding",
+            "read replicas"
+          ]
+        },
+        {
+          "id": "topic-reliability",
+          "title": "Reliability",
+          "priority": "KILLER",
+          "description": "Поведение системы при сбоях и временной недоступности зависимостей.",
+          "items": [
+            "retries",
+            "timeouts",
+            "circuit breakers",
+            "idempotency",
+            "graceful degradation"
+          ]
+        },
+        {
+          "id": "topic-system-design-practice",
+          "title": "System Design Practice",
+          "priority": "KILLER",
+          "description": "Практика проектирования реальных распределённых систем.",
+          "items": [
+            "URL shortener",
+            "chat",
+            "notification service",
+            "file storage",
+            "news feed",
+            "payment service"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-15-cloud-infra",
+      "level": 15,
+      "title": "УРОВЕНЬ 15: CLOUD / INFRA",
+      "topics": [
+        {
+          "id": "topic-cloud-basics",
+          "title": "Cloud Basics",
+          "priority": "CORE",
+          "description": "Базовые строительные блоки cloud-инфраструктуры.",
+          "items": [
+            "compute",
+            "storage",
+            "networking",
+            "IAM"
+          ]
+        },
+        {
+          "id": "topic-aws",
+          "title": "AWS",
+          "priority": "CORE",
+          "description": "Практический cloud stack для production backend.",
+          "items": [
+            "EC2",
+            "S3",
+            "RDS",
+            "ElastiCache",
+            "SQS",
+            "CloudWatch"
+          ]
+        },
+        {
+          "id": "topic-cicd",
+          "title": "CI/CD",
+          "priority": "KILLER",
+          "description": "Автоматическая проверка, сборка и доставка backend-приложения.",
+          "items": [
+            "GitHub Actions",
+            "build",
+            "test",
+            "deploy",
+            "rollback"
+          ]
+        },
+        {
+          "id": "topic-kubernetes",
+          "title": "Kubernetes",
+          "priority": "OPT",
+          "description": "Оркестрация контейнеров в production.",
+          "items": [
+            "pods",
+            "deployments",
+            "services",
+            "ingress",
+            "autoscaling"
+          ]
+        },
+        {
+          "id": "topic-terraform",
+          "title": "Infrastructure as Code",
+          "priority": "OPT",
+          "description": "Описание инфраструктуры в виде кода.",
+          "items": [
+            "Terraform",
+            "state",
+            "modules"
+          ]
+        }
+      ]
+    }
+  ],
+  "recommended_learning_order": [
+    "JavaScript Core",
+    "Async JavaScript",
+    "Event Loop",
+    "TypeScript",
+    "Node.js Runtime",
+    "HTTP",
+    "REST API",
+    "SQL",
+    "PostgreSQL",
+    "NestJS",
+    "ORM / Data Access",
+    "Authentication & Authorization",
+    "Security",
+    "Redis / Caching",
+    "Testing",
+    "Linux / Docker",
+    "Queues / Messaging",
+    "Observability",
+    "Architecture",
+    "System Design",
+    "Cloud / CI-CD",
+    "Kafka / Kubernetes / Terraform"
+  ],
+  "projects": [
+    {
+      "level": "junior-foundation",
+      "title": "REST API",
+      "stack": [
+        "Node.js",
+        "TypeScript",
+        "PostgreSQL"
+      ],
+      "focus": [
+        "CRUD",
+        "validation",
+        "SQL",
+        "migrations",
+        "error handling"
+      ]
+    },
+    {
+      "level": "junior-middle",
+      "title": "Production-like Backend",
+      "stack": [
+        "NestJS",
+        "PostgreSQL",
+        "Redis",
+        "JWT",
+        "Docker"
+      ],
+      "focus": [
+        "auth",
+        "cache",
+        "tests",
+        "DTO",
+        "architecture"
+      ]
+    },
+    {
+      "level": "middle",
+      "title": "Async Backend",
+      "stack": [
+        "NestJS",
+        "PostgreSQL",
+        "Redis",
+        "RabbitMQ",
+        "Docker"
+      ],
+      "focus": [
+        "queues",
+        "workers",
+        "retries",
+        "idempotency",
+        "observability"
+      ]
+    },
+    {
+      "level": "middle-senior",
+      "title": "Distributed System",
+      "stack": [
+        "Node.js",
+        "PostgreSQL",
+        "Redis",
+        "Kafka",
+        "Docker"
+      ],
+      "focus": [
+        "events",
+        "scaling",
+        "replication",
+        "backpressure",
+        "failure handling"
+      ]
+    },
+    {
+      "level": "senior",
+      "title": "System Design Project",
+      "stack": [
+        "Node.js",
+        "PostgreSQL",
+        "Redis",
+        "Kafka",
+        "AWS"
+      ],
+      "focus": [
+        "capacity planning",
+        "high availability",
+        "distributed systems",
+        "observability",
+        "trade-offs"
+      ]
+    }
+  ]
+}

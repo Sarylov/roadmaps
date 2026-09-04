@@ -1,0 +1,840 @@
+{
+  "title": "FRONTEND ROADMAP: REACT",
+  "description": "Roadmap для frontend-разработчика с фокусом на React и TypeScript. CORE — обязательно, KILLER — особенно важно для уверенного понимания и собеседований, OPT — полезно для расширения кругозора.",
+  "stack": {
+    "language": "TypeScript",
+    "library": "React",
+    "bundler": "Vite",
+    "styling": "CSS / Tailwind",
+    "state": "React Query / Zustand",
+    "testing": "Vitest / Testing Library",
+    "tooling": "ESLint / Prettier"
+  },
+  "levels": [
+    {
+      "id": "phase-00-верстка",
+      "level": 0,
+      "title": "УРОВЕНЬ 0: ВЕРСТКА",
+      "topics": [
+        {
+          "id": "topic-html-css",
+          "title": "HTML/CSS",
+          "priority": "CORE",
+          "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
+          "items": [
+            "HTML5",
+            "cascade",
+            "box model",
+            "responsive"
+          ]
+        },
+        {
+          "id": "topic-flexbox-grid",
+          "title": "Flexbox/Grid",
+          "priority": "CORE",
+          "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
+          "items": [
+            "flex",
+            "grid",
+            "alignment",
+            "layout"
+          ]
+        },
+        {
+          "id": "topic-semantics",
+          "title": "Семантика",
+          "priority": "CORE",
+          "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
+          "items": [
+            "landmarks",
+            "headings",
+            "ARIA"
+          ]
+        },
+        {
+          "id": "topic-forms",
+          "title": "Формы",
+          "priority": "CORE",
+          "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
+          "items": [
+            "labels",
+            "validation",
+            "autocomplete"
+          ]
+        },
+        {
+          "id": "topic-a11y",
+          "title": "Доступность (a11y)",
+          "priority": "CORE",
+          "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
+          "items": [
+            "keyboard",
+            "focus",
+            "screen readers"
+          ]
+        },
+        {
+          "id": "topic-positioning",
+          "title": "Position/z-index",
+          "priority": "OPT",
+          "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
+          "items": [
+            "stacking",
+            "z-index",
+            "containing block"
+          ]
+        },
+        {
+          "id": "topic-transitions",
+          "title": "Анимации",
+          "priority": "OPT",
+          "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
+          "items": [
+            "transform",
+            "opacity",
+            "reduced motion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-01-js-core",
+      "level": 1,
+      "title": "УРОВЕНЬ 1: JS CORE",
+      "topics": [
+        {
+          "id": "topic-types",
+          "title": "Типы и переменные",
+          "priority": "CORE",
+          "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
+          "items": [
+            "primitives",
+            "coercion",
+            "equality"
+          ]
+        },
+        {
+          "id": "topic-functions",
+          "title": "Функции и контекст",
+          "priority": "CORE",
+          "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
+          "items": [
+            "this",
+            "closure",
+            "bind/call/apply"
+          ]
+        },
+        {
+          "id": "topic-objects",
+          "title": "Объекты",
+          "priority": "CORE",
+          "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
+          "items": [
+            "descriptors",
+            "copy",
+            "mutation"
+          ]
+        },
+        {
+          "id": "topic-prototypes",
+          "title": "Прототипы",
+          "priority": "KILLER",
+          "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
+          "items": [
+            "prototype chain",
+            "new",
+            "inheritance"
+          ]
+        },
+        {
+          "id": "topic-classes",
+          "title": "Классы",
+          "priority": "OPT",
+          "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
+          "items": [
+            "class syntax",
+            "private fields",
+            "extends"
+          ]
+        },
+        {
+          "id": "topic-arrays",
+          "title": "Массивы и коллекции",
+          "priority": "CORE",
+          "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
+          "items": [
+            "map/reduce",
+            "iterables",
+            "sets/maps"
+          ]
+        },
+        {
+          "id": "topic-dom",
+          "title": "DOM и события",
+          "priority": "CORE",
+          "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
+          "items": [
+            "events",
+            "delegation",
+            "layout reads"
+          ]
+        },
+        {
+          "id": "topic-event-loop",
+          "title": "Event Loop",
+          "priority": "KILLER",
+          "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
+          "items": [
+            "microtasks",
+            "macrotasks",
+            "render tick"
+          ]
+        },
+        {
+          "id": "topic-async-js",
+          "title": "Промисы и async/await",
+          "priority": "CORE",
+          "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
+          "items": [
+            "then/catch",
+            "async/await",
+            "errors"
+          ]
+        },
+        {
+          "id": "topic-fp",
+          "title": "ФП и кастом методы",
+          "priority": "OPT",
+          "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
+          "items": [
+            "immutability",
+            "compose",
+            "custom methods"
+          ]
+        },
+        {
+          "id": "topic-node-modules",
+          "title": "Модули",
+          "priority": "OPT",
+          "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
+          "items": [
+            "ESM",
+            "tree-shaking",
+            "dynamic import"
+          ]
+        },
+        {
+          "id": "topic-memory-gc",
+          "title": "Сборка мусора",
+          "priority": "OPT",
+          "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
+          "items": [
+            "reachability",
+            "leaks",
+            "WeakMap"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-02-typescript",
+      "level": 2,
+      "title": "УРОВЕНЬ 2: TYPESCRIPT",
+      "topics": [
+        {
+          "id": "topic-ts-basics",
+          "title": "Основы TS",
+          "priority": "CORE",
+          "description": "Типовая модель приложения и контрактов между слоями.",
+          "items": [
+            "interfaces",
+            "unions",
+            "narrowing"
+          ]
+        },
+        {
+          "id": "topic-ts-advanced",
+          "title": "Продвинутые типы",
+          "priority": "OPT",
+          "description": "Типовая модель приложения и контрактов между слоями.",
+          "items": [
+            "conditional",
+            "mapped",
+            "infer"
+          ]
+        },
+        {
+          "id": "topic-ts-generics",
+          "title": "Дженерики",
+          "priority": "KILLER",
+          "description": "Типовая модель приложения и контрактов между слоями.",
+          "items": [
+            "constraints",
+            "variance",
+            "API design"
+          ]
+        },
+        {
+          "id": "topic-ts-utility",
+          "title": "Utility Types",
+          "priority": "OPT",
+          "description": "Типовая модель приложения и контрактов между слоями.",
+          "items": [
+            "Pick/Omit",
+            "Record",
+            "ReturnType"
+          ]
+        },
+        {
+          "id": "topic-ts-narrowing",
+          "title": "Type Narrowing",
+          "priority": "CORE",
+          "description": "Типовая модель приложения и контрактов между слоями.",
+          "items": [
+            "guards",
+            "discriminants",
+            "asserts"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-03-react",
+      "level": 3,
+      "title": "УРОВЕНЬ 3: REACT И РЕНДЕРИНГ",
+      "topics": [
+        {
+          "id": "topic-react-basics",
+          "title": "Основы React",
+          "priority": "CORE",
+          "description": "Компонентная модель, состояние, роутинг и серверный React.",
+          "items": [
+            "JSX",
+            "props",
+            "composition"
+          ]
+        },
+        {
+          "id": "topic-react-hooks",
+          "title": "Хуки",
+          "priority": "CORE",
+          "description": "Компонентная модель, состояние, роутинг и серверный React.",
+          "items": [
+            "useEffect",
+            "memoization",
+            "custom hooks"
+          ]
+        },
+        {
+          "id": "topic-react-vdom",
+          "title": "Virtual DOM",
+          "priority": "KILLER",
+          "description": "Компонентная модель, состояние, роутинг и серверный React.",
+          "items": [
+            "reconciliation",
+            "keys",
+            "fiber"
+          ]
+        },
+        {
+          "id": "topic-react-state",
+          "title": "Управление состоянием",
+          "priority": "KILLER",
+          "description": "Компонентная модель, состояние, роутинг и серверный React.",
+          "items": [
+            "local state",
+            "server state",
+            "store"
+          ]
+        },
+        {
+          "id": "topic-react-patterns",
+          "title": "Паттерны",
+          "priority": "OPT",
+          "description": "Компонентная модель, состояние, роутинг и серверный React.",
+          "items": [
+            "compound",
+            "render props",
+            "controlled"
+          ]
+        },
+        {
+          "id": "topic-react-optimization",
+          "title": "Оптимизация",
+          "priority": "CORE",
+          "description": "Компонентная модель, состояние, роутинг и серверный React.",
+          "items": [
+            "memo",
+            "virtualization",
+            "splitting"
+          ]
+        },
+        {
+          "id": "topic-react-router",
+          "title": "React Router",
+          "priority": "CORE",
+          "description": "Компонентная модель, состояние, роутинг и серверный React.",
+          "items": [
+            "routes",
+            "loaders",
+            "navigation"
+          ]
+        },
+        {
+          "id": "topic-csr-ssr-ssg",
+          "title": "CSR / SSR / SSG / ISR",
+          "priority": "OPT",
+          "description": "Компонентная модель, состояние, роутинг и серверный React.",
+          "items": [
+            "CSR",
+            "SSR",
+            "SSG",
+            "ISR"
+          ]
+        },
+        {
+          "id": "topic-nextjs",
+          "title": "Next.js",
+          "priority": "OPT",
+          "description": "Компонентная модель, состояние, роутинг и серверный React.",
+          "items": [
+            "routing",
+            "data fetching",
+            "cache"
+          ]
+        },
+        {
+          "id": "topic-hydration",
+          "title": "Гидратация",
+          "priority": "KILLER",
+          "description": "Компонентная модель, состояние, роутинг и серверный React.",
+          "items": [
+            "mismatch",
+            "streaming",
+            "islands"
+          ]
+        },
+        {
+          "id": "topic-rsc",
+          "title": "React Server Components",
+          "priority": "KILLER",
+          "description": "Компонентная модель, состояние, роутинг и серверный React.",
+          "items": [
+            "server components",
+            "boundaries",
+            "actions"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-04-сеть",
+      "level": 4,
+      "title": "УРОВЕНЬ 4: СЕТЬ И БЕЗОПАСНОСТЬ",
+      "topics": [
+        {
+          "id": "topic-http",
+          "title": "HTTP/HTTPS",
+          "priority": "CORE",
+          "description": "HTTP, realtime, auth и защита клиентского периметра.",
+          "items": [
+            "methods",
+            "headers",
+            "cache"
+          ]
+        },
+        {
+          "id": "topic-rest",
+          "title": "REST API",
+          "priority": "CORE",
+          "description": "HTTP, realtime, auth и защита клиентского периметра.",
+          "items": [
+            "resources",
+            "status codes",
+            "pagination"
+          ]
+        },
+        {
+          "id": "topic-websocket",
+          "title": "WebSocket",
+          "priority": "OPT",
+          "description": "HTTP, realtime, auth и защита клиентского периметра.",
+          "items": [
+            "connection",
+            "events",
+            "reconnect"
+          ]
+        },
+        {
+          "id": "topic-web-security",
+          "title": "XSS/CSRF",
+          "priority": "KILLER",
+          "description": "HTTP, realtime, auth и защита клиентского периметра.",
+          "items": [
+            "escaping",
+            "CSP",
+            "sanitization"
+          ]
+        },
+        {
+          "id": "topic-cors",
+          "title": "CORS",
+          "priority": "CORE",
+          "description": "HTTP, realtime, auth и защита клиентского периметра.",
+          "items": [
+            "origin",
+            "preflight",
+            "credentials"
+          ]
+        },
+        {
+          "id": "topic-authentication",
+          "title": "JWT",
+          "priority": "KILLER",
+          "description": "HTTP, realtime, auth и защита клиентского периметра.",
+          "items": [
+            "claims",
+            "storage",
+            "refresh"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-05-браузер",
+      "level": 5,
+      "title": "УРОВЕНЬ 5: БРАУЗЕРНАЯ ПЛАТФОРМА",
+      "topics": [
+        {
+          "id": "topic-critical-render",
+          "title": "Critical Render Path",
+          "priority": "CORE",
+          "description": "Как страница парсится, рисуется, работает и живёт в фоне.",
+          "items": [
+            "DOM",
+            "CSSOM",
+            "paint"
+          ]
+        },
+        {
+          "id": "topic-reflow-repaint",
+          "title": "Reflow / Repaint",
+          "priority": "CORE",
+          "description": "Как страница парсится, рисуется, работает и живёт в фоне.",
+          "items": [
+            "layout",
+            "paint",
+            "composite"
+          ]
+        },
+        {
+          "id": "topic-observers",
+          "title": "Observers",
+          "priority": "OPT",
+          "description": "Как страница парсится, рисуется, работает и живёт в фоне.",
+          "items": [
+            "Intersection",
+            "Resize",
+            "Mutation"
+          ]
+        },
+        {
+          "id": "topic-workers",
+          "title": "Web Workers",
+          "priority": "OPT",
+          "description": "Как страница парсится, рисуется, работает и живёт в фоне.",
+          "items": [
+            "threads",
+            "messages",
+            "offload"
+          ]
+        },
+        {
+          "id": "topic-service-workers",
+          "title": "Service Workers",
+          "priority": "OPT",
+          "description": "Как страница парсится, рисуется, работает и живёт в фоне.",
+          "items": [
+            "cache",
+            "offline",
+            "updates"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-06-производительность",
+      "level": 6,
+      "title": "УРОВЕНЬ 6: ПРОИЗВОДИТЕЛЬНОСТЬ",
+      "topics": [
+        {
+          "id": "topic-core-web-vitals",
+          "title": "Core Web Vitals",
+          "priority": "KILLER",
+          "description": "Метрики, доставка кода и оптимизация тяжёлых ресурсов.",
+          "items": [
+            "LCP",
+            "INP",
+            "CLS"
+          ]
+        },
+        {
+          "id": "topic-lazy-loading",
+          "title": "Lazy Loading",
+          "priority": "OPT",
+          "description": "Метрики, доставка кода и оптимизация тяжёлых ресурсов.",
+          "items": [
+            "routes",
+            "images",
+            "prefetch"
+          ]
+        },
+        {
+          "id": "topic-bundle-optimization",
+          "title": "Оптимизация бандла",
+          "priority": "OPT",
+          "description": "Метрики, доставка кода и оптимизация тяжёлых ресурсов.",
+          "items": [
+            "chunks",
+            "tree-shaking",
+            "analyze"
+          ]
+        },
+        {
+          "id": "topic-image-optimization",
+          "title": "Оптимизация картинок",
+          "priority": "OPT",
+          "description": "Метрики, доставка кода и оптимизация тяжёлых ресурсов.",
+          "items": [
+            "formats",
+            "sizes",
+            "lazy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-07-инструменты",
+      "level": 7,
+      "title": "УРОВЕНЬ 7: ИНСТРУМЕНТЫ",
+      "topics": [
+        {
+          "id": "topic-bundlers",
+          "title": "Webpack / Vite",
+          "priority": "CORE",
+          "description": "Сборка, пакеты, качество кода и delivery pipeline.",
+          "items": [
+            "Vite",
+            "Webpack",
+            "plugins"
+          ]
+        },
+        {
+          "id": "topic-npm",
+          "title": "npm / yarn / pnpm",
+          "priority": "CORE",
+          "description": "Сборка, пакеты, качество кода и delivery pipeline.",
+          "items": [
+            "lockfile",
+            "semver",
+            "scripts"
+          ]
+        },
+        {
+          "id": "topic-linting",
+          "title": "ESLint / Prettier",
+          "priority": "CORE",
+          "description": "Сборка, пакеты, качество кода и delivery pipeline.",
+          "items": [
+            "ESLint",
+            "Prettier",
+            "CI"
+          ]
+        },
+        {
+          "id": "topic-git",
+          "title": "Git",
+          "priority": "CORE",
+          "description": "Сборка, пакеты, качество кода и delivery pipeline.",
+          "items": [
+            "branches",
+            "rebase",
+            "bisect"
+          ]
+        },
+        {
+          "id": "topic-cicd",
+          "title": "CI/CD / Docker",
+          "priority": "OPT",
+          "description": "Сборка, пакеты, качество кода и delivery pipeline.",
+          "items": [
+            "pipeline",
+            "Docker",
+            "deploy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-08-архитектура",
+      "level": 8,
+      "title": "УРОВЕНЬ 8: АРХИТЕКТУРА",
+      "topics": [
+        {
+          "id": "topic-fsd",
+          "title": "Feature-Sliced Design",
+          "priority": "KILLER",
+          "description": "Границы модулей, зависимости и поддерживаемость React-кода.",
+          "items": [
+            "layers",
+            "slices",
+            "public API"
+          ]
+        },
+        {
+          "id": "topic-solid",
+          "title": "SOLID в React",
+          "priority": "OPT",
+          "description": "Границы модулей, зависимости и поддерживаемость React-кода.",
+          "items": [
+            "SRP",
+            "DIP",
+            "React boundaries"
+          ]
+        },
+        {
+          "id": "topic-design-patterns",
+          "title": "Паттерны проектирования",
+          "priority": "OPT",
+          "description": "Границы модулей, зависимости и поддерживаемость React-кода.",
+          "items": [
+            "adapter",
+            "facade",
+            "state"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-09-system-design",
+      "level": 9,
+      "title": "УРОВЕНЬ 9: SYSTEM DESIGN",
+      "topics": [
+        {
+          "id": "topic-requirements",
+          "title": "Требования",
+          "priority": "CORE",
+          "description": "Продуктовые требования, API и компонентная декомпозиция.",
+          "items": [
+            "constraints",
+            "tradeoffs",
+            "scope"
+          ]
+        },
+        {
+          "id": "topic-api-layer",
+          "title": "API слой",
+          "priority": "KILLER",
+          "description": "Продуктовые требования, API и компонентная декомпозиция.",
+          "items": [
+            "client",
+            "cache",
+            "errors"
+          ]
+        },
+        {
+          "id": "topic-component-arch",
+          "title": "Архитектура компонентов",
+          "priority": "CORE",
+          "description": "Продуктовые требования, API и компонентная декомпозиция.",
+          "items": [
+            "contracts",
+            "slots",
+            "ownership"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-10-тестирование",
+      "level": 10,
+      "title": "УРОВЕНЬ 10: ТЕСТИРОВАНИЕ",
+      "topics": [
+        {
+          "id": "topic-unit-testing",
+          "title": "Jest / Vitest",
+          "priority": "CORE",
+          "description": "Проверка поведения от unit до пользовательского сценария.",
+          "items": [
+            "unit",
+            "mocks",
+            "timers"
+          ]
+        },
+        {
+          "id": "topic-rtl",
+          "title": "React Testing Library",
+          "priority": "CORE",
+          "description": "Проверка поведения от unit до пользовательского сценария.",
+          "items": [
+            "queries",
+            "user events",
+            "a11y"
+          ]
+        },
+        {
+          "id": "topic-e2e",
+          "title": "E2E Cypress/Playwright",
+          "priority": "OPT",
+          "description": "Проверка поведения от unit до пользовательского сценария.",
+          "items": [
+            "flows",
+            "fixtures",
+            "flakiness"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-11-soft-skills",
+      "level": 11,
+      "title": "УРОВЕНЬ 11: SOFT SKILLS",
+      "topics": [
+        {
+          "id": "topic-star",
+          "title": "Метод STAR",
+          "priority": "OPT",
+          "description": "Как объяснять решения, ревьюить и работать в команде.",
+          "items": [
+            "situation",
+            "task",
+            "action",
+            "result"
+          ]
+        },
+        {
+          "id": "topic-code-review",
+          "title": "Code Review",
+          "priority": "CORE",
+          "description": "Как объяснять решения, ревьюить и работать в команде.",
+          "items": [
+            "diffs",
+            "risks",
+            "feedback"
+          ]
+        },
+        {
+          "id": "topic-teamwork",
+          "title": "Работа в команде",
+          "priority": "OPT",
+          "description": "Как объяснять решения, ревьюить и работать в команде.",
+          "items": [
+            "handoff",
+            "alignment",
+            "ownership"
+          ]
+        }
+      ]
+    }
+  ]
+}
