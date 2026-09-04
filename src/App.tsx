@@ -111,7 +111,7 @@ export default function App() {
                 key={meta.id}
                 type="button"
                 onClick={() => toggleRoadmap(meta.id)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                className={`cursor-pointer px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   isActive
                     ? 'bg-[#5c534c] text-[#f7f4f1]'
                     : 'bg-white/70 text-[#7a7168] hover:bg-white hover:text-[#5c534c] border border-[#e4ddd5]'
@@ -131,7 +131,7 @@ export default function App() {
                 key={priority}
                 type="button"
                 onClick={() => togglePriority(priority)}
-                className={`px-3 py-1 rounded-full text-xs font-semibold tracking-wide transition-opacity border border-transparent ${getPriorityStyle(priority)} ${
+                className={`cursor-pointer px-3 py-1 rounded-full text-xs font-semibold tracking-wide transition-opacity border border-transparent ${getPriorityStyle(priority)} ${
                   isOn ? 'opacity-100' : 'opacity-35 grayscale'
                 }`}
               >
@@ -144,7 +144,7 @@ export default function App() {
             <button
               type="button"
               onClick={() => setAllCollapsed((c) => !c)}
-              className="ml-auto text-xs text-[#8a8178] hover:text-[#5c534c]"
+              className="ml-auto cursor-pointer text-xs text-[#8a8178] hover:text-[#5c534c]"
             >
               {allCollapsed ? 'Развернуть все' : 'Свернуть все'}
             </button>
@@ -184,6 +184,7 @@ export default function App() {
                   forceCollapsed={allCollapsed}
                   compact={activeRoadmaps.length > 1}
                   priorities={priorities}
+                  anchorPrefix={r.meta.id}
                 />
               </div>
             ))}

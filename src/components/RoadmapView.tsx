@@ -8,6 +8,7 @@ interface RoadmapViewProps {
   forceCollapsed?: boolean
   compact?: boolean
   priorities: Set<Priority>
+  anchorPrefix?: string
 }
 
 export function RoadmapView({
@@ -15,6 +16,7 @@ export function RoadmapView({
   forceCollapsed = false,
   compact = false,
   priorities,
+  anchorPrefix = 'roadmap',
 }: RoadmapViewProps) {
   const filteredLevels = useMemo(
     () =>
@@ -31,6 +33,15 @@ export function RoadmapView({
     const topics = filteredLevels.reduce((sum, l) => sum + l.topics.length, 0)
     return { levels: filteredLevels.length, topics }
   }, [filteredLevels])
+
+  const levelAnchor = (levelId: string) => `${anchorPrefix}__${levelId}`
+
+  const scrollToLevel = (levelId: string) => {
+    document.getElementById(levelAnchor(levelId))?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
 
   return (
     <div>
@@ -54,12 +65,20 @@ export function RoadmapView({
           )}
         </div>
 
-        <div className="flex h-2 mt-5 rounded-full overflow-hidden gap-0.5 bg-white/50 p-0.5 position-sticky top-0">
+        <div
+          className="flex h-3 mt-5 rounded-full overflow-hidden gap-0.5 bg-white/50 p-0.5"
+          role="navigation"
+          aria-label="Уровни roadmap"
+        >
           {filteredLevels.map((l) => (
-            <div
+            <button
               key={l.id}
-              className={`flex-1 rounded-full ${getLevelColor(l.level).accent}`}
-              title={l.title}
+              type="button"
+              title={`${l.title} · ${l.topics.length} тем`}
+              aria-label={`${l.title}, ${l.topics.length} тем`}
+              onClick={() => scrollToLevel(l.id)}
+              style={{ flexGrow: l.topics.length, flexBasis: 0 }}
+              className={`min-w-1 h-full rounded-full cursor-pointer transition-opacity hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#5c534c] ${getLevelColor(l.level).accent}`}
             />
           ))}
         </div>
@@ -72,6 +91,7 @@ export function RoadmapView({
             level={level}
             forceCollapsed={forceCollapsed}
             compact={compact}
+            anchorId={levelAnchor(level.id)}
           />
         ))}
       </div>

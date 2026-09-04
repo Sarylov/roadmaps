@@ -27,7 +27,7 @@ export function TopicCard({ topic, level, collapsed, onToggle }: TopicCardProps)
         <button
           type="button"
           onClick={onToggle}
-          className="text-[#b0a79e] hover:text-[#5c534c] text-xs shrink-0"
+          className="cursor-pointer text-[#b0a79e] hover:text-[#5c534c] text-xs shrink-0"
           aria-label={collapsed ? 'Развернуть' : 'Свернуть'}
         >
           {collapsed ? '▼' : '▲'}

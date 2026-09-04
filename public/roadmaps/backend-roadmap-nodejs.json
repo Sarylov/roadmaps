@@ -36,7 +36,7 @@
         {
           "id": "topic-async-js",
           "title": "Async JavaScript",
-          "priority": "KILLER",
+          "priority": "CORE",
           "description": "Асинхронность и конкурентное выполнение кода.",
           "items": [
             "callbacks",
@@ -646,7 +646,7 @@
         {
           "id": "topic-kafka-advanced",
           "title": "Kafka Advanced",
-          "priority": "OPT",
+          "priority": "CORE",
           "description": "Глубокое понимание Kafka для высоконагруженных систем.",
           "items": [
             "partitions",
@@ -883,9 +883,134 @@
       ]
     },
     {
-      "id": "phase-14-system-design",
+      "id": "phase-14-microservices",
       "level": 14,
-      "title": "УРОВЕНЬ 14: SYSTEM DESIGN",
+      "title": "УРОВЕНЬ 14: МИКРОСЕРВИСЫ",
+      "topics": [
+        {
+          "id": "topic-microservices-basics",
+          "title": "Микросервисы: основы",
+          "priority": "KILLER",
+          "description": "Когда монолит стоит делить и по каким границам.",
+          "items": [
+            "monolith vs microservices",
+            "bounded context",
+            "service boundaries",
+            "granularity",
+            "trade-offs"
+          ]
+        },
+        {
+          "id": "topic-service-communication",
+          "title": "Взаимодействие сервисов",
+          "priority": "KILLER",
+          "description": "Синхронные и асинхронные способы общения между сервисами.",
+          "items": [
+            "sync vs async",
+            "REST",
+            "gRPC",
+            "message-based",
+            "contracts",
+            "versioning"
+          ]
+        },
+        {
+          "id": "topic-api-gateway",
+          "title": "API Gateway / BFF",
+          "priority": "CORE",
+          "description": "Единая точка входа для клиентов и агрегация вызовов.",
+          "items": [
+            "routing",
+            "aggregation",
+            "auth",
+            "rate limiting",
+            "BFF"
+          ]
+        },
+        {
+          "id": "topic-saga",
+          "title": "Saga / распределённые транзакции",
+          "priority": "KILLER",
+          "description": "Согласованность бизнес-операции, растянутой на несколько сервисов.",
+          "items": [
+            "choreography",
+            "orchestration",
+            "compensation",
+            "2PC vs saga",
+            "eventual consistency"
+          ]
+        },
+        {
+          "id": "topic-outbox",
+          "title": "Outbox и идемпотентность",
+          "priority": "KILLER",
+          "description": "Надёжная публикация событий и защита от дублей при повторах.",
+          "items": [
+            "transactional outbox",
+            "at-least-once",
+            "dedup keys",
+            "idempotency key",
+            "retries"
+          ]
+        },
+        {
+          "id": "topic-resilience-patterns",
+          "title": "Resilience Patterns",
+          "priority": "KILLER",
+          "description": "Как сервис выживает при отказах соседей и сети.",
+          "items": [
+            "circuit breaker",
+            "retry with backoff",
+            "timeout",
+            "bulkhead",
+            "fallback"
+          ]
+        },
+        {
+          "id": "topic-cqrs-es",
+          "title": "CQRS / Event Sourcing",
+          "priority": "OPT",
+          "description": "Разделение чтения и записи, состояние как поток событий.",
+          "items": [
+            "command/query split",
+            "projections",
+            "event store",
+            "replay",
+            "read models"
+          ]
+        },
+        {
+          "id": "topic-service-discovery",
+          "title": "Service Discovery и конфигурация",
+          "priority": "OPT",
+          "description": "Как сервисы находят друг друга и получают настройки.",
+          "items": [
+            "service registry",
+            "DNS",
+            "health checks",
+            "config service",
+            "secrets"
+          ]
+        },
+        {
+          "id": "topic-service-mesh",
+          "title": "Service Mesh",
+          "priority": "OPT",
+          "description": "Инфраструктурный слой для трафика между сервисами.",
+          "items": [
+            "sidecar",
+            "Istio",
+            "Linkerd",
+            "mTLS",
+            "traffic policies"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-15-system-design",
+      "level": 15,
+      "title": "УРОВЕНЬ 15: SYSTEM DESIGN",
       "topics": [
         {
           "id": "topic-requirements",
@@ -991,9 +1116,9 @@
       ]
     },
     {
-      "id": "phase-15-cloud-infra",
-      "level": 15,
-      "title": "УРОВЕНЬ 15: CLOUD / INFRA",
+      "id": "phase-16-cloud-infra",
+      "level": 16,
+      "title": "УРОВЕНЬ 16: CLOUD / INFRA",
       "topics": [
         {
           "id": "topic-cloud-basics",
@@ -1037,14 +1162,29 @@
         {
           "id": "topic-kubernetes",
           "title": "Kubernetes",
-          "priority": "OPT",
-          "description": "Оркестрация контейнеров в production.",
+          "priority": "CORE",
+          "description": "Оркестрация контейнеров и запуск сервисов в production.",
           "items": [
             "pods",
             "deployments",
             "services",
             "ingress",
+            "ConfigMap/Secret",
+            "probes",
             "autoscaling"
+          ]
+        },
+        {
+          "id": "topic-k8s-operations",
+          "title": "Kubernetes в эксплуатации",
+          "priority": "OPT",
+          "description": "Обновления, лимиты и разбор проблем в кластере.",
+          "items": [
+            "rolling update",
+            "resource limits",
+            "HPA",
+            "logs & debug",
+            "Helm"
           ]
         },
         {
@@ -1079,11 +1219,15 @@
     "Testing",
     "Linux / Docker",
     "Queues / Messaging",
+    "Kafka",
     "Observability",
     "Architecture",
+    "Microservices",
+    "Microservice Patterns (Saga / Outbox / Resilience)",
     "System Design",
     "Cloud / CI-CD",
-    "Kafka / Kubernetes / Terraform"
+    "Kubernetes",
+    "Terraform"
   ],
   "projects": [
     {
@@ -1154,6 +1298,26 @@
         "replication",
         "backpressure",
         "failure handling"
+      ]
+    },
+    {
+      "level": "middle-senior",
+      "title": "Microservices Playground",
+      "stack": [
+        "NestJS",
+        "PostgreSQL",
+        "Redis",
+        "Kafka",
+        "Docker",
+        "Kubernetes"
+      ],
+      "focus": [
+        "service boundaries",
+        "saga",
+        "outbox",
+        "idempotency",
+        "circuit breaker",
+        "deploy"
       ]
     },
     {

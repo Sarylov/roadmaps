@@ -11,3 +11,16 @@ body {
     radial-gradient(ellipse 60% 40% at 50% 100%, #e8eef8 0%, transparent 45%),
     #f7f4f1;
 }
+
+button,
+[role='button'],
+label[for],
+a[href],
+summary {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled='true'] {
+  cursor: not-allowed;
+}

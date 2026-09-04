@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Level } from '../types'
 import { getLevelColor } from '../utils/colors'
 import { TopicCard } from './TopicCard'
@@ -7,28 +7,37 @@ interface LevelSectionProps {
   level: Level
   forceCollapsed?: boolean
   compact?: boolean
+  anchorId?: string
 }
 
 export function LevelSection({
   level,
   forceCollapsed = false,
   compact = false,
+  anchorId,
 }: LevelSectionProps) {
   const [collapsedTopics, setCollapsedTopics] = useState<Record<string, boolean>>({})
   const colors = getLevelColor(level.level)
 
+  const topicsRef = useRef(level.topics)
+  topicsRef.current = level.topics
+
+  useEffect(() => {
+    setCollapsedTopics(
+      forceCollapsed ? Object.fromEntries(topicsRef.current.map((t) => [t.id, true])) : {},
+    )
+  }, [forceCollapsed])
+
   const allTopicsCollapsed = useMemo(
-    () => forceCollapsed || level.topics.every((t) => collapsedTopics[t.id]),
-    [forceCollapsed, level.topics, collapsedTopics],
+    () => level.topics.every((t) => collapsedTopics[t.id]),
+    [level.topics, collapsedTopics],
   )
 
   const toggleTopic = (id: string) => {
-    if (forceCollapsed) return
     setCollapsedTopics((prev) => ({ ...prev, [id]: !prev[id] }))
   }
 
   const toggleLevelTopics = () => {
-    if (forceCollapsed) return
     if (allTopicsCollapsed) {
       setCollapsedTopics({})
       return
@@ -37,7 +46,7 @@ export function LevelSection({
   }
 
   return (
-    <section className="mb-8">
+    <section id={anchorId} className="mb-8 scroll-mt-20">
       <div className="flex items-center gap-4 mb-4">
         <div
           className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${colors.accent} text-white`}
@@ -51,7 +60,7 @@ export function LevelSection({
         <button
           type="button"
           onClick={toggleLevelTopics}
-          className="text-xs text-[#9a9188] hover:text-[#5c534c] shrink-0"
+          className="cursor-pointer text-xs text-[#9a9188] hover:text-[#5c534c] shrink-0"
         >
           {allTopicsCollapsed ? 'Развернуть уровень' : 'Свернуть уровень'}
         </button>
@@ -67,7 +76,7 @@ export function LevelSection({
             key={topic.id}
             topic={topic}
             level={level.level}
-            collapsed={forceCollapsed || !!collapsedTopics[topic.id]}
+            collapsed={!!collapsedTopics[topic.id]}
             onToggle={() => toggleTopic(topic.id)}
           />
         ))}
