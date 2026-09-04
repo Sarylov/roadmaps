@@ -64,5 +64,6 @@ function roadmapsManifestPlugin(): Plugin {
 }
 
 export default defineConfig({
+  base: '/roadmaps/',
   plugins: [react(), tailwindcss(), roadmapsManifestPlugin()],
 })

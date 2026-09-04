@@ -24,7 +24,7 @@ export default function App() {
 
   const loadRoadmap = useCallback(async (meta: RoadmapMeta): Promise<LoadedRoadmap | null> => {
     try {
-      const res = await fetch(`/roadmaps/${meta.file}`)
+      const res = await fetch(`${import.meta.env.BASE_URL}roadmaps/${meta.file}`)
       if (!res.ok) return null
       const data: Roadmap = await res.json()
       return { meta, data }
@@ -36,7 +36,7 @@ export default function App() {
   useEffect(() => {
     async function init() {
       try {
-        const res = await fetch('/roadmaps/manifest.json')
+        const res = await fetch(`${import.meta.env.BASE_URL}roadmaps/manifest.json`)
         const manifest: RoadmapMeta[] = await res.json()
         setCatalog(manifest)
 
