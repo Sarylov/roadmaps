@@ -1,9 +1,12 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, type CSSProperties } from 'react'
+import { ItemModal } from './components/ItemModal'
 import { RoadmapView } from './components/RoadmapView'
+import { useTheme } from './hooks/useTheme'
 import type { Priority, Roadmap, RoadmapMeta } from './types'
 import { getPriorityStyle } from './utils/colors'
 import {
   ALL_PRIORITIES,
+  readItemFromUrl,
   readOpenFromUrl,
   readPrioritiesFromUrl,
   writeUrlState,
@@ -15,11 +18,13 @@ interface LoadedRoadmap {
 }
 
 export default function App() {
+  const { theme, toggleTheme } = useTheme()
   const [catalog, setCatalog] = useState<RoadmapMeta[]>([])
   const [loaded, setLoaded] = useState<LoadedRoadmap[]>([])
   const [activeIds, setActiveIds] = useState<Set<string>>(new Set())
   const [priorities, setPriorities] = useState<Set<Priority>>(new Set(ALL_PRIORITIES))
   const [allCollapsed, setAllCollapsed] = useState(false)
+  const [activeItem, setActiveItem] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
   const loadRoadmap = useCallback(async (meta: RoadmapMeta): Promise<LoadedRoadmap | null> => {
@@ -47,9 +52,11 @@ export default function App() {
         const validIds = valid.map((r) => r.meta.id)
         const open = readOpenFromUrl(validIds) ?? validIds
         const prio = readPrioritiesFromUrl() ?? ALL_PRIORITIES
+        const item = readItemFromUrl()
         setActiveIds(new Set(open))
         setPriorities(new Set(prio))
-        writeUrlState(open, prio)
+        setActiveItem(item)
+        writeUrlState(open, prio, item)
       } finally {
         setLoading(false)
       }
@@ -64,22 +71,26 @@ export default function App() {
       const validIds = loaded.map((r) => r.meta.id)
       setActiveIds(new Set(readOpenFromUrl(validIds) ?? validIds))
       setPriorities(new Set(readPrioritiesFromUrl() ?? ALL_PRIORITIES))
+      setActiveItem(readItemFromUrl())
     }
 
     window.addEventListener('popstate', onPopState)
     return () => window.removeEventListener('popstate', onPopState)
   }, [loading, loaded])
 
-  const syncUrl = useCallback((open: Set<string>, prio: Set<Priority>) => {
-    writeUrlState([...open], [...prio])
-  }, [])
+  const syncUrl = useCallback(
+    (open: Set<string>, prio: Set<Priority>, item: string | null) => {
+      writeUrlState([...open], [...prio], item)
+    },
+    [],
+  )
 
   const toggleRoadmap = (id: string) => {
     const next = new Set(activeIds)
     if (next.has(id)) next.delete(id)
     else next.add(id)
     setActiveIds(next)
-    syncUrl(next, priorities)
+    syncUrl(next, priorities, activeItem)
   }
 
   const togglePriority = (priority: Priority) => {
@@ -87,14 +98,24 @@ export default function App() {
     if (next.has(priority)) next.delete(priority)
     else next.add(priority)
     setPriorities(next)
-    syncUrl(activeIds, next)
+    syncUrl(activeIds, next, activeItem)
+  }
+
+  const openItem = (ref: string) => {
+    setActiveItem(ref)
+    syncUrl(activeIds, priorities, ref)
+  }
+
+  const closeItem = () => {
+    setActiveItem(null)
+    syncUrl(activeIds, priorities, null)
   }
 
   const activeRoadmaps = loaded.filter((r) => activeIds.has(r.meta.id))
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-[#8a8178]">
+      <div className="min-h-screen flex items-center justify-center text-[var(--fg-muted)]">
         Загрузка...
       </div>
     )
@@ -102,7 +123,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
-      <div className="sticky top-0 z-10 border-b border-[#e8e1da]/bg-[#f7f4f1]/85 backdrop-blur-md">
+      <div className="sticky top-0 z-10 border-b border-[var(--border)] bg-[var(--header-bg)] backdrop-blur-md">
         <div className="px-4 py-3 flex flex-wrap items-center gap-2">
           {catalog.map((meta) => {
             const isActive = activeIds.has(meta.id)
@@ -113,8 +134,8 @@ export default function App() {
                 onClick={() => toggleRoadmap(meta.id)}
                 className={`cursor-pointer px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   isActive
-                    ? 'bg-[#5c534c] text-[#f7f4f1]'
-                    : 'bg-white/70 text-[#7a7168] hover:bg-white hover:text-[#5c534c] border border-[#e4ddd5]'
+                    ? 'bg-[var(--accent)] text-[var(--bg)]'
+                    : 'bg-[var(--surface)] text-[var(--fg-muted)] hover:text-[var(--accent)] border border-[var(--border-strong)]'
                 }`}
               >
                 {meta.label}
@@ -122,7 +143,7 @@ export default function App() {
             )
           })}
 
-          <div className="mx-2 h-5 w-px bg-[#e4ddd5] hidden sm:block" />
+          <div className="mx-2 h-5 w-px bg-[var(--border-strong)] hidden sm:block" />
 
           {ALL_PRIORITIES.map((priority) => {
             const isOn = priorities.has(priority)
@@ -140,33 +161,52 @@ export default function App() {
             )
           })}
 
-          {activeRoadmaps.length > 0 && (
+          <div className="ml-auto flex items-center gap-3">
+            {activeRoadmaps.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setAllCollapsed((c) => !c)}
+                className="cursor-pointer text-xs text-[var(--fg-muted)] hover:text-[var(--accent)]"
+              >
+                {allCollapsed ? 'Развернуть все' : 'Свернуть все'}
+              </button>
+            )}
             <button
               type="button"
-              onClick={() => setAllCollapsed((c) => !c)}
-              className="ml-auto cursor-pointer text-xs text-[#8a8178] hover:text-[#5c534c]"
+              onClick={toggleTheme}
+              className="cursor-pointer rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-3 py-1.5 text-xs text-[var(--fg-muted)] hover:text-[var(--accent)]"
+              aria-label={theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему'}
+              title={theme === 'dark' ? 'Светлая тема' : 'Тёмная тема'}
             >
-              {allCollapsed ? 'Развернуть все' : 'Свернуть все'}
+              {theme === 'dark' ? 'Светлая' : 'Тёмная'}
             </button>
-          )}
+          </div>
         </div>
       </div>
 
       <main className="w-full px-4 py-8">
         {catalog.length === 0 ? (
-          <p className="text-[#8a8178] text-center py-20">
-            Положи JSON-файлы в <code className="text-[#5c534c]">public/roadmaps</code>
+          <p className="text-[var(--fg-muted)] text-center py-20">
+            Положи JSON-файлы в <code className="text-[var(--accent)]">public/roadmaps</code>
           </p>
         ) : activeRoadmaps.length === 0 ? (
-          <p className="text-[#8a8178] text-center py-20">Выбери roadmap сверху</p>
+          <p className="text-[var(--fg-muted)] text-center py-20">Выбери roadmap сверху</p>
         ) : priorities.size === 0 ? (
-          <p className="text-[#8a8178] text-center py-20">Включи хотя бы один фильтр приоритета</p>
+          <p className="text-[var(--fg-muted)] text-center py-20">
+            Включи хотя бы один фильтр приоритета
+          </p>
         ) : (
           <div
-            className={activeRoadmaps.length > 1 ? 'grid gap-2 items-start' : ''}
+            className={
+              activeRoadmaps.length > 1
+                ? 'grid grid-cols-1 gap-2 items-start md:[grid-template-columns:var(--roadmap-cols)]'
+                : ''
+            }
             style={
               activeRoadmaps.length > 1
-                ? { gridTemplateColumns: `repeat(${activeRoadmaps.length}, minmax(0, 1fr))` }
+                ? ({
+                    '--roadmap-cols': `repeat(${activeRoadmaps.length}, minmax(0, 1fr))`,
+                  } as CSSProperties)
                 : undefined
             }
           >
@@ -175,7 +215,7 @@ export default function App() {
                 key={r.meta.id}
                 className={
                   activeRoadmaps.length > 1
-                    ? 'min-w-0 rounded-3xl border border-[#e8e1da] bg-white/45 p-5'
+                    ? 'min-w-0 rounded-3xl border border-[var(--border)] bg-[var(--surface-soft)] p-5'
                     : ''
                 }
               >
@@ -185,12 +225,15 @@ export default function App() {
                   compact={activeRoadmaps.length > 1}
                   priorities={priorities}
                   anchorPrefix={r.meta.id}
+                  onOpenItem={openItem}
                 />
               </div>
             ))}
           </div>
         )}
       </main>
+
+      <ItemModal itemRef={activeItem} onClose={closeItem} />
     </div>
   )
 }

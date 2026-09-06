@@ -23,14 +23,38 @@
           "priority": "CORE",
           "description": "Язык, на котором работает Node.js backend.",
           "items": [
-            "types",
-            "scope",
-            "closures",
-            "objects",
-            "prototypes",
-            "classes",
-            "modules",
-            "error handling"
+            {
+              "label": "types",
+              "ref": "js/types"
+            },
+            {
+              "label": "scope",
+              "ref": "js/scope"
+            },
+            {
+              "label": "closures",
+              "ref": "js/closures"
+            },
+            {
+              "label": "objects",
+              "ref": "js/objects"
+            },
+            {
+              "label": "prototypes",
+              "ref": "js/prototypes"
+            },
+            {
+              "label": "classes",
+              "ref": "js/classes"
+            },
+            {
+              "label": "modules",
+              "ref": "js/modules"
+            },
+            {
+              "label": "error handling",
+              "ref": "js/error-handling"
+            }
           ]
         },
         {
@@ -39,12 +63,30 @@
           "priority": "CORE",
           "description": "Асинхронность и конкурентное выполнение кода.",
           "items": [
-            "callbacks",
-            "Promise",
-            "async/await",
-            "Promise.all",
-            "Promise.race",
-            "error propagation"
+            {
+              "label": "callbacks",
+              "ref": "js/callbacks"
+            },
+            {
+              "label": "Promise",
+              "ref": "js/promise"
+            },
+            {
+              "label": "async/await",
+              "ref": "js/async-await"
+            },
+            {
+              "label": "Promise.all",
+              "ref": "js/promise-all"
+            },
+            {
+              "label": "Promise.race",
+              "ref": "js/promise-race"
+            },
+            {
+              "label": "error propagation",
+              "ref": "js/error-propagation"
+            }
           ]
         },
         {
@@ -53,12 +95,30 @@
           "priority": "KILLER",
           "description": "Модель выполнения JavaScript и основа Node.js.",
           "items": [
-            "call stack",
-            "microtasks",
-            "macrotasks",
-            "event loop",
-            "blocking",
-            "non-blocking"
+            {
+              "label": "call stack",
+              "ref": "js/call-stack"
+            },
+            {
+              "label": "microtasks",
+              "ref": "js/event-loop-microtasks"
+            },
+            {
+              "label": "macrotasks",
+              "ref": "js/event-loop-macrotasks"
+            },
+            {
+              "label": "event loop",
+              "ref": "js/event-loop"
+            },
+            {
+              "label": "blocking",
+              "ref": "js/blocking"
+            },
+            {
+              "label": "non-blocking",
+              "ref": "js/non-blocking"
+            }
           ]
         },
         {
@@ -67,12 +127,30 @@
           "priority": "OPT",
           "description": "Понимание памяти и причин утечек в долгоживущих процессах.",
           "items": [
-            "heap",
-            "stack",
-            "garbage collection",
-            "memory leaks",
-            "WeakMap",
-            "WeakRef"
+            {
+              "label": "heap",
+              "ref": "js/heap"
+            },
+            {
+              "label": "stack",
+              "ref": "js/stack"
+            },
+            {
+              "label": "garbage collection",
+              "ref": "js/garbage-collection"
+            },
+            {
+              "label": "memory leaks",
+              "ref": "js/memory-leaks"
+            },
+            {
+              "label": "WeakMap",
+              "ref": "js/weakmap"
+            },
+            {
+              "label": "WeakRef",
+              "ref": "js/weakref"
+            }
           ]
         }
       ]
@@ -88,12 +166,30 @@
           "priority": "CORE",
           "description": "Типовая модель backend-приложения и его контрактов.",
           "items": [
-            "interfaces",
-            "unions",
-            "intersections",
-            "type aliases",
-            "narrowing",
-            "enums"
+            {
+              "label": "interfaces",
+              "ref": "ts/interfaces"
+            },
+            {
+              "label": "unions",
+              "ref": "ts/unions"
+            },
+            {
+              "label": "intersections",
+              "ref": "ts/intersections"
+            },
+            {
+              "label": "type aliases",
+              "ref": "ts/type-aliases"
+            },
+            {
+              "label": "narrowing",
+              "ref": "ts/narrowing"
+            },
+            {
+              "label": "enums",
+              "ref": "ts/enums"
+            }
           ]
         },
         {
@@ -102,10 +198,22 @@
           "priority": "CORE",
           "description": "Типизация функций, объектов и reusable-компонентов.",
           "items": [
-            "function types",
-            "optional properties",
-            "readonly",
-            "generic functions"
+            {
+              "label": "function types",
+              "ref": "ts/function-types"
+            },
+            {
+              "label": "optional properties",
+              "ref": "ts/optional-properties"
+            },
+            {
+              "label": "readonly",
+              "ref": "ts/readonly"
+            },
+            {
+              "label": "generic functions",
+              "ref": "ts/generic-functions"
+            }
           ]
         },
         {
@@ -114,10 +222,22 @@
           "priority": "KILLER",
           "description": "Переиспользуемые типизированные API и абстракции.",
           "items": [
-            "constraints",
-            "generic functions",
-            "generic classes",
-            "API design"
+            {
+              "label": "constraints",
+              "ref": "ts/generics-constraints"
+            },
+            {
+              "label": "generic functions",
+              "ref": "ts/generic-functions"
+            },
+            {
+              "label": "generic classes",
+              "ref": "ts/generic-classes"
+            },
+            {
+              "label": "API design",
+              "ref": "ts/api-design"
+            }
           ]
         },
         {
@@ -126,10 +246,22 @@
           "priority": "OPT",
           "description": "Продвинутые средства построения типов.",
           "items": [
-            "conditional types",
-            "mapped types",
-            "infer",
-            "template literal types"
+            {
+              "label": "conditional types",
+              "ref": "ts/conditional-types"
+            },
+            {
+              "label": "mapped types",
+              "ref": "ts/mapped-types"
+            },
+            {
+              "label": "infer",
+              "ref": "ts/infer"
+            },
+            {
+              "label": "template literal types",
+              "ref": "ts/template-literal-types"
+            }
           ]
         },
         {
@@ -138,12 +270,30 @@
           "priority": "CORE",
           "description": "Готовые типовые преобразования, постоянно используемые в проектах.",
           "items": [
-            "Pick",
-            "Omit",
-            "Partial",
-            "Required",
-            "Record",
-            "ReturnType"
+            {
+              "label": "Pick",
+              "ref": "ts/pick"
+            },
+            {
+              "label": "Omit",
+              "ref": "ts/omit"
+            },
+            {
+              "label": "Partial",
+              "ref": "ts/partial"
+            },
+            {
+              "label": "Required",
+              "ref": "ts/required"
+            },
+            {
+              "label": "Record",
+              "ref": "ts/record"
+            },
+            {
+              "label": "ReturnType",
+              "ref": "ts/return-type"
+            }
           ]
         }
       ]
@@ -159,12 +309,30 @@
           "priority": "KILLER",
           "description": "Как Node.js запускает код и управляет конкурентностью.",
           "items": [
-            "runtime architecture",
-            "event loop",
-            "libuv",
-            "process",
-            "environment",
-            "signals"
+            {
+              "label": "runtime architecture",
+              "ref": "node/runtime-architecture"
+            },
+            {
+              "label": "event loop",
+              "ref": "js/event-loop"
+            },
+            {
+              "label": "libuv",
+              "ref": "node/libuv"
+            },
+            {
+              "label": "process",
+              "ref": "node/process"
+            },
+            {
+              "label": "environment",
+              "ref": "node/environment"
+            },
+            {
+              "label": "signals",
+              "ref": "node/signals"
+            }
           ]
         },
         {
@@ -173,12 +341,30 @@
           "priority": "CORE",
           "description": "Базовые модули runtime, необходимые для backend-разработки.",
           "items": [
-            "fs",
-            "path",
-            "URL",
-            "events",
-            "timers",
-            "crypto"
+            {
+              "label": "fs",
+              "ref": "node/fs"
+            },
+            {
+              "label": "path",
+              "ref": "node/path"
+            },
+            {
+              "label": "URL",
+              "ref": "node/url"
+            },
+            {
+              "label": "events",
+              "ref": "node/events"
+            },
+            {
+              "label": "timers",
+              "ref": "node/timers"
+            },
+            {
+              "label": "crypto",
+              "ref": "node/crypto"
+            }
           ]
         },
         {
@@ -187,11 +373,26 @@
           "priority": "CORE",
           "description": "Модульная система и управление зависимостями.",
           "items": [
-            "ESM",
-            "CommonJS",
-            "package.json",
-            "exports/imports",
-            "npm"
+            {
+              "label": "ESM",
+              "ref": "node/esm"
+            },
+            {
+              "label": "CommonJS",
+              "ref": "node/commonjs"
+            },
+            {
+              "label": "package.json",
+              "ref": "node/package-json"
+            },
+            {
+              "label": "exports/imports",
+              "ref": "node/exports-imports"
+            },
+            {
+              "label": "npm",
+              "ref": "node/npm"
+            }
           ]
         },
         {
@@ -200,11 +401,26 @@
           "priority": "KILLER",
           "description": "Потоковая обработка данных и контроль скорости потребления.",
           "items": [
-            "readable",
-            "writable",
-            "duplex",
-            "transform",
-            "backpressure"
+            {
+              "label": "readable",
+              "ref": "node/readable"
+            },
+            {
+              "label": "writable",
+              "ref": "node/writable"
+            },
+            {
+              "label": "duplex",
+              "ref": "node/duplex"
+            },
+            {
+              "label": "transform",
+              "ref": "node/transform"
+            },
+            {
+              "label": "backpressure",
+              "ref": "node/backpressure"
+            }
           ]
         },
         {
@@ -213,10 +429,22 @@
           "priority": "OPT",
           "description": "Работа с CPU-bound задачами и отдельными процессами.",
           "items": [
-            "worker_threads",
-            "child_process",
-            "cluster",
-            "CPU-bound tasks"
+            {
+              "label": "worker_threads",
+              "ref": "node/worker-threads"
+            },
+            {
+              "label": "child_process",
+              "ref": "node/child-process"
+            },
+            {
+              "label": "cluster",
+              "ref": "node/cluster"
+            },
+            {
+              "label": "CPU-bound tasks",
+              "ref": "node/cpu-bound-tasks"
+            }
           ]
         }
       ]
@@ -232,12 +460,30 @@
           "priority": "KILLER",
           "description": "Протокол, поверх которого строится большая часть backend API.",
           "items": [
-            "methods",
-            "status codes",
-            "headers",
-            "cookies",
-            "content types",
-            "caching"
+            {
+              "label": "methods",
+              "ref": "http/methods"
+            },
+            {
+              "label": "status codes",
+              "ref": "http/status-codes"
+            },
+            {
+              "label": "headers",
+              "ref": "http/headers"
+            },
+            {
+              "label": "cookies",
+              "ref": "auth/cookies"
+            },
+            {
+              "label": "content types",
+              "ref": "http/content-types"
+            },
+            {
+              "label": "caching",
+              "ref": "http/caching"
+            }
           ]
         },
         {
@@ -246,9 +492,18 @@
           "priority": "OPT",
           "description": "Современные версии HTTP и их особенности.",
           "items": [
-            "multiplexing",
-            "streams",
-            "QUIC"
+            {
+              "label": "multiplexing",
+              "ref": "http/multiplexing"
+            },
+            {
+              "label": "streams",
+              "ref": "http/streams"
+            },
+            {
+              "label": "QUIC",
+              "ref": "http/quic"
+            }
           ]
         },
         {
@@ -257,12 +512,30 @@
           "priority": "CORE",
           "description": "Проектирование понятных и предсказуемых HTTP API.",
           "items": [
-            "resources",
-            "CRUD",
-            "pagination",
-            "filtering",
-            "sorting",
-            "versioning"
+            {
+              "label": "resources",
+              "ref": "http/resources"
+            },
+            {
+              "label": "CRUD",
+              "ref": "http/crud"
+            },
+            {
+              "label": "pagination",
+              "ref": "http/pagination"
+            },
+            {
+              "label": "filtering",
+              "ref": "http/filtering"
+            },
+            {
+              "label": "sorting",
+              "ref": "http/sorting"
+            },
+            {
+              "label": "versioning",
+              "ref": "http/versioning"
+            }
           ]
         },
         {
@@ -271,11 +544,26 @@
           "priority": "KILLER",
           "description": "Практические правила построения надёжных API.",
           "items": [
-            "idempotency",
-            "validation",
-            "error format",
-            "rate limiting",
-            "API contracts"
+            {
+              "label": "idempotency",
+              "ref": "http/idempotency"
+            },
+            {
+              "label": "validation",
+              "ref": "http/validation"
+            },
+            {
+              "label": "error format",
+              "ref": "http/error-format"
+            },
+            {
+              "label": "rate limiting",
+              "ref": "http/rate-limiting"
+            },
+            {
+              "label": "API contracts",
+              "ref": "http/api-contracts"
+            }
           ]
         },
         {
@@ -284,11 +572,26 @@
           "priority": "OPT",
           "description": "Realtime-коммуникация между клиентом и сервером.",
           "items": [
-            "connections",
-            "events",
-            "reconnect",
-            "heartbeat",
-            "scaling"
+            {
+              "label": "connections",
+              "ref": "http/connections"
+            },
+            {
+              "label": "events",
+              "ref": "node/events"
+            },
+            {
+              "label": "reconnect",
+              "ref": "http/reconnect"
+            },
+            {
+              "label": "heartbeat",
+              "ref": "http/heartbeat"
+            },
+            {
+              "label": "scaling",
+              "ref": "http/scaling"
+            }
           ]
         }
       ]
@@ -304,14 +607,38 @@
           "priority": "KILLER",
           "description": "Основной язык работы с реляционными данными.",
           "items": [
-            "SELECT",
-            "WHERE",
-            "JOIN",
-            "GROUP BY",
-            "HAVING",
-            "subqueries",
-            "CTE",
-            "window functions"
+            {
+              "label": "SELECT",
+              "ref": "db/select"
+            },
+            {
+              "label": "WHERE",
+              "ref": "db/where"
+            },
+            {
+              "label": "JOIN",
+              "ref": "db/join"
+            },
+            {
+              "label": "GROUP BY",
+              "ref": "db/group-by"
+            },
+            {
+              "label": "HAVING",
+              "ref": "db/having"
+            },
+            {
+              "label": "subqueries",
+              "ref": "db/subqueries"
+            },
+            {
+              "label": "CTE",
+              "ref": "db/cte"
+            },
+            {
+              "label": "window functions",
+              "ref": "db/window-functions"
+            }
           ]
         },
         {
@@ -320,12 +647,30 @@
           "priority": "KILLER",
           "description": "Проектирование структуры данных и связей между сущностями.",
           "items": [
-            "entities",
-            "relations",
-            "primary keys",
-            "foreign keys",
-            "normalization",
-            "denormalization"
+            {
+              "label": "entities",
+              "ref": "db/entities"
+            },
+            {
+              "label": "relations",
+              "ref": "db/relations"
+            },
+            {
+              "label": "primary keys",
+              "ref": "db/primary-keys"
+            },
+            {
+              "label": "foreign keys",
+              "ref": "db/foreign-keys"
+            },
+            {
+              "label": "normalization",
+              "ref": "db/normalization"
+            },
+            {
+              "label": "denormalization",
+              "ref": "db/denormalization"
+            }
           ]
         },
         {
@@ -334,11 +679,26 @@
           "priority": "KILLER",
           "description": "Ускорение запросов и понимание стоимости доступа к данным.",
           "items": [
-            "B-tree",
-            "composite indexes",
-            "unique indexes",
-            "covering indexes",
-            "selectivity"
+            {
+              "label": "B-tree",
+              "ref": "db/b-tree"
+            },
+            {
+              "label": "composite indexes",
+              "ref": "db/composite-indexes"
+            },
+            {
+              "label": "unique indexes",
+              "ref": "db/unique-indexes"
+            },
+            {
+              "label": "covering indexes",
+              "ref": "db/covering-indexes"
+            },
+            {
+              "label": "selectivity",
+              "ref": "db/selectivity"
+            }
           ]
         },
         {
@@ -347,12 +707,30 @@
           "priority": "KILLER",
           "description": "Гарантии корректности данных при конкурентных изменениях.",
           "items": [
-            "ACID",
-            "isolation levels",
-            "locks",
-            "deadlocks",
-            "commit",
-            "rollback"
+            {
+              "label": "ACID",
+              "ref": "db/acid"
+            },
+            {
+              "label": "isolation levels",
+              "ref": "db/isolation-levels"
+            },
+            {
+              "label": "locks",
+              "ref": "db/locks"
+            },
+            {
+              "label": "deadlocks",
+              "ref": "db/deadlocks"
+            },
+            {
+              "label": "commit",
+              "ref": "db/commit"
+            },
+            {
+              "label": "rollback",
+              "ref": "db/rollback"
+            }
           ]
         },
         {
@@ -361,12 +739,30 @@
           "priority": "CORE",
           "description": "Основная relational database в Node.js backend stack.",
           "items": [
-            "schema",
-            "migrations",
-            "constraints",
-            "JSONB",
-            "arrays",
-            "extensions"
+            {
+              "label": "schema",
+              "ref": "db/schema"
+            },
+            {
+              "label": "migrations",
+              "ref": "db/migrations"
+            },
+            {
+              "label": "constraints",
+              "ref": "ts/generics-constraints"
+            },
+            {
+              "label": "JSONB",
+              "ref": "js/jsonb"
+            },
+            {
+              "label": "arrays",
+              "ref": "db/arrays"
+            },
+            {
+              "label": "extensions",
+              "ref": "db/extensions"
+            }
           ]
         },
         {
@@ -375,11 +771,26 @@
           "priority": "OPT",
           "description": "Поиск узких мест и анализ планов выполнения.",
           "items": [
-            "EXPLAIN",
-            "EXPLAIN ANALYZE",
-            "query plans",
-            "sequential scan",
-            "index scan"
+            {
+              "label": "EXPLAIN",
+              "ref": "backend/explain"
+            },
+            {
+              "label": "EXPLAIN ANALYZE",
+              "ref": "backend/explain-analyze"
+            },
+            {
+              "label": "query plans",
+              "ref": "backend/query-plans"
+            },
+            {
+              "label": "sequential scan",
+              "ref": "backend/sequential-scan"
+            },
+            {
+              "label": "index scan",
+              "ref": "db/index-scan"
+            }
           ]
         }
       ]
@@ -395,13 +806,34 @@
           "priority": "CORE",
           "description": "Лёгкий framework для понимания HTTP lifecycle и производительного Node.js API.",
           "items": [
-            "server",
-            "routes",
-            "hooks",
-            "plugins",
-            "decorators",
-            "validation",
-            "serialization"
+            {
+              "label": "server",
+              "ref": "backend/server"
+            },
+            {
+              "label": "routes",
+              "ref": "backend/routes"
+            },
+            {
+              "label": "hooks",
+              "ref": "backend/hooks"
+            },
+            {
+              "label": "plugins",
+              "ref": "backend/plugins"
+            },
+            {
+              "label": "decorators",
+              "ref": "backend/decorators"
+            },
+            {
+              "label": "validation",
+              "ref": "http/validation"
+            },
+            {
+              "label": "serialization",
+              "ref": "backend/serialization"
+            }
           ]
         },
         {
@@ -410,14 +842,38 @@
           "priority": "KILLER",
           "description": "Основной framework для структурированного production backend на Node.js.",
           "items": [
-            "modules",
-            "controllers",
-            "providers",
-            "dependency injection",
-            "guards",
-            "pipes",
-            "interceptors",
-            "filters"
+            {
+              "label": "modules",
+              "ref": "js/modules"
+            },
+            {
+              "label": "controllers",
+              "ref": "js/controllers"
+            },
+            {
+              "label": "providers",
+              "ref": "js/providers"
+            },
+            {
+              "label": "dependency injection",
+              "ref": "js/dependency-injection"
+            },
+            {
+              "label": "guards",
+              "ref": "js/guards"
+            },
+            {
+              "label": "pipes",
+              "ref": "js/pipes"
+            },
+            {
+              "label": "interceptors",
+              "ref": "js/interceptors"
+            },
+            {
+              "label": "filters",
+              "ref": "js/filters"
+            }
           ]
         },
         {
@@ -426,12 +882,30 @@
           "priority": "KILLER",
           "description": "Разделение ответственности между слоями backend-приложения.",
           "items": [
-            "controller",
-            "service",
-            "repository",
-            "DTO",
-            "domain",
-            "dependency injection"
+            {
+              "label": "controller",
+              "ref": "backend/controller"
+            },
+            {
+              "label": "service",
+              "ref": "backend/service"
+            },
+            {
+              "label": "repository",
+              "ref": "backend/repository"
+            },
+            {
+              "label": "DTO",
+              "ref": "backend/dto"
+            },
+            {
+              "label": "domain",
+              "ref": "backend/domain"
+            },
+            {
+              "label": "dependency injection",
+              "ref": "js/dependency-injection"
+            }
           ]
         }
       ]
@@ -447,13 +921,34 @@
           "priority": "CORE",
           "description": "Абстракция работы с БД внутри TypeScript-приложения.",
           "items": [
-            "Prisma",
-            "Drizzle",
-            "TypeORM",
-            "schema",
-            "migrations",
-            "relations",
-            "transactions"
+            {
+              "label": "Prisma",
+              "ref": "backend/prisma"
+            },
+            {
+              "label": "Drizzle",
+              "ref": "backend/drizzle"
+            },
+            {
+              "label": "TypeORM",
+              "ref": "backend/typeorm"
+            },
+            {
+              "label": "schema",
+              "ref": "db/schema"
+            },
+            {
+              "label": "migrations",
+              "ref": "db/migrations"
+            },
+            {
+              "label": "relations",
+              "ref": "db/relations"
+            },
+            {
+              "label": "transactions",
+              "ref": "backend/transactions"
+            }
           ]
         },
         {
@@ -462,9 +957,18 @@
           "priority": "OPT",
           "description": "Гибкое построение сложных запросов без полного перехода на raw SQL.",
           "items": [
-            "joins",
-            "dynamic queries",
-            "aggregations"
+            {
+              "label": "joins",
+              "ref": "db/joins"
+            },
+            {
+              "label": "dynamic queries",
+              "ref": "backend/dynamic-queries"
+            },
+            {
+              "label": "aggregations",
+              "ref": "backend/aggregations"
+            }
           ]
         },
         {
@@ -473,11 +977,26 @@
           "priority": "KILLER",
           "description": "Паттерны доступа к данным и контроль типичных проблем.",
           "items": [
-            "repository",
-            "unit of work",
-            "transactions",
-            "N+1 problem",
-            "connection pooling"
+            {
+              "label": "repository",
+              "ref": "backend/repository"
+            },
+            {
+              "label": "unit of work",
+              "ref": "db/unit-of-work"
+            },
+            {
+              "label": "transactions",
+              "ref": "backend/transactions"
+            },
+            {
+              "label": "N+1 problem",
+              "ref": "db/n-1-problem"
+            },
+            {
+              "label": "connection pooling",
+              "ref": "db/connection-pooling"
+            }
           ]
         }
       ]
@@ -493,12 +1012,30 @@
           "priority": "KILLER",
           "description": "Идентификация пользователей и управление сессиями.",
           "items": [
-            "sessions",
-            "cookies",
-            "JWT",
-            "access tokens",
-            "refresh tokens",
-            "password hashing"
+            {
+              "label": "sessions",
+              "ref": "auth/sessions"
+            },
+            {
+              "label": "cookies",
+              "ref": "auth/cookies"
+            },
+            {
+              "label": "JWT",
+              "ref": "auth/jwt"
+            },
+            {
+              "label": "access tokens",
+              "ref": "auth/access-tokens"
+            },
+            {
+              "label": "refresh tokens",
+              "ref": "auth/refresh-tokens"
+            },
+            {
+              "label": "password hashing",
+              "ref": "auth/password-hashing"
+            }
           ]
         },
         {
@@ -507,10 +1044,22 @@
           "priority": "KILLER",
           "description": "Контроль того, кому и какие действия разрешены.",
           "items": [
-            "roles",
-            "permissions",
-            "RBAC",
-            "ABAC"
+            {
+              "label": "roles",
+              "ref": "security/roles"
+            },
+            {
+              "label": "permissions",
+              "ref": "security/permissions"
+            },
+            {
+              "label": "RBAC",
+              "ref": "security/rbac"
+            },
+            {
+              "label": "ABAC",
+              "ref": "security/abac"
+            }
           ]
         },
         {
@@ -519,12 +1068,30 @@
           "priority": "KILLER",
           "description": "Основные уязвимости и защита backend API.",
           "items": [
-            "XSS",
-            "CSRF",
-            "CORS",
-            "SQL injection",
-            "SSRF",
-            "path traversal"
+            {
+              "label": "XSS",
+              "ref": "security/xss"
+            },
+            {
+              "label": "CSRF",
+              "ref": "security/csrf"
+            },
+            {
+              "label": "CORS",
+              "ref": "http/cors"
+            },
+            {
+              "label": "SQL injection",
+              "ref": "security/sql-injection"
+            },
+            {
+              "label": "SSRF",
+              "ref": "security/ssrf"
+            },
+            {
+              "label": "path traversal",
+              "ref": "security/path-traversal"
+            }
           ]
         },
         {
@@ -533,12 +1100,30 @@
           "priority": "CORE",
           "description": "Безопасное хранение секретов и обработка пользовательского ввода.",
           "items": [
-            "secrets",
-            "encryption",
-            "hashing",
-            "secure headers",
-            "rate limiting",
-            "input validation"
+            {
+              "label": "secrets",
+              "ref": "security/secrets"
+            },
+            {
+              "label": "encryption",
+              "ref": "security/encryption"
+            },
+            {
+              "label": "hashing",
+              "ref": "security/hashing"
+            },
+            {
+              "label": "secure headers",
+              "ref": "security/secure-headers"
+            },
+            {
+              "label": "rate limiting",
+              "ref": "http/rate-limiting"
+            },
+            {
+              "label": "input validation",
+              "ref": "security/input-validation"
+            }
           ]
         },
         {
@@ -547,10 +1132,22 @@
           "priority": "OPT",
           "description": "Стандартные протоколы делегированной авторизации и identity.",
           "items": [
-            "authorization code",
-            "PKCE",
-            "scopes",
-            "ID token"
+            {
+              "label": "authorization code",
+              "ref": "security/authorization-code"
+            },
+            {
+              "label": "PKCE",
+              "ref": "security/pkce"
+            },
+            {
+              "label": "scopes",
+              "ref": "security/scopes"
+            },
+            {
+              "label": "ID token",
+              "ref": "auth/id-token"
+            }
           ]
         }
       ]
@@ -566,11 +1163,26 @@
           "priority": "KILLER",
           "description": "Ускорение чтения и снижение нагрузки на основную БД.",
           "items": [
-            "cache-aside",
-            "TTL",
-            "invalidation",
-            "cache stampede",
-            "cache warming"
+            {
+              "label": "cache-aside",
+              "ref": "cache/cache-aside"
+            },
+            {
+              "label": "TTL",
+              "ref": "cache/ttl"
+            },
+            {
+              "label": "invalidation",
+              "ref": "cache/invalidation"
+            },
+            {
+              "label": "cache stampede",
+              "ref": "cache/cache-stampede"
+            },
+            {
+              "label": "cache warming",
+              "ref": "cache/cache-warming"
+            }
           ]
         },
         {
@@ -579,11 +1191,26 @@
           "priority": "CORE",
           "description": "Высокопроизводительное in-memory хранилище и вспомогательная инфраструктура backend.",
           "items": [
-            "strings",
-            "hashes",
-            "sets",
-            "sorted sets",
-            "TTL"
+            {
+              "label": "strings",
+              "ref": "cache/strings"
+            },
+            {
+              "label": "hashes",
+              "ref": "cache/hashes"
+            },
+            {
+              "label": "sets",
+              "ref": "cache/sets"
+            },
+            {
+              "label": "sorted sets",
+              "ref": "cache/sorted-sets"
+            },
+            {
+              "label": "TTL",
+              "ref": "cache/ttl"
+            }
           ]
         },
         {
@@ -592,10 +1219,22 @@
           "priority": "OPT",
           "description": "Продвинутые сценарии использования Redis.",
           "items": [
-            "Pub/Sub",
-            "Streams",
-            "distributed locks",
-            "rate limiting"
+            {
+              "label": "Pub/Sub",
+              "ref": "cache/pub-sub"
+            },
+            {
+              "label": "Streams",
+              "ref": "http/streams"
+            },
+            {
+              "label": "distributed locks",
+              "ref": "cache/distributed-locks"
+            },
+            {
+              "label": "rate limiting",
+              "ref": "http/rate-limiting"
+            }
           ]
         }
       ]
@@ -611,11 +1250,26 @@
           "priority": "KILLER",
           "description": "Фоновая обработка задач и разгрузка synchronous request path.",
           "items": [
-            "jobs",
-            "retries",
-            "delays",
-            "dead letter queue",
-            "concurrency"
+            {
+              "label": "jobs",
+              "ref": "messaging/jobs"
+            },
+            {
+              "label": "retries",
+              "ref": "messaging/retries"
+            },
+            {
+              "label": "delays",
+              "ref": "messaging/delays"
+            },
+            {
+              "label": "dead letter queue",
+              "ref": "messaging/dead-letter-queue"
+            },
+            {
+              "label": "concurrency",
+              "ref": "messaging/concurrency"
+            }
           ]
         },
         {
@@ -624,10 +1278,22 @@
           "priority": "CORE",
           "description": "Асинхронное взаимодействие между сервисами и worker-процессами.",
           "items": [
-            "RabbitMQ",
-            "Kafka",
-            "producers",
-            "consumers"
+            {
+              "label": "RabbitMQ",
+              "ref": "messaging/rabbitmq"
+            },
+            {
+              "label": "Kafka",
+              "ref": "messaging/kafka"
+            },
+            {
+              "label": "producers",
+              "ref": "messaging/producers"
+            },
+            {
+              "label": "consumers",
+              "ref": "messaging/consumers"
+            }
           ]
         },
         {
@@ -636,11 +1302,26 @@
           "priority": "KILLER",
           "description": "Архитектура, построенная вокруг событий и асинхронного взаимодействия.",
           "items": [
-            "events",
-            "producers",
-            "consumers",
-            "delivery guarantees",
-            "idempotency"
+            {
+              "label": "events",
+              "ref": "node/events"
+            },
+            {
+              "label": "producers",
+              "ref": "messaging/producers"
+            },
+            {
+              "label": "consumers",
+              "ref": "messaging/consumers"
+            },
+            {
+              "label": "delivery guarantees",
+              "ref": "messaging/delivery-guarantees"
+            },
+            {
+              "label": "idempotency",
+              "ref": "http/idempotency"
+            }
           ]
         },
         {
@@ -649,11 +1330,26 @@
           "priority": "CORE",
           "description": "Глубокое понимание Kafka для высоконагруженных систем.",
           "items": [
-            "partitions",
-            "consumer groups",
-            "ordering",
-            "replay",
-            "delivery semantics"
+            {
+              "label": "partitions",
+              "ref": "messaging/partitions"
+            },
+            {
+              "label": "consumer groups",
+              "ref": "messaging/consumer-groups"
+            },
+            {
+              "label": "ordering",
+              "ref": "messaging/ordering"
+            },
+            {
+              "label": "replay",
+              "ref": "messaging/replay"
+            },
+            {
+              "label": "delivery semantics",
+              "ref": "messaging/delivery-semantics"
+            }
           ]
         }
       ]
@@ -669,11 +1365,26 @@
           "priority": "CORE",
           "description": "Изолированная проверка бизнес-логики.",
           "items": [
-            "Jest",
-            "Vitest",
-            "mocks",
-            "spies",
-            "fixtures"
+            {
+              "label": "Jest",
+              "ref": "testing/jest"
+            },
+            {
+              "label": "Vitest",
+              "ref": "testing/vitest"
+            },
+            {
+              "label": "mocks",
+              "ref": "testing/mocks"
+            },
+            {
+              "label": "spies",
+              "ref": "testing/spies"
+            },
+            {
+              "label": "fixtures",
+              "ref": "testing/fixtures"
+            }
           ]
         },
         {
@@ -682,10 +1393,22 @@
           "priority": "KILLER",
           "description": "Проверка взаимодействия кода с БД, API и другими компонентами.",
           "items": [
-            "database",
-            "repositories",
-            "API",
-            "Testcontainers"
+            {
+              "label": "database",
+              "ref": "testing/database"
+            },
+            {
+              "label": "repositories",
+              "ref": "testing/repositories"
+            },
+            {
+              "label": "API",
+              "ref": "testing/api"
+            },
+            {
+              "label": "Testcontainers",
+              "ref": "testing/testcontainers"
+            }
           ]
         },
         {
@@ -694,10 +1417,22 @@
           "priority": "CORE",
           "description": "Проверка backend-системы через реальные пользовательские сценарии.",
           "items": [
-            "HTTP flows",
-            "authentication",
-            "database state",
-            "realistic scenarios"
+            {
+              "label": "HTTP flows",
+              "ref": "backend/http-flows"
+            },
+            {
+              "label": "authentication",
+              "ref": "security/authentication"
+            },
+            {
+              "label": "database state",
+              "ref": "backend/database-state"
+            },
+            {
+              "label": "realistic scenarios",
+              "ref": "backend/realistic-scenarios"
+            }
           ]
         },
         {
@@ -706,10 +1441,22 @@
           "priority": "KILLER",
           "description": "Выбор правильного уровня тестов и поддержание их стабильности.",
           "items": [
-            "test pyramid",
-            "isolation",
-            "flaky tests",
-            "contract testing"
+            {
+              "label": "test pyramid",
+              "ref": "testing/test-pyramid"
+            },
+            {
+              "label": "isolation",
+              "ref": "testing/isolation"
+            },
+            {
+              "label": "flaky tests",
+              "ref": "testing/flaky-tests"
+            },
+            {
+              "label": "contract testing",
+              "ref": "testing/contract-testing"
+            }
           ]
         }
       ]
@@ -725,12 +1472,30 @@
           "priority": "CORE",
           "description": "ОС-основа большинства production backend-сред.",
           "items": [
-            "processes",
-            "permissions",
-            "filesystem",
-            "networking",
-            "signals",
-            "environment"
+            {
+              "label": "processes",
+              "ref": "devops/processes"
+            },
+            {
+              "label": "permissions",
+              "ref": "security/permissions"
+            },
+            {
+              "label": "filesystem",
+              "ref": "devops/filesystem"
+            },
+            {
+              "label": "networking",
+              "ref": "devops/networking"
+            },
+            {
+              "label": "signals",
+              "ref": "node/signals"
+            },
+            {
+              "label": "environment",
+              "ref": "node/environment"
+            }
           ]
         },
         {
@@ -739,12 +1504,30 @@
           "priority": "KILLER",
           "description": "Контейнеризация Node.js приложения и его окружения.",
           "items": [
-            "images",
-            "containers",
-            "volumes",
-            "networks",
-            "Dockerfile",
-            "multi-stage builds"
+            {
+              "label": "images",
+              "ref": "devops/images"
+            },
+            {
+              "label": "containers",
+              "ref": "devops/containers"
+            },
+            {
+              "label": "volumes",
+              "ref": "devops/volumes"
+            },
+            {
+              "label": "networks",
+              "ref": "devops/networks"
+            },
+            {
+              "label": "Dockerfile",
+              "ref": "devops/dockerfile"
+            },
+            {
+              "label": "multi-stage builds",
+              "ref": "devops/multi-stage-builds"
+            }
           ]
         },
         {
@@ -753,10 +1536,22 @@
           "priority": "CORE",
           "description": "Локальное и тестовое окружение из нескольких сервисов.",
           "items": [
-            "services",
-            "networks",
-            "volumes",
-            "environment"
+            {
+              "label": "services",
+              "ref": "devops/services"
+            },
+            {
+              "label": "networks",
+              "ref": "devops/networks"
+            },
+            {
+              "label": "volumes",
+              "ref": "devops/volumes"
+            },
+            {
+              "label": "environment",
+              "ref": "node/environment"
+            }
           ]
         },
         {
@@ -765,9 +1560,18 @@
           "priority": "OPT",
           "description": "Промежуточный слой перед backend-приложением.",
           "items": [
-            "Nginx",
-            "TLS",
-            "load balancing"
+            {
+              "label": "Nginx",
+              "ref": "backend/nginx"
+            },
+            {
+              "label": "TLS",
+              "ref": "backend/tls"
+            },
+            {
+              "label": "load balancing",
+              "ref": "system-design/load-balancing"
+            }
           ]
         }
       ]
@@ -783,9 +1587,18 @@
           "priority": "CORE",
           "description": "Диагностика поведения системы через структурированные логи.",
           "items": [
-            "structured logs",
-            "log levels",
-            "correlation IDs"
+            {
+              "label": "structured logs",
+              "ref": "observability/structured-logs"
+            },
+            {
+              "label": "log levels",
+              "ref": "observability/log-levels"
+            },
+            {
+              "label": "correlation IDs",
+              "ref": "observability/correlation-ids"
+            }
           ]
         },
         {
@@ -794,10 +1607,22 @@
           "priority": "CORE",
           "description": "Количественная оценка здоровья и производительности системы.",
           "items": [
-            "latency",
-            "throughput",
-            "error rate",
-            "saturation"
+            {
+              "label": "latency",
+              "ref": "observability/latency"
+            },
+            {
+              "label": "throughput",
+              "ref": "observability/throughput"
+            },
+            {
+              "label": "error rate",
+              "ref": "observability/error-rate"
+            },
+            {
+              "label": "saturation",
+              "ref": "observability/saturation"
+            }
           ]
         },
         {
@@ -806,9 +1631,18 @@
           "priority": "KILLER",
           "description": "Отслеживание запроса через несколько сервисов и компонентов.",
           "items": [
-            "spans",
-            "traces",
-            "context propagation"
+            {
+              "label": "spans",
+              "ref": "observability/spans"
+            },
+            {
+              "label": "traces",
+              "ref": "observability/traces"
+            },
+            {
+              "label": "context propagation",
+              "ref": "observability/context-propagation"
+            }
           ]
         },
         {
@@ -817,9 +1651,18 @@
           "priority": "OPT",
           "description": "Стандартная инструментализация backend для telemetry.",
           "items": [
-            "traces",
-            "metrics",
-            "instrumentation"
+            {
+              "label": "traces",
+              "ref": "observability/traces"
+            },
+            {
+              "label": "metrics",
+              "ref": "backend/metrics"
+            },
+            {
+              "label": "instrumentation",
+              "ref": "backend/instrumentation"
+            }
           ]
         }
       ]
@@ -835,9 +1678,18 @@
           "priority": "CORE",
           "description": "Границы слоёв и направление зависимостей в приложении.",
           "items": [
-            "layers",
-            "dependencies",
-            "boundaries"
+            {
+              "label": "layers",
+              "ref": "architecture/layers"
+            },
+            {
+              "label": "dependencies",
+              "ref": "architecture/dependencies"
+            },
+            {
+              "label": "boundaries",
+              "ref": "architecture/boundaries"
+            }
           ]
         },
         {
@@ -846,11 +1698,26 @@
           "priority": "CORE",
           "description": "Принципы поддерживаемого объектно-ориентированного кода.",
           "items": [
-            "SRP",
-            "OCP",
-            "LSP",
-            "ISP",
-            "DIP"
+            {
+              "label": "SRP",
+              "ref": "architecture/srp"
+            },
+            {
+              "label": "OCP",
+              "ref": "architecture/ocp"
+            },
+            {
+              "label": "LSP",
+              "ref": "architecture/lsp"
+            },
+            {
+              "label": "ISP",
+              "ref": "architecture/isp"
+            },
+            {
+              "label": "DIP",
+              "ref": "architecture/dip"
+            }
           ]
         },
         {
@@ -859,11 +1726,26 @@
           "priority": "OPT",
           "description": "Классические решения повторяющихся архитектурных задач.",
           "items": [
-            "factory",
-            "adapter",
-            "strategy",
-            "facade",
-            "observer"
+            {
+              "label": "factory",
+              "ref": "backend/factory"
+            },
+            {
+              "label": "adapter",
+              "ref": "backend/adapter"
+            },
+            {
+              "label": "strategy",
+              "ref": "backend/strategy"
+            },
+            {
+              "label": "facade",
+              "ref": "backend/facade"
+            },
+            {
+              "label": "observer",
+              "ref": "backend/observer"
+            }
           ]
         },
         {
@@ -872,12 +1754,30 @@
           "priority": "KILLER",
           "description": "Моделирование сложной бизнес-логики вокруг предметной области.",
           "items": [
-            "domain",
-            "entity",
-            "value object",
-            "aggregate",
-            "repository",
-            "bounded context"
+            {
+              "label": "domain",
+              "ref": "backend/domain"
+            },
+            {
+              "label": "entity",
+              "ref": "architecture/entity"
+            },
+            {
+              "label": "value object",
+              "ref": "architecture/value-object"
+            },
+            {
+              "label": "aggregate",
+              "ref": "architecture/aggregate"
+            },
+            {
+              "label": "repository",
+              "ref": "backend/repository"
+            },
+            {
+              "label": "bounded context",
+              "ref": "architecture/bounded-context"
+            }
           ]
         }
       ]
@@ -893,11 +1793,26 @@
           "priority": "KILLER",
           "description": "Когда монолит стоит делить и по каким границам.",
           "items": [
-            "monolith vs microservices",
-            "bounded context",
-            "service boundaries",
-            "granularity",
-            "trade-offs"
+            {
+              "label": "monolith vs microservices",
+              "ref": "microservices/monolith-vs-microservices"
+            },
+            {
+              "label": "bounded context",
+              "ref": "architecture/bounded-context"
+            },
+            {
+              "label": "service boundaries",
+              "ref": "microservices/service-boundaries"
+            },
+            {
+              "label": "granularity",
+              "ref": "microservices/granularity"
+            },
+            {
+              "label": "trade-offs",
+              "ref": "microservices/trade-offs"
+            }
           ]
         },
         {
@@ -906,12 +1821,30 @@
           "priority": "KILLER",
           "description": "Синхронные и асинхронные способы общения между сервисами.",
           "items": [
-            "sync vs async",
-            "REST",
-            "gRPC",
-            "message-based",
-            "contracts",
-            "versioning"
+            {
+              "label": "sync vs async",
+              "ref": "js/sync-vs-async"
+            },
+            {
+              "label": "REST",
+              "ref": "microservices/rest"
+            },
+            {
+              "label": "gRPC",
+              "ref": "microservices/grpc"
+            },
+            {
+              "label": "message-based",
+              "ref": "microservices/message-based"
+            },
+            {
+              "label": "contracts",
+              "ref": "microservices/contracts"
+            },
+            {
+              "label": "versioning",
+              "ref": "http/versioning"
+            }
           ]
         },
         {
@@ -920,11 +1853,26 @@
           "priority": "CORE",
           "description": "Единая точка входа для клиентов и агрегация вызовов.",
           "items": [
-            "routing",
-            "aggregation",
-            "auth",
-            "rate limiting",
-            "BFF"
+            {
+              "label": "routing",
+              "ref": "http/routing"
+            },
+            {
+              "label": "aggregation",
+              "ref": "http/aggregation"
+            },
+            {
+              "label": "auth",
+              "ref": "http/auth"
+            },
+            {
+              "label": "rate limiting",
+              "ref": "http/rate-limiting"
+            },
+            {
+              "label": "BFF",
+              "ref": "http/bff"
+            }
           ]
         },
         {
@@ -933,11 +1881,26 @@
           "priority": "KILLER",
           "description": "Согласованность бизнес-операции, растянутой на несколько сервисов.",
           "items": [
-            "choreography",
-            "orchestration",
-            "compensation",
-            "2PC vs saga",
-            "eventual consistency"
+            {
+              "label": "choreography",
+              "ref": "microservices/choreography"
+            },
+            {
+              "label": "orchestration",
+              "ref": "microservices/orchestration"
+            },
+            {
+              "label": "compensation",
+              "ref": "microservices/compensation"
+            },
+            {
+              "label": "2PC vs saga",
+              "ref": "microservices/2pc-vs-saga"
+            },
+            {
+              "label": "eventual consistency",
+              "ref": "microservices/eventual-consistency"
+            }
           ]
         },
         {
@@ -946,11 +1909,26 @@
           "priority": "KILLER",
           "description": "Надёжная публикация событий и защита от дублей при повторах.",
           "items": [
-            "transactional outbox",
-            "at-least-once",
-            "dedup keys",
-            "idempotency key",
-            "retries"
+            {
+              "label": "transactional outbox",
+              "ref": "microservices/transactional-outbox"
+            },
+            {
+              "label": "at-least-once",
+              "ref": "css/at-least-once"
+            },
+            {
+              "label": "dedup keys",
+              "ref": "css/dedup-keys"
+            },
+            {
+              "label": "idempotency key",
+              "ref": "microservices/idempotency-key"
+            },
+            {
+              "label": "retries",
+              "ref": "messaging/retries"
+            }
           ]
         },
         {
@@ -959,11 +1937,26 @@
           "priority": "KILLER",
           "description": "Как сервис выживает при отказах соседей и сети.",
           "items": [
-            "circuit breaker",
-            "retry with backoff",
-            "timeout",
-            "bulkhead",
-            "fallback"
+            {
+              "label": "circuit breaker",
+              "ref": "microservices/circuit-breaker"
+            },
+            {
+              "label": "retry with backoff",
+              "ref": "microservices/retry-with-backoff"
+            },
+            {
+              "label": "timeout",
+              "ref": "microservices/timeout"
+            },
+            {
+              "label": "bulkhead",
+              "ref": "microservices/bulkhead"
+            },
+            {
+              "label": "fallback",
+              "ref": "microservices/fallback"
+            }
           ]
         },
         {
@@ -972,11 +1965,26 @@
           "priority": "OPT",
           "description": "Разделение чтения и записи, состояние как поток событий.",
           "items": [
-            "command/query split",
-            "projections",
-            "event store",
-            "replay",
-            "read models"
+            {
+              "label": "command/query split",
+              "ref": "backend/command-query-split"
+            },
+            {
+              "label": "projections",
+              "ref": "backend/projections"
+            },
+            {
+              "label": "event store",
+              "ref": "backend/event-store"
+            },
+            {
+              "label": "replay",
+              "ref": "messaging/replay"
+            },
+            {
+              "label": "read models",
+              "ref": "backend/read-models"
+            }
           ]
         },
         {
@@ -985,11 +1993,26 @@
           "priority": "OPT",
           "description": "Как сервисы находят друг друга и получают настройки.",
           "items": [
-            "service registry",
-            "DNS",
-            "health checks",
-            "config service",
-            "secrets"
+            {
+              "label": "service registry",
+              "ref": "backend/service-registry"
+            },
+            {
+              "label": "DNS",
+              "ref": "backend/dns"
+            },
+            {
+              "label": "health checks",
+              "ref": "backend/health-checks"
+            },
+            {
+              "label": "config service",
+              "ref": "backend/config-service"
+            },
+            {
+              "label": "secrets",
+              "ref": "security/secrets"
+            }
           ]
         },
         {
@@ -998,11 +2021,26 @@
           "priority": "OPT",
           "description": "Инфраструктурный слой для трафика между сервисами.",
           "items": [
-            "sidecar",
-            "Istio",
-            "Linkerd",
-            "mTLS",
-            "traffic policies"
+            {
+              "label": "sidecar",
+              "ref": "backend/sidecar"
+            },
+            {
+              "label": "Istio",
+              "ref": "backend/istio"
+            },
+            {
+              "label": "Linkerd",
+              "ref": "backend/linkerd"
+            },
+            {
+              "label": "mTLS",
+              "ref": "backend/mtls"
+            },
+            {
+              "label": "traffic policies",
+              "ref": "backend/traffic-policies"
+            }
           ]
         }
       ]
@@ -1018,10 +2056,22 @@
           "priority": "CORE",
           "description": "Определение границ и требований системы до выбора технологий.",
           "items": [
-            "functional requirements",
-            "non-functional requirements",
-            "constraints",
-            "trade-offs"
+            {
+              "label": "functional requirements",
+              "ref": "system-design/functional-requirements"
+            },
+            {
+              "label": "non-functional requirements",
+              "ref": "system-design/non-functional-requirements"
+            },
+            {
+              "label": "constraints",
+              "ref": "ts/generics-constraints"
+            },
+            {
+              "label": "trade-offs",
+              "ref": "microservices/trade-offs"
+            }
           ]
         },
         {
@@ -1030,11 +2080,26 @@
           "priority": "KILLER",
           "description": "Оценка нагрузки, ресурсов и роста системы.",
           "items": [
-            "RPS",
-            "traffic",
-            "storage",
-            "bandwidth",
-            "growth"
+            {
+              "label": "RPS",
+              "ref": "system-design/rps"
+            },
+            {
+              "label": "traffic",
+              "ref": "system-design/traffic"
+            },
+            {
+              "label": "storage",
+              "ref": "system-design/storage"
+            },
+            {
+              "label": "bandwidth",
+              "ref": "system-design/bandwidth"
+            },
+            {
+              "label": "growth",
+              "ref": "system-design/growth"
+            }
           ]
         },
         {
@@ -1043,10 +2108,22 @@
           "priority": "KILLER",
           "description": "Масштабирование сервисов по мере роста нагрузки.",
           "items": [
-            "vertical scaling",
-            "horizontal scaling",
-            "stateless services",
-            "load balancing"
+            {
+              "label": "vertical scaling",
+              "ref": "system-design/vertical-scaling"
+            },
+            {
+              "label": "horizontal scaling",
+              "ref": "system-design/horizontal-scaling"
+            },
+            {
+              "label": "stateless services",
+              "ref": "system-design/stateless-services"
+            },
+            {
+              "label": "load balancing",
+              "ref": "system-design/load-balancing"
+            }
           ]
         },
         {
@@ -1055,11 +2132,26 @@
           "priority": "KILLER",
           "description": "Основы построения систем из нескольких независимых компонентов.",
           "items": [
-            "consistency",
-            "availability",
-            "partition tolerance",
-            "replication",
-            "leader/follower"
+            {
+              "label": "consistency",
+              "ref": "system-design/consistency"
+            },
+            {
+              "label": "availability",
+              "ref": "system-design/availability"
+            },
+            {
+              "label": "partition tolerance",
+              "ref": "system-design/partition-tolerance"
+            },
+            {
+              "label": "replication",
+              "ref": "system-design/replication"
+            },
+            {
+              "label": "leader/follower",
+              "ref": "system-design/leader-follower"
+            }
           ]
         },
         {
@@ -1068,10 +2160,22 @@
           "priority": "CORE",
           "description": "Кэширование на разных уровнях архитектуры.",
           "items": [
-            "CDN",
-            "application cache",
-            "database cache",
-            "invalidation"
+            {
+              "label": "CDN",
+              "ref": "cache/cdn"
+            },
+            {
+              "label": "application cache",
+              "ref": "cache/application-cache"
+            },
+            {
+              "label": "database cache",
+              "ref": "cache/database-cache"
+            },
+            {
+              "label": "invalidation",
+              "ref": "cache/invalidation"
+            }
           ]
         },
         {
@@ -1080,10 +2184,22 @@
           "priority": "KILLER",
           "description": "Масштабирование хранения и чтения данных.",
           "items": [
-            "replication",
-            "partitioning",
-            "sharding",
-            "read replicas"
+            {
+              "label": "replication",
+              "ref": "system-design/replication"
+            },
+            {
+              "label": "partitioning",
+              "ref": "system-design/partitioning"
+            },
+            {
+              "label": "sharding",
+              "ref": "system-design/sharding"
+            },
+            {
+              "label": "read replicas",
+              "ref": "backend/read-replicas"
+            }
           ]
         },
         {
@@ -1092,11 +2208,26 @@
           "priority": "KILLER",
           "description": "Поведение системы при сбоях и временной недоступности зависимостей.",
           "items": [
-            "retries",
-            "timeouts",
-            "circuit breakers",
-            "idempotency",
-            "graceful degradation"
+            {
+              "label": "retries",
+              "ref": "messaging/retries"
+            },
+            {
+              "label": "timeouts",
+              "ref": "system-design/timeouts"
+            },
+            {
+              "label": "circuit breakers",
+              "ref": "system-design/circuit-breakers"
+            },
+            {
+              "label": "idempotency",
+              "ref": "http/idempotency"
+            },
+            {
+              "label": "graceful degradation",
+              "ref": "system-design/graceful-degradation"
+            }
           ]
         },
         {
@@ -1105,12 +2236,30 @@
           "priority": "KILLER",
           "description": "Практика проектирования реальных распределённых систем.",
           "items": [
-            "URL shortener",
-            "chat",
-            "notification service",
-            "file storage",
-            "news feed",
-            "payment service"
+            {
+              "label": "URL shortener",
+              "ref": "system-design/url-shortener"
+            },
+            {
+              "label": "chat",
+              "ref": "system-design/chat"
+            },
+            {
+              "label": "notification service",
+              "ref": "system-design/notification-service"
+            },
+            {
+              "label": "file storage",
+              "ref": "system-design/file-storage"
+            },
+            {
+              "label": "news feed",
+              "ref": "system-design/news-feed"
+            },
+            {
+              "label": "payment service",
+              "ref": "system-design/payment-service"
+            }
           ]
         }
       ]
@@ -1126,10 +2275,22 @@
           "priority": "CORE",
           "description": "Базовые строительные блоки cloud-инфраструктуры.",
           "items": [
-            "compute",
-            "storage",
-            "networking",
-            "IAM"
+            {
+              "label": "compute",
+              "ref": "devops/compute"
+            },
+            {
+              "label": "storage",
+              "ref": "system-design/storage"
+            },
+            {
+              "label": "networking",
+              "ref": "devops/networking"
+            },
+            {
+              "label": "IAM",
+              "ref": "devops/iam"
+            }
           ]
         },
         {
@@ -1138,12 +2299,30 @@
           "priority": "CORE",
           "description": "Практический cloud stack для production backend.",
           "items": [
-            "EC2",
-            "S3",
-            "RDS",
-            "ElastiCache",
-            "SQS",
-            "CloudWatch"
+            {
+              "label": "EC2",
+              "ref": "devops/ec2"
+            },
+            {
+              "label": "S3",
+              "ref": "devops/s3"
+            },
+            {
+              "label": "RDS",
+              "ref": "devops/rds"
+            },
+            {
+              "label": "ElastiCache",
+              "ref": "devops/elasticache"
+            },
+            {
+              "label": "SQS",
+              "ref": "devops/sqs"
+            },
+            {
+              "label": "CloudWatch",
+              "ref": "devops/cloudwatch"
+            }
           ]
         },
         {
@@ -1152,11 +2331,26 @@
           "priority": "KILLER",
           "description": "Автоматическая проверка, сборка и доставка backend-приложения.",
           "items": [
-            "GitHub Actions",
-            "build",
-            "test",
-            "deploy",
-            "rollback"
+            {
+              "label": "GitHub Actions",
+              "ref": "devops/github-actions"
+            },
+            {
+              "label": "build",
+              "ref": "devops/build"
+            },
+            {
+              "label": "test",
+              "ref": "devops/test"
+            },
+            {
+              "label": "deploy",
+              "ref": "devops/deploy"
+            },
+            {
+              "label": "rollback",
+              "ref": "db/rollback"
+            }
           ]
         },
         {
@@ -1165,13 +2359,34 @@
           "priority": "CORE",
           "description": "Оркестрация контейнеров и запуск сервисов в production.",
           "items": [
-            "pods",
-            "deployments",
-            "services",
-            "ingress",
-            "ConfigMap/Secret",
-            "probes",
-            "autoscaling"
+            {
+              "label": "pods",
+              "ref": "devops/pods"
+            },
+            {
+              "label": "deployments",
+              "ref": "devops/deployments"
+            },
+            {
+              "label": "services",
+              "ref": "devops/services"
+            },
+            {
+              "label": "ingress",
+              "ref": "devops/ingress"
+            },
+            {
+              "label": "ConfigMap/Secret",
+              "ref": "security/configmap-secret"
+            },
+            {
+              "label": "probes",
+              "ref": "devops/probes"
+            },
+            {
+              "label": "autoscaling",
+              "ref": "devops/autoscaling"
+            }
           ]
         },
         {
@@ -1180,11 +2395,26 @@
           "priority": "OPT",
           "description": "Обновления, лимиты и разбор проблем в кластере.",
           "items": [
-            "rolling update",
-            "resource limits",
-            "HPA",
-            "logs & debug",
-            "Helm"
+            {
+              "label": "rolling update",
+              "ref": "devops/rolling-update"
+            },
+            {
+              "label": "resource limits",
+              "ref": "devops/resource-limits"
+            },
+            {
+              "label": "HPA",
+              "ref": "devops/hpa"
+            },
+            {
+              "label": "logs & debug",
+              "ref": "devops/logs-and-debug"
+            },
+            {
+              "label": "Helm",
+              "ref": "devops/helm"
+            }
           ]
         },
         {
@@ -1193,9 +2423,18 @@
           "priority": "OPT",
           "description": "Описание инфраструктуры в виде кода.",
           "items": [
-            "Terraform",
-            "state",
-            "modules"
+            {
+              "label": "Terraform",
+              "ref": "css/terraform"
+            },
+            {
+              "label": "state",
+              "ref": "css/state"
+            },
+            {
+              "label": "modules",
+              "ref": "js/modules"
+            }
           ]
         }
       ]

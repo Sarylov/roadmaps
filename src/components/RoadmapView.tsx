@@ -9,6 +9,7 @@ interface RoadmapViewProps {
   compact?: boolean
   priorities: Set<Priority>
   anchorPrefix?: string
+  onOpenItem?: (ref: string) => void
 }
 
 export function RoadmapView({
@@ -17,6 +18,7 @@ export function RoadmapView({
   compact = false,
   priorities,
   anchorPrefix = 'roadmap',
+  onOpenItem,
 }: RoadmapViewProps) {
   const filteredLevels = useMemo(
     () =>
@@ -46,18 +48,22 @@ export function RoadmapView({
   return (
     <div>
       <header className="mb-8">
-        <h1 className="text-2xl font-bold text-[#3f3a3a] mb-2 tracking-tight">{roadmap.title}</h1>
-        <p className="text-sm text-[#7a7168] max-w-3xl leading-relaxed mb-4">{roadmap.description}</p>
+        <h1 className="text-2xl font-bold text-[var(--fg-strong)] mb-2 tracking-tight">
+          {roadmap.title}
+        </h1>
+        <p className="text-sm text-[var(--fg-muted)] max-w-3xl leading-relaxed mb-4">
+          {roadmap.description}
+        </p>
 
-        <div className="flex flex-wrap items-center gap-1 text-xs text-[#9a9188]">
-          <span className="rounded-full bg-white/70 border border-[#e8e1da] px-2.5 py-1">
+        <div className="flex flex-wrap items-center gap-1 text-xs text-[var(--fg-subtle)]">
+          <span className="rounded-full bg-[var(--surface)] border border-[var(--border)] px-2.5 py-1">
             {stats.levels} уровней
           </span>
-          <span className="rounded-full bg-white/70 border border-[#e8e1da] px-2.5 py-1">
+          <span className="rounded-full bg-[var(--surface)] border border-[var(--border)] px-2.5 py-1">
             {stats.topics} тем
           </span>
           {roadmap.stack && (
-            <span className="text-[#b0a79e]">
+            <span className="text-[var(--fg-faint)]">
               {Object.entries(roadmap.stack)
                 .map(([, v]) => v)
                 .join(' · ')}
@@ -66,7 +72,7 @@ export function RoadmapView({
         </div>
 
         <div
-          className="flex h-3 mt-5 rounded-full overflow-hidden gap-0.5 bg-white/50 p-0.5"
+          className="flex h-3 mt-5 rounded-full overflow-hidden gap-0.5 bg-[var(--surface)] p-0.5"
           role="navigation"
           aria-label="Уровни roadmap"
         >
@@ -78,7 +84,7 @@ export function RoadmapView({
               aria-label={`${l.title}, ${l.topics.length} тем`}
               onClick={() => scrollToLevel(l.id)}
               style={{ flexGrow: l.topics.length, flexBasis: 0 }}
-              className={`min-w-1 h-full rounded-full cursor-pointer transition-opacity hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#5c534c] ${getLevelColor(l.level).accent}`}
+              className={`min-w-1 h-full rounded-full cursor-pointer transition-opacity hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--accent)] ${getLevelColor(l.level).accent}`}
             />
           ))}
         </div>
@@ -92,6 +98,7 @@ export function RoadmapView({
             forceCollapsed={forceCollapsed}
             compact={compact}
             anchorId={levelAnchor(level.id)}
+            onOpenItem={onOpenItem}
           />
         ))}
       </div>

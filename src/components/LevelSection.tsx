@@ -8,6 +8,7 @@ interface LevelSectionProps {
   forceCollapsed?: boolean
   compact?: boolean
   anchorId?: string
+  onOpenItem?: (ref: string) => void
 }
 
 export function LevelSection({
@@ -15,6 +16,7 @@ export function LevelSection({
   forceCollapsed = false,
   compact = false,
   anchorId,
+  onOpenItem,
 }: LevelSectionProps) {
   const [collapsedTopics, setCollapsedTopics] = useState<Record<string, boolean>>({})
   const colors = getLevelColor(level.level)
@@ -54,13 +56,13 @@ export function LevelSection({
           {level.level}
         </div>
         <div className="flex-1 min-w-0">
-          <h2 className="text-base font-semibold text-[#4a433e] truncate">{level.title}</h2>
-          <p className="text-xs text-[#9a9188]">{level.topics.length} тем</p>
+          <h2 className="text-base font-semibold text-[var(--fg)] truncate">{level.title}</h2>
+          <p className="text-xs text-[var(--fg-subtle)]">{level.topics.length} тем</p>
         </div>
         <button
           type="button"
           onClick={toggleLevelTopics}
-          className="cursor-pointer text-xs text-[#9a9188] hover:text-[#5c534c] shrink-0"
+          className="cursor-pointer text-xs text-[var(--fg-subtle)] hover:text-[var(--accent)] shrink-0"
         >
           {allTopicsCollapsed ? 'Развернуть уровень' : 'Свернуть уровень'}
         </button>
@@ -78,6 +80,7 @@ export function LevelSection({
             level={level.level}
             collapsed={!!collapsedTopics[topic.id]}
             onToggle={() => toggleTopic(topic.id)}
+            onOpenItem={onOpenItem}
           />
         ))}
       </div>

@@ -22,10 +22,22 @@
           "priority": "CORE",
           "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
           "items": [
-            "HTML5",
-            "cascade",
-            "box model",
-            "responsive"
+            {
+              "label": "HTML5",
+              "ref": "css/html5"
+            },
+            {
+              "label": "cascade",
+              "ref": "css/cascade"
+            },
+            {
+              "label": "box model",
+              "ref": "css/box-model"
+            },
+            {
+              "label": "responsive",
+              "ref": "css/responsive"
+            }
           ]
         },
         {
@@ -34,10 +46,22 @@
           "priority": "CORE",
           "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
           "items": [
-            "flex",
-            "grid",
-            "alignment",
-            "layout"
+            {
+              "label": "flex",
+              "ref": "css/flex"
+            },
+            {
+              "label": "grid",
+              "ref": "css/grid"
+            },
+            {
+              "label": "alignment",
+              "ref": "css/alignment"
+            },
+            {
+              "label": "layout",
+              "ref": "css/layout"
+            }
           ]
         },
         {
@@ -46,9 +70,18 @@
           "priority": "CORE",
           "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
           "items": [
-            "landmarks",
-            "headings",
-            "ARIA"
+            {
+              "label": "landmarks",
+              "ref": "css/landmarks"
+            },
+            {
+              "label": "headings",
+              "ref": "css/headings"
+            },
+            {
+              "label": "ARIA",
+              "ref": "css/aria"
+            }
           ]
         },
         {
@@ -57,9 +90,18 @@
           "priority": "CORE",
           "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
           "items": [
-            "labels",
-            "validation",
-            "autocomplete"
+            {
+              "label": "labels",
+              "ref": "css/labels"
+            },
+            {
+              "label": "validation",
+              "ref": "http/validation"
+            },
+            {
+              "label": "autocomplete",
+              "ref": "css/autocomplete"
+            }
           ]
         },
         {
@@ -68,9 +110,18 @@
           "priority": "CORE",
           "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
           "items": [
-            "keyboard",
-            "focus",
-            "screen readers"
+            {
+              "label": "keyboard",
+              "ref": "css/keyboard"
+            },
+            {
+              "label": "focus",
+              "ref": "css/focus"
+            },
+            {
+              "label": "screen readers",
+              "ref": "css/screen-readers"
+            }
           ]
         },
         {
@@ -79,9 +130,18 @@
           "priority": "OPT",
           "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
           "items": [
-            "stacking",
-            "z-index",
-            "containing block"
+            {
+              "label": "stacking",
+              "ref": "css/stacking"
+            },
+            {
+              "label": "z-index",
+              "ref": "css/z-index"
+            },
+            {
+              "label": "containing block",
+              "ref": "css/containing-block"
+            }
           ]
         },
         {
@@ -90,9 +150,18 @@
           "priority": "OPT",
           "description": "Каркас интерфейса: семантика, раскладка, формы и доступность.",
           "items": [
-            "transform",
-            "opacity",
-            "reduced motion"
+            {
+              "label": "transform",
+              "ref": "node/transform"
+            },
+            {
+              "label": "opacity",
+              "ref": "css/opacity"
+            },
+            {
+              "label": "reduced motion",
+              "ref": "css/reduced-motion"
+            }
           ]
         }
       ]
@@ -108,9 +177,18 @@
           "priority": "CORE",
           "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
           "items": [
-            "primitives",
-            "coercion",
-            "equality"
+            {
+              "label": "primitives",
+              "ref": "frontend/primitives"
+            },
+            {
+              "label": "coercion",
+              "ref": "js/coercion"
+            },
+            {
+              "label": "equality",
+              "ref": "js/equality"
+            }
           ]
         },
         {
@@ -119,9 +197,18 @@
           "priority": "CORE",
           "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
           "items": [
-            "this",
-            "closure",
-            "bind/call/apply"
+            {
+              "label": "this",
+              "ref": "js/this"
+            },
+            {
+              "label": "closure",
+              "ref": "js/closures"
+            },
+            {
+              "label": "bind/call/apply",
+              "ref": "js/bind-call-apply"
+            }
           ]
         },
         {
@@ -130,9 +217,18 @@
           "priority": "CORE",
           "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
           "items": [
-            "descriptors",
-            "copy",
-            "mutation"
+            {
+              "label": "descriptors",
+              "ref": "frontend/descriptors"
+            },
+            {
+              "label": "copy",
+              "ref": "frontend/copy"
+            },
+            {
+              "label": "mutation",
+              "ref": "frontend/mutation"
+            }
           ]
         },
         {
@@ -141,9 +237,18 @@
           "priority": "KILLER",
           "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
           "items": [
-            "prototype chain",
-            "new",
-            "inheritance"
+            {
+              "label": "prototype chain",
+              "ref": "js/prototypes"
+            },
+            {
+              "label": "new",
+              "ref": "js/new"
+            },
+            {
+              "label": "inheritance",
+              "ref": "js/inheritance"
+            }
           ]
         },
         {
@@ -152,9 +257,18 @@
           "priority": "OPT",
           "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
           "items": [
-            "class syntax",
-            "private fields",
-            "extends"
+            {
+              "label": "class syntax",
+              "ref": "frontend/class-syntax"
+            },
+            {
+              "label": "private fields",
+              "ref": "frontend/private-fields"
+            },
+            {
+              "label": "extends",
+              "ref": "frontend/extends"
+            }
           ]
         },
         {
@@ -163,9 +277,18 @@
           "priority": "CORE",
           "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
           "items": [
-            "map/reduce",
-            "iterables",
-            "sets/maps"
+            {
+              "label": "map/reduce",
+              "ref": "frontend/map-reduce"
+            },
+            {
+              "label": "iterables",
+              "ref": "js/iterables"
+            },
+            {
+              "label": "sets/maps",
+              "ref": "frontend/sets-maps"
+            }
           ]
         },
         {
@@ -174,9 +297,18 @@
           "priority": "CORE",
           "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
           "items": [
-            "events",
-            "delegation",
-            "layout reads"
+            {
+              "label": "events",
+              "ref": "node/events"
+            },
+            {
+              "label": "delegation",
+              "ref": "js/delegation"
+            },
+            {
+              "label": "layout reads",
+              "ref": "js/layout-reads"
+            }
           ]
         },
         {
@@ -185,9 +317,18 @@
           "priority": "KILLER",
           "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
           "items": [
-            "microtasks",
-            "macrotasks",
-            "render tick"
+            {
+              "label": "microtasks",
+              "ref": "js/event-loop-microtasks"
+            },
+            {
+              "label": "macrotasks",
+              "ref": "js/event-loop-macrotasks"
+            },
+            {
+              "label": "render tick",
+              "ref": "js/render-tick"
+            }
           ]
         },
         {
@@ -196,9 +337,18 @@
           "priority": "CORE",
           "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
           "items": [
-            "then/catch",
-            "async/await",
-            "errors"
+            {
+              "label": "then/catch",
+              "ref": "js/promise"
+            },
+            {
+              "label": "async/await",
+              "ref": "js/async-await"
+            },
+            {
+              "label": "errors",
+              "ref": "js/errors"
+            }
           ]
         },
         {
@@ -207,9 +357,18 @@
           "priority": "OPT",
           "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
           "items": [
-            "immutability",
-            "compose",
-            "custom methods"
+            {
+              "label": "immutability",
+              "ref": "js/immutability"
+            },
+            {
+              "label": "compose",
+              "ref": "js/compose"
+            },
+            {
+              "label": "custom methods",
+              "ref": "js/custom-methods"
+            }
           ]
         },
         {
@@ -218,9 +377,18 @@
           "priority": "OPT",
           "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
           "items": [
-            "ESM",
-            "tree-shaking",
-            "dynamic import"
+            {
+              "label": "ESM",
+              "ref": "node/esm"
+            },
+            {
+              "label": "tree-shaking",
+              "ref": "node/tree-shaking"
+            },
+            {
+              "label": "dynamic import",
+              "ref": "node/dynamic-import"
+            }
           ]
         },
         {
@@ -229,9 +397,18 @@
           "priority": "OPT",
           "description": "Язык, runtime и асинхронность, на которых держится весь фронт.",
           "items": [
-            "reachability",
-            "leaks",
-            "WeakMap"
+            {
+              "label": "reachability",
+              "ref": "js/reachability"
+            },
+            {
+              "label": "leaks",
+              "ref": "js/leaks"
+            },
+            {
+              "label": "WeakMap",
+              "ref": "js/weakmap"
+            }
           ]
         }
       ]
@@ -247,9 +424,18 @@
           "priority": "CORE",
           "description": "Типовая модель приложения и контрактов между слоями.",
           "items": [
-            "interfaces",
-            "unions",
-            "narrowing"
+            {
+              "label": "interfaces",
+              "ref": "ts/interfaces"
+            },
+            {
+              "label": "unions",
+              "ref": "ts/unions"
+            },
+            {
+              "label": "narrowing",
+              "ref": "ts/narrowing"
+            }
           ]
         },
         {
@@ -258,9 +444,18 @@
           "priority": "OPT",
           "description": "Типовая модель приложения и контрактов между слоями.",
           "items": [
-            "conditional",
-            "mapped",
-            "infer"
+            {
+              "label": "conditional",
+              "ref": "ts/conditional"
+            },
+            {
+              "label": "mapped",
+              "ref": "ts/mapped"
+            },
+            {
+              "label": "infer",
+              "ref": "ts/infer"
+            }
           ]
         },
         {
@@ -269,9 +464,18 @@
           "priority": "KILLER",
           "description": "Типовая модель приложения и контрактов между слоями.",
           "items": [
-            "constraints",
-            "variance",
-            "API design"
+            {
+              "label": "constraints",
+              "ref": "ts/generics-constraints"
+            },
+            {
+              "label": "variance",
+              "ref": "ts/variance"
+            },
+            {
+              "label": "API design",
+              "ref": "ts/api-design"
+            }
           ]
         },
         {
@@ -280,9 +484,18 @@
           "priority": "OPT",
           "description": "Типовая модель приложения и контрактов между слоями.",
           "items": [
-            "Pick/Omit",
-            "Record",
-            "ReturnType"
+            {
+              "label": "Pick/Omit",
+              "ref": "ts/pick-omit"
+            },
+            {
+              "label": "Record",
+              "ref": "ts/record"
+            },
+            {
+              "label": "ReturnType",
+              "ref": "ts/return-type"
+            }
           ]
         },
         {
@@ -291,9 +504,18 @@
           "priority": "CORE",
           "description": "Типовая модель приложения и контрактов между слоями.",
           "items": [
-            "guards",
-            "discriminants",
-            "asserts"
+            {
+              "label": "guards",
+              "ref": "js/guards"
+            },
+            {
+              "label": "discriminants",
+              "ref": "ts/discriminants"
+            },
+            {
+              "label": "asserts",
+              "ref": "ts/asserts"
+            }
           ]
         }
       ]
@@ -309,9 +531,18 @@
           "priority": "CORE",
           "description": "Компонентная модель, состояние, роутинг и серверный React.",
           "items": [
-            "JSX",
-            "props",
-            "composition"
+            {
+              "label": "JSX",
+              "ref": "react/jsx"
+            },
+            {
+              "label": "props",
+              "ref": "react/props"
+            },
+            {
+              "label": "composition",
+              "ref": "react/composition"
+            }
           ]
         },
         {
@@ -320,9 +551,18 @@
           "priority": "CORE",
           "description": "Компонентная модель, состояние, роутинг и серверный React.",
           "items": [
-            "useEffect",
-            "memoization",
-            "custom hooks"
+            {
+              "label": "useEffect",
+              "ref": "react/use-effect"
+            },
+            {
+              "label": "memoization",
+              "ref": "react/memoization"
+            },
+            {
+              "label": "custom hooks",
+              "ref": "react/custom-hooks"
+            }
           ]
         },
         {
@@ -331,9 +571,18 @@
           "priority": "KILLER",
           "description": "Компонентная модель, состояние, роутинг и серверный React.",
           "items": [
-            "reconciliation",
-            "keys",
-            "fiber"
+            {
+              "label": "reconciliation",
+              "ref": "react/reconciliation"
+            },
+            {
+              "label": "keys",
+              "ref": "react/keys"
+            },
+            {
+              "label": "fiber",
+              "ref": "react/fiber"
+            }
           ]
         },
         {
@@ -342,9 +591,18 @@
           "priority": "KILLER",
           "description": "Компонентная модель, состояние, роутинг и серверный React.",
           "items": [
-            "local state",
-            "server state",
-            "store"
+            {
+              "label": "local state",
+              "ref": "react/local-state"
+            },
+            {
+              "label": "server state",
+              "ref": "react/server-state"
+            },
+            {
+              "label": "store",
+              "ref": "react/store"
+            }
           ]
         },
         {
@@ -353,9 +611,18 @@
           "priority": "OPT",
           "description": "Компонентная модель, состояние, роутинг и серверный React.",
           "items": [
-            "compound",
-            "render props",
-            "controlled"
+            {
+              "label": "compound",
+              "ref": "react/compound"
+            },
+            {
+              "label": "render props",
+              "ref": "react/render-props"
+            },
+            {
+              "label": "controlled",
+              "ref": "react/controlled"
+            }
           ]
         },
         {
@@ -364,9 +631,18 @@
           "priority": "CORE",
           "description": "Компонентная модель, состояние, роутинг и серверный React.",
           "items": [
-            "memo",
-            "virtualization",
-            "splitting"
+            {
+              "label": "memo",
+              "ref": "react/memo"
+            },
+            {
+              "label": "virtualization",
+              "ref": "react/virtualization"
+            },
+            {
+              "label": "splitting",
+              "ref": "react/splitting"
+            }
           ]
         },
         {
@@ -375,9 +651,18 @@
           "priority": "CORE",
           "description": "Компонентная модель, состояние, роутинг и серверный React.",
           "items": [
-            "routes",
-            "loaders",
-            "navigation"
+            {
+              "label": "routes",
+              "ref": "backend/routes"
+            },
+            {
+              "label": "loaders",
+              "ref": "react/loaders"
+            },
+            {
+              "label": "navigation",
+              "ref": "react/navigation"
+            }
           ]
         },
         {
@@ -386,10 +671,22 @@
           "priority": "OPT",
           "description": "Компонентная модель, состояние, роутинг и серверный React.",
           "items": [
-            "CSR",
-            "SSR",
-            "SSG",
-            "ISR"
+            {
+              "label": "CSR",
+              "ref": "frontend/csr"
+            },
+            {
+              "label": "SSR",
+              "ref": "frontend/ssr"
+            },
+            {
+              "label": "SSG",
+              "ref": "frontend/ssg"
+            },
+            {
+              "label": "ISR",
+              "ref": "frontend/isr"
+            }
           ]
         },
         {
@@ -398,9 +695,18 @@
           "priority": "OPT",
           "description": "Компонентная модель, состояние, роутинг и серверный React.",
           "items": [
-            "routing",
-            "data fetching",
-            "cache"
+            {
+              "label": "routing",
+              "ref": "http/routing"
+            },
+            {
+              "label": "data fetching",
+              "ref": "js/data-fetching"
+            },
+            {
+              "label": "cache",
+              "ref": "js/cache"
+            }
           ]
         },
         {
@@ -409,9 +715,18 @@
           "priority": "KILLER",
           "description": "Компонентная модель, состояние, роутинг и серверный React.",
           "items": [
-            "mismatch",
-            "streaming",
-            "islands"
+            {
+              "label": "mismatch",
+              "ref": "react/mismatch"
+            },
+            {
+              "label": "streaming",
+              "ref": "react/streaming"
+            },
+            {
+              "label": "islands",
+              "ref": "react/islands"
+            }
           ]
         },
         {
@@ -420,9 +735,18 @@
           "priority": "KILLER",
           "description": "Компонентная модель, состояние, роутинг и серверный React.",
           "items": [
-            "server components",
-            "boundaries",
-            "actions"
+            {
+              "label": "server components",
+              "ref": "react/server-components"
+            },
+            {
+              "label": "boundaries",
+              "ref": "architecture/boundaries"
+            },
+            {
+              "label": "actions",
+              "ref": "react/actions"
+            }
           ]
         }
       ]
@@ -438,9 +762,18 @@
           "priority": "CORE",
           "description": "HTTP, realtime, auth и защита клиентского периметра.",
           "items": [
-            "methods",
-            "headers",
-            "cache"
+            {
+              "label": "methods",
+              "ref": "http/methods"
+            },
+            {
+              "label": "headers",
+              "ref": "http/headers"
+            },
+            {
+              "label": "cache",
+              "ref": "js/cache"
+            }
           ]
         },
         {
@@ -449,9 +782,18 @@
           "priority": "CORE",
           "description": "HTTP, realtime, auth и защита клиентского периметра.",
           "items": [
-            "resources",
-            "status codes",
-            "pagination"
+            {
+              "label": "resources",
+              "ref": "http/resources"
+            },
+            {
+              "label": "status codes",
+              "ref": "http/status-codes"
+            },
+            {
+              "label": "pagination",
+              "ref": "http/pagination"
+            }
           ]
         },
         {
@@ -460,9 +802,18 @@
           "priority": "OPT",
           "description": "HTTP, realtime, auth и защита клиентского периметра.",
           "items": [
-            "connection",
-            "events",
-            "reconnect"
+            {
+              "label": "connection",
+              "ref": "http/connection"
+            },
+            {
+              "label": "events",
+              "ref": "node/events"
+            },
+            {
+              "label": "reconnect",
+              "ref": "http/reconnect"
+            }
           ]
         },
         {
@@ -471,9 +822,18 @@
           "priority": "KILLER",
           "description": "HTTP, realtime, auth и защита клиентского периметра.",
           "items": [
-            "escaping",
-            "CSP",
-            "sanitization"
+            {
+              "label": "escaping",
+              "ref": "security/escaping"
+            },
+            {
+              "label": "CSP",
+              "ref": "security/csp"
+            },
+            {
+              "label": "sanitization",
+              "ref": "security/sanitization"
+            }
           ]
         },
         {
@@ -482,9 +842,18 @@
           "priority": "CORE",
           "description": "HTTP, realtime, auth и защита клиентского периметра.",
           "items": [
-            "origin",
-            "preflight",
-            "credentials"
+            {
+              "label": "origin",
+              "ref": "http/cors"
+            },
+            {
+              "label": "preflight",
+              "ref": "http/preflight"
+            },
+            {
+              "label": "credentials",
+              "ref": "http/credentials"
+            }
           ]
         },
         {
@@ -493,9 +862,18 @@
           "priority": "KILLER",
           "description": "HTTP, realtime, auth и защита клиентского периметра.",
           "items": [
-            "claims",
-            "storage",
-            "refresh"
+            {
+              "label": "claims",
+              "ref": "auth/jwt"
+            },
+            {
+              "label": "storage",
+              "ref": "system-design/storage"
+            },
+            {
+              "label": "refresh",
+              "ref": "auth/refresh"
+            }
           ]
         }
       ]
@@ -511,9 +889,18 @@
           "priority": "CORE",
           "description": "Как страница парсится, рисуется, работает и живёт в фоне.",
           "items": [
-            "DOM",
-            "CSSOM",
-            "paint"
+            {
+              "label": "DOM",
+              "ref": "frontend/dom"
+            },
+            {
+              "label": "CSSOM",
+              "ref": "frontend/cssom"
+            },
+            {
+              "label": "paint",
+              "ref": "frontend/paint"
+            }
           ]
         },
         {
@@ -522,9 +909,18 @@
           "priority": "CORE",
           "description": "Как страница парсится, рисуется, работает и живёт в фоне.",
           "items": [
-            "layout",
-            "paint",
-            "composite"
+            {
+              "label": "layout",
+              "ref": "css/layout"
+            },
+            {
+              "label": "paint",
+              "ref": "frontend/paint"
+            },
+            {
+              "label": "composite",
+              "ref": "frontend/composite"
+            }
           ]
         },
         {
@@ -533,9 +929,18 @@
           "priority": "OPT",
           "description": "Как страница парсится, рисуется, работает и живёт в фоне.",
           "items": [
-            "Intersection",
-            "Resize",
-            "Mutation"
+            {
+              "label": "Intersection",
+              "ref": "observability/intersection"
+            },
+            {
+              "label": "Resize",
+              "ref": "observability/resize"
+            },
+            {
+              "label": "Mutation",
+              "ref": "frontend/mutation"
+            }
           ]
         },
         {
@@ -544,9 +949,18 @@
           "priority": "OPT",
           "description": "Как страница парсится, рисуется, работает и живёт в фоне.",
           "items": [
-            "threads",
-            "messages",
-            "offload"
+            {
+              "label": "threads",
+              "ref": "node/threads"
+            },
+            {
+              "label": "messages",
+              "ref": "node/messages"
+            },
+            {
+              "label": "offload",
+              "ref": "node/offload"
+            }
           ]
         },
         {
@@ -555,9 +969,18 @@
           "priority": "OPT",
           "description": "Как страница парсится, рисуется, работает и живёт в фоне.",
           "items": [
-            "cache",
-            "offline",
-            "updates"
+            {
+              "label": "cache",
+              "ref": "js/cache"
+            },
+            {
+              "label": "offline",
+              "ref": "node/offline"
+            },
+            {
+              "label": "updates",
+              "ref": "node/updates"
+            }
           ]
         }
       ]
@@ -573,9 +996,18 @@
           "priority": "KILLER",
           "description": "Метрики, доставка кода и оптимизация тяжёлых ресурсов.",
           "items": [
-            "LCP",
-            "INP",
-            "CLS"
+            {
+              "label": "LCP",
+              "ref": "frontend/lcp"
+            },
+            {
+              "label": "INP",
+              "ref": "frontend/inp"
+            },
+            {
+              "label": "CLS",
+              "ref": "frontend/cls"
+            }
           ]
         },
         {
@@ -584,9 +1016,18 @@
           "priority": "OPT",
           "description": "Метрики, доставка кода и оптимизация тяжёлых ресурсов.",
           "items": [
-            "routes",
-            "images",
-            "prefetch"
+            {
+              "label": "routes",
+              "ref": "backend/routes"
+            },
+            {
+              "label": "images",
+              "ref": "devops/images"
+            },
+            {
+              "label": "prefetch",
+              "ref": "frontend/prefetch"
+            }
           ]
         },
         {
@@ -595,9 +1036,18 @@
           "priority": "OPT",
           "description": "Метрики, доставка кода и оптимизация тяжёлых ресурсов.",
           "items": [
-            "chunks",
-            "tree-shaking",
-            "analyze"
+            {
+              "label": "chunks",
+              "ref": "tooling/chunks"
+            },
+            {
+              "label": "tree-shaking",
+              "ref": "node/tree-shaking"
+            },
+            {
+              "label": "analyze",
+              "ref": "tooling/analyze"
+            }
           ]
         },
         {
@@ -606,9 +1056,18 @@
           "priority": "OPT",
           "description": "Метрики, доставка кода и оптимизация тяжёлых ресурсов.",
           "items": [
-            "formats",
-            "sizes",
-            "lazy"
+            {
+              "label": "formats",
+              "ref": "frontend/formats"
+            },
+            {
+              "label": "sizes",
+              "ref": "frontend/sizes"
+            },
+            {
+              "label": "lazy",
+              "ref": "frontend/lazy"
+            }
           ]
         }
       ]
@@ -624,9 +1083,18 @@
           "priority": "CORE",
           "description": "Сборка, пакеты, качество кода и delivery pipeline.",
           "items": [
-            "Vite",
-            "Webpack",
-            "plugins"
+            {
+              "label": "Vite",
+              "ref": "tooling/vite"
+            },
+            {
+              "label": "Webpack",
+              "ref": "tooling/webpack"
+            },
+            {
+              "label": "plugins",
+              "ref": "backend/plugins"
+            }
           ]
         },
         {
@@ -635,9 +1103,18 @@
           "priority": "CORE",
           "description": "Сборка, пакеты, качество кода и delivery pipeline.",
           "items": [
-            "lockfile",
-            "semver",
-            "scripts"
+            {
+              "label": "lockfile",
+              "ref": "tooling/lockfile"
+            },
+            {
+              "label": "semver",
+              "ref": "tooling/semver"
+            },
+            {
+              "label": "scripts",
+              "ref": "tooling/scripts"
+            }
           ]
         },
         {
@@ -646,9 +1123,18 @@
           "priority": "CORE",
           "description": "Сборка, пакеты, качество кода и delivery pipeline.",
           "items": [
-            "ESLint",
-            "Prettier",
-            "CI"
+            {
+              "label": "ESLint",
+              "ref": "tooling/eslint"
+            },
+            {
+              "label": "Prettier",
+              "ref": "tooling/prettier"
+            },
+            {
+              "label": "CI",
+              "ref": "tooling/ci"
+            }
           ]
         },
         {
@@ -657,9 +1143,18 @@
           "priority": "CORE",
           "description": "Сборка, пакеты, качество кода и delivery pipeline.",
           "items": [
-            "branches",
-            "rebase",
-            "bisect"
+            {
+              "label": "branches",
+              "ref": "git/branches"
+            },
+            {
+              "label": "rebase",
+              "ref": "git/rebase"
+            },
+            {
+              "label": "bisect",
+              "ref": "git/bisect"
+            }
           ]
         },
         {
@@ -668,9 +1163,18 @@
           "priority": "OPT",
           "description": "Сборка, пакеты, качество кода и delivery pipeline.",
           "items": [
-            "pipeline",
-            "Docker",
-            "deploy"
+            {
+              "label": "pipeline",
+              "ref": "devops/pipeline"
+            },
+            {
+              "label": "Docker",
+              "ref": "devops/docker"
+            },
+            {
+              "label": "deploy",
+              "ref": "devops/deploy"
+            }
           ]
         }
       ]
@@ -686,9 +1190,18 @@
           "priority": "KILLER",
           "description": "Границы модулей, зависимости и поддерживаемость React-кода.",
           "items": [
-            "layers",
-            "slices",
-            "public API"
+            {
+              "label": "layers",
+              "ref": "architecture/layers"
+            },
+            {
+              "label": "slices",
+              "ref": "frontend/slices"
+            },
+            {
+              "label": "public API",
+              "ref": "frontend/public-api"
+            }
           ]
         },
         {
@@ -697,9 +1210,18 @@
           "priority": "OPT",
           "description": "Границы модулей, зависимости и поддерживаемость React-кода.",
           "items": [
-            "SRP",
-            "DIP",
-            "React boundaries"
+            {
+              "label": "SRP",
+              "ref": "architecture/srp"
+            },
+            {
+              "label": "DIP",
+              "ref": "architecture/dip"
+            },
+            {
+              "label": "React boundaries",
+              "ref": "architecture/react-boundaries"
+            }
           ]
         },
         {
@@ -708,9 +1230,18 @@
           "priority": "OPT",
           "description": "Границы модулей, зависимости и поддерживаемость React-кода.",
           "items": [
-            "adapter",
-            "facade",
-            "state"
+            {
+              "label": "adapter",
+              "ref": "backend/adapter"
+            },
+            {
+              "label": "facade",
+              "ref": "backend/facade"
+            },
+            {
+              "label": "state",
+              "ref": "css/state"
+            }
           ]
         }
       ]
@@ -726,9 +1257,18 @@
           "priority": "CORE",
           "description": "Продуктовые требования, API и компонентная декомпозиция.",
           "items": [
-            "constraints",
-            "tradeoffs",
-            "scope"
+            {
+              "label": "constraints",
+              "ref": "ts/generics-constraints"
+            },
+            {
+              "label": "tradeoffs",
+              "ref": "system-design/tradeoffs"
+            },
+            {
+              "label": "scope",
+              "ref": "js/scope"
+            }
           ]
         },
         {
@@ -737,9 +1277,18 @@
           "priority": "KILLER",
           "description": "Продуктовые требования, API и компонентная декомпозиция.",
           "items": [
-            "client",
-            "cache",
-            "errors"
+            {
+              "label": "client",
+              "ref": "frontend/client"
+            },
+            {
+              "label": "cache",
+              "ref": "js/cache"
+            },
+            {
+              "label": "errors",
+              "ref": "js/errors"
+            }
           ]
         },
         {
@@ -748,9 +1297,18 @@
           "priority": "CORE",
           "description": "Продуктовые требования, API и компонентная декомпозиция.",
           "items": [
-            "contracts",
-            "slots",
-            "ownership"
+            {
+              "label": "contracts",
+              "ref": "microservices/contracts"
+            },
+            {
+              "label": "slots",
+              "ref": "frontend/slots"
+            },
+            {
+              "label": "ownership",
+              "ref": "frontend/ownership"
+            }
           ]
         }
       ]
@@ -766,9 +1324,18 @@
           "priority": "CORE",
           "description": "Проверка поведения от unit до пользовательского сценария.",
           "items": [
-            "unit",
-            "mocks",
-            "timers"
+            {
+              "label": "unit",
+              "ref": "testing/unit"
+            },
+            {
+              "label": "mocks",
+              "ref": "testing/mocks"
+            },
+            {
+              "label": "timers",
+              "ref": "node/timers"
+            }
           ]
         },
         {
@@ -777,9 +1344,18 @@
           "priority": "CORE",
           "description": "Проверка поведения от unit до пользовательского сценария.",
           "items": [
-            "queries",
-            "user events",
-            "a11y"
+            {
+              "label": "queries",
+              "ref": "testing/queries"
+            },
+            {
+              "label": "user events",
+              "ref": "testing/user-events"
+            },
+            {
+              "label": "a11y",
+              "ref": "testing/a11y"
+            }
           ]
         },
         {
@@ -788,9 +1364,18 @@
           "priority": "OPT",
           "description": "Проверка поведения от unit до пользовательского сценария.",
           "items": [
-            "flows",
-            "fixtures",
-            "flakiness"
+            {
+              "label": "flows",
+              "ref": "frontend/flows"
+            },
+            {
+              "label": "fixtures",
+              "ref": "testing/fixtures"
+            },
+            {
+              "label": "flakiness",
+              "ref": "frontend/flakiness"
+            }
           ]
         }
       ]
@@ -806,10 +1391,22 @@
           "priority": "OPT",
           "description": "Как объяснять решения, ревьюить и работать в команде.",
           "items": [
-            "situation",
-            "task",
-            "action",
-            "result"
+            {
+              "label": "situation",
+              "ref": "frontend/situation"
+            },
+            {
+              "label": "task",
+              "ref": "frontend/task"
+            },
+            {
+              "label": "action",
+              "ref": "frontend/action"
+            },
+            {
+              "label": "result",
+              "ref": "frontend/result"
+            }
           ]
         },
         {
@@ -818,9 +1415,18 @@
           "priority": "CORE",
           "description": "Как объяснять решения, ревьюить и работать в команде.",
           "items": [
-            "diffs",
-            "risks",
-            "feedback"
+            {
+              "label": "diffs",
+              "ref": "git/diffs"
+            },
+            {
+              "label": "risks",
+              "ref": "git/risks"
+            },
+            {
+              "label": "feedback",
+              "ref": "git/feedback"
+            }
           ]
         },
         {
@@ -829,9 +1435,18 @@
           "priority": "OPT",
           "description": "Как объяснять решения, ревьюить и работать в команде.",
           "items": [
-            "handoff",
-            "alignment",
-            "ownership"
+            {
+              "label": "handoff",
+              "ref": "frontend/handoff"
+            },
+            {
+              "label": "alignment",
+              "ref": "css/alignment"
+            },
+            {
+              "label": "ownership",
+              "ref": "frontend/ownership"
+            }
           ]
         }
       ]

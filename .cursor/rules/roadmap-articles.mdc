@@ -1,0 +1,24 @@
+---
+description: Structure and style for roadmap interview articles in content/
+globs: content/**/*.md
+alwaysApply: false
+---
+
+# Roadmap article format
+
+Path = `content/{ref}.md` where `ref` is `area/slug` linked from roadmap JSON items.
+
+## Required shape
+
+1. Frontmatter: `title`, `summary`; optional `video`, `image`, `image_credit`
+2. `## Зачем нужно` — why it matters
+3. `## Как работает` (or 1–3 topic H2s like Виды / Защита) — mechanism + optional code/links
+4. `## Что спрашивают` — 2–4 bullet questions
+5. `## Ответы` — one `###` per question (same text); concise interview answers
+
+## Style
+
+- Russian prose, English terms where natural
+- Short and interview-focused; no textbook padding
+- Every «Что спрашивают» bullet must have a matching «Ответы» `###`
+- Credit media in `image_credit` when `video`/`image` present
