@@ -21,7 +21,7 @@ const ALIASES = new Map(
     'async/await': 'js/async-await',
     microtasks: 'js/event-loop-microtasks',
     macrotasks: 'js/event-loop-macrotasks',
-    constraints: 'ts/generics-constraints',
+    // Do NOT alias bare "constraints" — TS / Postgres / system-design are different topics
     backpressure: 'node/backpressure',
     'status codes': 'http/status-codes',
     acid: 'db/acid',
@@ -31,6 +31,8 @@ const ALIASES = new Map(
     csrf: 'security/csrf',
     cors: 'http/cors',
     origin: 'http/cors',
+    cookies: 'auth/cookies',
+    'transactional outbox': 'microservices/transactional-outbox',
     'idempotency key': 'microservices/idempotency-key',
     useeffect: 'react/use-effect',
   }),

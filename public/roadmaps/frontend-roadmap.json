@@ -1259,7 +1259,7 @@
           "items": [
             {
               "label": "constraints",
-              "ref": "ts/generics-constraints"
+              "ref": "system-design/constraints"
             },
             {
               "label": "tradeoffs",

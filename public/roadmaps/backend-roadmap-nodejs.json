@@ -749,11 +749,11 @@
             },
             {
               "label": "constraints",
-              "ref": "ts/generics-constraints"
+              "ref": "db/constraints"
             },
             {
               "label": "JSONB",
-              "ref": "js/jsonb"
+              "ref": "db/jsonb"
             },
             {
               "label": "arrays",
@@ -2066,7 +2066,7 @@
             },
             {
               "label": "constraints",
-              "ref": "ts/generics-constraints"
+              "ref": "system-design/constraints"
             },
             {
               "label": "trade-offs",
