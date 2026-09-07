@@ -28,6 +28,7 @@ export default function App() {
   const [allCollapsed, setAllCollapsed] = useState(false)
   const [activeItem, setActiveItem] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const loadRoadmap = useCallback(async (meta: RoadmapMeta): Promise<LoadedRoadmap | null> => {
     try {
@@ -115,6 +116,12 @@ export default function App() {
 
   const activeRoadmaps = loaded.filter((r) => activeIds.has(r.meta.id))
 
+  const mobileHeaderLabel = useMemo(() => {
+    if (activeRoadmaps.length === 0) return 'Roadmaps'
+    if (activeRoadmaps.length === 1) return activeRoadmaps[0].meta.label
+    return `${activeRoadmaps.length} roadmap`
+  }, [activeRoadmaps])
+
   const articleNeighbors = useMemo(() => {
     const roadmaps = loaded.filter((r) => activeIds.has(r.meta.id)).map((r) => r.data)
     const refs = collectArticleRefs(roadmaps, priorities)
@@ -137,44 +144,68 @@ export default function App() {
   return (
     <div className="min-h-screen">
       <div className="sticky top-0 z-10 border-b border-[var(--border)] bg-[var(--header-bg)] backdrop-blur-md">
-        <div className="px-4 py-3 flex flex-wrap items-center gap-2">
-          {catalog.map((meta) => {
-            const isActive = activeIds.has(meta.id)
-            return (
-              <button
-                key={meta.id}
-                type="button"
-                onClick={() => toggleRoadmap(meta.id)}
-                className={`cursor-pointer px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-[var(--accent)] text-[var(--bg)]'
-                    : 'bg-[var(--surface)] text-[var(--fg-muted)] hover:text-[var(--accent)] border border-[var(--border-strong)]'
-                }`}
-              >
-                {meta.label}
-              </button>
-            )
-          })}
+        <div className="flex items-center gap-2 px-4 py-2.5 md:hidden">
+          <p className="min-w-0 flex-1 truncate text-sm font-semibold text-[var(--fg-strong)]">
+            {mobileHeaderLabel}
+          </p>
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            className="cursor-pointer rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-3 py-1.5 text-xs font-medium text-[var(--fg-muted)] hover:text-[var(--accent)]"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="header-controls"
+          >
+            {mobileMenuOpen ? 'Закрыть' : 'Меню'}
+          </button>
+        </div>
 
-          <div className="mx-2 h-5 w-px bg-[var(--border-strong)] hidden sm:block" />
+        <div
+          id="header-controls"
+          className={`${
+            mobileMenuOpen ? 'flex' : 'hidden'
+          } flex-col gap-3 border-t border-[var(--border)] px-4 py-3 md:flex md:flex-row md:flex-wrap md:items-center md:gap-2 md:border-t-0 md:py-3`}
+        >
+          <div className="flex flex-wrap gap-2">
+            {catalog.map((meta) => {
+              const isActive = activeIds.has(meta.id)
+              return (
+                <button
+                  key={meta.id}
+                  type="button"
+                  onClick={() => toggleRoadmap(meta.id)}
+                  className={`cursor-pointer px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'bg-[var(--accent)] text-[var(--bg)]'
+                      : 'bg-[var(--surface)] text-[var(--fg-muted)] hover:text-[var(--accent)] border border-[var(--border-strong)]'
+                  }`}
+                >
+                  {meta.label}
+                </button>
+              )
+            })}
+          </div>
 
-          {ALL_PRIORITIES.map((priority) => {
-            const isOn = priorities.has(priority)
-            return (
-              <button
-                key={priority}
-                type="button"
-                onClick={() => togglePriority(priority)}
-                className={`cursor-pointer px-3 py-1 rounded-full text-xs font-semibold tracking-wide transition-opacity border border-transparent ${getPriorityStyle(priority)} ${
-                  isOn ? 'opacity-100' : 'opacity-35 grayscale'
-                }`}
-              >
-                {priority}
-              </button>
-            )
-          })}
+          <div className="mx-1 hidden h-5 w-px bg-[var(--border-strong)] md:block" />
 
-          <div className="ml-auto flex items-center gap-3">
+          <div className="flex flex-wrap gap-2">
+            {ALL_PRIORITIES.map((priority) => {
+              const isOn = priorities.has(priority)
+              return (
+                <button
+                  key={priority}
+                  type="button"
+                  onClick={() => togglePriority(priority)}
+                  className={`cursor-pointer px-3 py-1 rounded-full text-xs font-semibold tracking-wide transition-opacity border border-transparent ${getPriorityStyle(priority)} ${
+                    isOn ? 'opacity-100' : 'opacity-35 grayscale'
+                  }`}
+                >
+                  {priority}
+                </button>
+              )
+            })}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 md:ml-auto">
             {activeRoadmaps.length > 0 && (
               <button
                 type="button"
