@@ -15,7 +15,18 @@ export interface ArticleProgress {
 const STORAGE_KEY = 'roadmap-article-progress'
 export const ARTICLE_PROGRESS_EVENT = 'roadmap-article-progress'
 
-type ProgressMap = Record<string, ArticleProgress>
+export type ProgressMap = Record<string, ArticleProgress>
+
+type CloudHooks = {
+  onLocalChange?: () => void
+}
+
+const cloudHooks: CloudHooks = {}
+
+/** Register cloud sync callback (e.g. schedule Firestore push). */
+export function setArticleProgressCloudHook(onLocalChange?: () => void) {
+  cloudHooks.onLocalChange = onLocalChange
+}
 
 function readAll(): ProgressMap {
   try {
@@ -28,9 +39,18 @@ function readAll(): ProgressMap {
   }
 }
 
-function writeAll(map: ProgressMap) {
+function writeAll(map: ProgressMap, opts?: { skipCloud?: boolean }) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(map))
   window.dispatchEvent(new Event(ARTICLE_PROGRESS_EVENT))
+  if (!opts?.skipCloud) cloudHooks.onLocalChange?.()
+}
+
+export function getAllArticleProgress(): ProgressMap {
+  return readAll()
+}
+
+export function replaceAllArticleProgress(map: ProgressMap) {
+  writeAll(map, { skipCloud: true })
 }
 
 export function getArticleProgress(ref: string): ArticleProgress {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useAuth } from '../firebase/AuthProvider'
 import {
   ARTICLE_TAGS,
   getArticleProgress,
@@ -21,6 +22,7 @@ const TAG_STYLES: Record<ArticleTag, string> = {
 }
 
 export function ArticleProgressPanel({ itemRef, onChange }: ArticleProgressPanelProps) {
+  const { user } = useAuth()
   const [note, setNote] = useState('')
   const [tag, setTag] = useState<ArticleTag | null>(null)
   const [savedFlash, setSavedFlash] = useState(false)
@@ -59,7 +61,13 @@ export function ArticleProgressPanel({ itemRef, onChange }: ArticleProgressPanel
       <div className="mb-3 flex items-center justify-between gap-2">
         <h3 className="text-sm font-semibold text-[var(--fg-strong)]">Мой прогресс</h3>
         <span className="text-[11px] text-[var(--fg-faint)]">
-          {savedFlash ? 'Сохранено' : 'Автосохранение'}
+          {savedFlash
+            ? user
+              ? 'Сохранено · облако'
+              : 'Сохранено'
+            : user
+              ? 'Локально + облако'
+              : 'Только на этом устройстве'}
         </span>
       </div>
 

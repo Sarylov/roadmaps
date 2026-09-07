@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type CSSProperties } from 'react'
+import { AuthButton } from './components/AuthButton'
 import { ItemModal } from './components/ItemModal'
 import { RoadmapView } from './components/RoadmapView'
 import { useTheme } from './hooks/useTheme'
@@ -183,6 +184,7 @@ export default function App() {
                 {allCollapsed ? 'Развернуть все' : 'Свернуть все'}
               </button>
             )}
+            <AuthButton />
             <button
               type="button"
               onClick={toggleTheme}
