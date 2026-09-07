@@ -9,6 +9,8 @@ Authorized domain: sarylov.github.io
 
 ## Firestore rules (paste in Console → Firestore → Rules)
 
+Путь данных: `users/{uid}` (один документ на пользователя).
+
 ```
 rules_version = '2';
 service cloud.firestore {
@@ -17,6 +19,16 @@ service cloud.firestore {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
   }
+}
+```
+
+Publish rules после вставки.
+
+Если когда-нибудь появятся подколлекции под `users/{uid}/...`, замените match на:
+
+```
+match /users/{userId}/{document=**} {
+  allow read, write: if request.auth != null && request.auth.uid == userId;
 }
 ```
 

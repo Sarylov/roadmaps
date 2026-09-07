@@ -7,10 +7,8 @@ import {
 } from '../utils/articleProgress'
 import { db } from './app'
 
-const DOC = 'progress'
-
 function userDoc(uid: string) {
-  return doc(db, 'users', uid, 'data', DOC)
+  return doc(db, 'users', uid)
 }
 
 function mergeMaps(local: ProgressMap, remote: ProgressMap): ProgressMap {
