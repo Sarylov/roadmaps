@@ -1,38 +1,19 @@
 ---
 title: new
-summary: "new: new создаёт объект, ставит [[Prototype]], вызывает конструктор с this. Важно на собесе и в проде в контексте «Прототипы»."
+summary: new — создаёт объект, связывает `[[Prototype]]` с `Fn.prototype`, вызывает `Fn` с this = этот объект.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Язык, runtime и асинхронность, на которых держится весь фронт. Упор на event loop, this, coercion и практические ловушки runtime.
+Чтобы создавать экземпляры через конструктор (до/вместо class sugar).
 
-## Как работает
+## Пример
 
-**new**: new создаёт объект, ставит [[Prototype]], вызывает конструктор с this.
+```js
+function User(name) { this.name = name }
+const u = new User('A') // u.__proto__ === User.prototype
+```
 
-Без new this в non-strict может утечь в global — баг.
+## Примечание
 
-class constructor нельзя без new.
-
-MDN: [JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide).
-
-## Что спрашивают
-
-- Объясните new своими словами на примере из «Прототипы».
-- Какие ошибки и edge cases связаны с new?
-- Какие альтернативы new и когда они лучше?
-
-## Ответы
-
-### Объясните new своими словами на примере из «Прототипы».
-
-new создаёт объект, ставит [[Prototype]], вызывает конструктор с this. Держите структуру: проблема → механизм → пример. class constructor нельзя без new.
-
-### Какие ошибки и edge cases связаны с new?
-
-Без new this в non-strict может утечь в global — баг. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы new и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. class constructor нельзя без new.
+Без `new` в non-strict this может утечь в global. Class конструктор без `new` кидает TypeError.

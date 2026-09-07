@@ -1,32 +1,16 @@
 ---
 title: Spans
-summary: Span представляет одну операцию внутри trace: имя, время, status, attributes, events и связи. Из spans строится критический путь распределённого запроса.
+summary: Span — один отрезок работы в трейсе: операция + timestamps + tags/attributes (например `GET /orders`, `db.query`).
 ---
 
-## Зачем нужно
+## Для чего
 
-Тема регулярно встречается на backend-интервью: сильный ответ связывает механизм с наблюдаемым поведением, отказами и production-решением.
+Чтобы видеть, где внутри запроса ушло время: ваш код, БД, HTTP-клиент.
 
-## Как работает
+## Пример
 
-Root/parent span создаёт контекст, child span наследует trace ID и получает свой span ID. Контекст передаётся через W3C `traceparent`; server/client spans окружают RPC, а exporter отправляет завершённые данные асинхронно.
+Корневой span HTTP → child `OrdersService.create` → child `INSERT orders`. В UI waterfall по длительностям.
 
-## Что спрашивают
+## Примечание
 
-- Как работает Spans на практике?
-- Какой типичный failure mode связан с Spans?
-- Какие trade-offs важно назвать для Spans?
-
-## Ответы
-
-### Как работает Spans на практике?
-
-Root/parent span создаёт контекст, child span наследует trace ID и получает свой span ID. Контекст передаётся через W3C `traceparent`; server/client spans окружают RPC, а exporter отправляет завершённые данные асинхронно.
-
-### Какой типичный failure mode связан с Spans?
-
-Span на каждую функцию создаёт шум и стоимость; body, SQL с параметрами или user ID могут утечь и дать cardinality explosion. Незавершённый span и потерянный parent искажают latency.
-
-### Какие trade-offs важно назвать для Spans?
-
-Инструментируют удалённые вызовы, очереди и значимые стадии. Attributes должны быть ограниченными и стабильными; error записывают событием/status, но stack не заменяет обычный structured log.
+Слишком много мелких span = шум и cost. Ставьте осмысленные имена и ключевые attributes (`http.status_code`).

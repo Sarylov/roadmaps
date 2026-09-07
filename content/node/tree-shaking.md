@@ -1,38 +1,17 @@
 ---
-title: tree-shaking
-summary: "tree-shaking: Tree-shaking удаляет неиспользуемый ESM при бандле. Важно на собесе и в проде в контексте «Модули»."
+title: Tree-shaking
+summary: Tree-shaking — удаление неиспользуемого export-кода при бандлинге ESM (dead-code elimination).
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Язык, runtime и асинхронность, на которых держится весь фронт. Событийный цикл Node, backpressure и блокировки потока.
+Чтобы в бандл клиента не тащить весь lodash/иконки, если импортировали одну функцию.
 
-## Как работает
+## Пример
 
-**tree-shaking**: Tree-shaking удаляет неиспользуемый ESM при бандле.
+`import { debounce } from 'lodash-es'` трясётся лучше, чем `import _ from 'lodash'`.  
+Нужны ESM и side-effect-free модули (`sideEffects` в package.json).
 
-CommonJS и side-effects в module ломают shaking.
+## Примечание
 
-sideEffects в package.json и чистые ESM-экспорты.
-
-Документация: [Node.js](https://nodejs.org/docs/latest/api/).
-
-## Что спрашивают
-
-- Объясните tree-shaking своими словами на примере из «Модули».
-- Какие ошибки и edge cases связаны с tree-shaking?
-- Какие альтернативы tree-shaking и когда они лучше?
-
-## Ответы
-
-### Объясните tree-shaking своими словами на примере из «Модули».
-
-Tree-shaking удаляет неиспользуемый ESM при бандле. Держите структуру: проблема → механизм → пример. sideEffects в package.json и чистые ESM-экспорты.
-
-### Какие ошибки и edge cases связаны с tree-shaking?
-
-CommonJS и side-effects в module ломают shaking. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы tree-shaking и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. sideEffects в package.json и чистые ESM-экспорты.
+CJS хуже трясётся. Side effects на top-level (полифилы) мешают. Смотрите bundle analyzer.

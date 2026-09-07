@@ -1,36 +1,20 @@
 ---
 title: Cookies
-summary: Cookie — пара name/value, которую браузер хранит и автоматически отправляет по правилам Domain, Path, Secure, SameSite и срока жизни. Ошибки атрибутов превращаются в утечки и CSRF.
+summary: Cookie — пара name/value, которую браузер хранит и сам прикладывает к подходящим запросам по Domain, Path, Secure, SameSite и сроку жизни.
 ---
 
-## Зачем нужно
+## Для чего
 
-Cookies часто переносят session id или refresh token, поэтому важно понимать не только API, но и модель браузера.
+Чтобы держать сессию или refresh-токен между запросами без ручной передачи с каждой страницы.
 
-## Как работает
+## Пример
 
-`Set-Cookie` создаёт cookie; браузер добавляет подходящие значения в `Cookie`. Host-only cookie уже, чем cookie с `Domain`; `Path` не является защитной границей. `HttpOnly` скрывает значение от JavaScript, `Secure` ограничивает HTTPS, `SameSite` регулирует cross-site отправку.
+```http
+Set-Cookie: session=abc; HttpOnly; Secure; SameSite=Lax; Path=/
+```
 
-## Практические нюансы
+Браузер дальше шлёт `Cookie: session=abc` на ваш origin.
 
-Для auth предпочтителен префикс `__Host-`: Secure, без Domain, Path=/. Не храните чувствительное состояние в незашифрованном значении; подпись защищает целостность, но не секретность. Лимиты размера малы, а каждый cookie увеличивает запросы.
+## Примечание
 
-## Что спрашивают
-
-- Чем HttpOnly, Secure и SameSite защищают?
-- Чем session cookie отличается от persistent?
-- Почему Domain лучше не задавать без необходимости?
-
-## Ответы
-
-### Чем HttpOnly, Secure и SameSite защищают?
-
-HttpOnly затрудняет чтение через XSS; Secure запрещает отправку по HTTP; SameSite снижает cross-site отправку и риск CSRF. Они решают разные угрозы.
-
-### Чем session cookie отличается от persistent?
-
-Session cookie не имеет `Expires/Max-Age` и обычно живёт до завершения browser session. Persistent имеет срок; браузеры могут восстанавливать сессии, поэтому серверный expiry всё равно обязателен.
-
-### Почему Domain лучше не задавать без необходимости?
-
-Без Domain cookie host-only и не уходит поддоменам. Широкий Domain увеличивает attack surface: скомпрометированный поддомен может влиять на cookie scope.
+`HttpOnly` скрывает от JS (сложнее украсть при XSS). `SameSite` режет CSRF. Cookie-auth для mutate-запросов всё равно нуждается в CSRF-защите.

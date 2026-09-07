@@ -1,38 +1,16 @@
 ---
-title: runtime architecture
-summary: "runtime architecture: Node: один JS thread + libuv + пулы. Важно на собесе и в проде в контексте «Node.js Runtime»."
+title: Runtime architecture
+summary: Node.js runtime — один главный JS-поток с event loop, плюс libuv и служебные пулы потоков для части I/O и CPU-задач.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Как Node.js запускает код и управляет конкурентностью. Событийный цикл Node, backpressure и блокировки потока.
+Чтобы понимать, почему «async» не спасает от тяжёлого sync-кода и где реально параллелится работа.
 
-## Как работает
+## Пример
 
-**runtime architecture**: Node: один JS thread + libuv + пулы.
+HTTP-запрос → колбэк/`await` регистрирует I/O → loop свободен принимать другие запросы → когда сокет готов, колбэк снова в JS-потоке.
 
-CPU-bound блокирует все запросы процесса.
+## Примечание
 
-Кластер/worker_threads для CPU; горизонталь для I/O.
-
-Документация: [Node.js](https://nodejs.org/docs/latest/api/).
-
-## Что спрашивают
-
-- Объясните runtime architecture своими словами на примере из «Node.js Runtime».
-- Какие ошибки и edge cases связаны с runtime architecture?
-- Какие альтернативы runtime architecture и когда они лучше?
-
-## Ответы
-
-### Объясните runtime architecture своими словами на примере из «Node.js Runtime».
-
-Node: один JS thread + libuv + пулы. Держите структуру: проблема → механизм → пример. Кластер/worker_threads для CPU; горизонталь для I/O.
-
-### Какие ошибки и edge cases связаны с runtime architecture?
-
-CPU-bound блокирует все запросы процесса. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы runtime architecture и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Кластер/worker_threads для CPU; горизонталь для I/O.
+Один event-loop поток на процесс: CPU-bound и `fs.readFileSync` блокируют почти всё. Масштаб — несколько процессов/подов или `worker_threads`.

@@ -1,38 +1,17 @@
 ---
-title: escaping
-summary: "escaping: Escaping контекстно: HTML/attr/JS/URL/CSS. Важно на собесе и в проде в контексте «XSS/CSRF»."
+title: Escaping
+summary: Escaping — экранирование спецсимволов при вставке в HTML/атрибуты/URL, чтобы данные не стали кодом.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. HTTP, realtime, auth и защита клиентского периметра. Кратко держите threat model: кто атакующий и что получает.
+Чтобы пользовательский текст не превратился в XSS (`<script>`, `onerror=`).
 
-## Как работает
+## Пример
 
-**escaping**: Escaping контекстно: HTML/attr/JS/URL/CSS.
+Текст в React `{user.name}` экранируется сам.  
+Опасно: `dangerouslySetInnerHTML` / `el.innerHTML = input` без санитизации.
 
-Один encode «на всё» не работает.
+## Примечание
 
-В React текстовые children экранируются; dangerouslySetInnerHTML — риск.
-
-Ориентир: [OWASP Top 10](https://owasp.org/www-project-top-ten/).
-
-## Что спрашивают
-
-- Объясните escaping своими словами на примере из «XSS/CSRF».
-- Какие ошибки и edge cases связаны с escaping?
-- Какие альтернативы escaping и когда они лучше?
-
-## Ответы
-
-### Объясните escaping своими словами на примере из «XSS/CSRF».
-
-Escaping контекстно: HTML/attr/JS/URL/CSS. Держите структуру: проблема → механизм → пример. В React текстовые children экранируются; dangerouslySetInnerHTML — риск.
-
-### Какие ошибки и edge cases связаны с escaping?
-
-Один encode «на всё» не работает. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы escaping и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. В React текстовые children экранируются; dangerouslySetInnerHTML — риск.
+Контекст важен: HTML, attr, JS, URL — разные правила. Escaping ≠ sanitization HTML-подмножества.

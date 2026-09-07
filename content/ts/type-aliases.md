@@ -1,38 +1,34 @@
 ---
-title: type aliases
-summary: "type aliases: type — алиас любой формы типов. Важно на собесе и в проде в контексте «Основы TypeScript»."
+title: Type aliases
+summary: `type` — именованный алиас любой формы типа: объект, union, intersection, tuple, function и т.д.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Типовая модель backend-приложения и его контрактов. Упор на систему типов, inference и дизайн публичного API.
+Чтобы дать короткое имя сложной форме и переиспользовать её в сигнатурах без копипаста.
 
-## Как работает
+## Пример
 
-**type aliases**: type — алиас любой формы типов.
+```ts
+type Id = string | number;
+type Point = { x: number; y: number };
+type Handler = (id: Id) => void;
+```
 
-Не мерджится, в отличие от interface.
+## Примечание
 
-Для union/tuple/mapped удобнее type.
+В отличие от `interface`, `type` не участвует в declaration merging. Один `type Name = …` — одно определение.
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
+## Вопросы и ответы
 
-## Что спрашивают
+### Когда type, когда interface?
 
-- Объясните type aliases своими словами на примере из «Основы TypeScript».
-- Какие ошибки и edge cases связаны с type aliases?
-- Какие альтернативы type aliases и когда они лучше?
+Объектный контракт, который могут расширять снаружи → часто `interface`. Union, mapped, условные типы → только `type` (или `type` поверх `interface`).
 
-## Ответы
+### type — это новый тип в runtime?
 
-### Объясните type aliases своими словами на примере из «Основы TypeScript».
+Нет. После компиляции алиасы стираются. Это только проверка на этапе TypeScript.
 
-type — алиас любой формы типов. Держите структуру: проблема → механизм → пример. Для union/tuple/mapped удобнее type.
+### Можно ли сделать union через interface?
 
-### Какие ошибки и edge cases связаны с type aliases?
-
-Не мерджится, в отличие от interface. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы type aliases и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Для union/tuple/mapped удобнее type.
+Нет. `interface` описывает объектную форму (и call/construct signatures), но не `A | B`. Для union нужен `type`.

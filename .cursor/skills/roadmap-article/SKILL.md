@@ -1,68 +1,109 @@
 ---
 name: roadmap-article
 description: >-
-  Writes interview roadmap articles under content/**/*.md and wires item refs in
-  public/roadmaps/*.json. Use when creating or updating roadmap articles,
-  ответы к вопросам, content/*.md, or when the user asks to generate materials
-  for roadmap topics.
+  Writes interview roadmap cheat-sheet articles under content/**/*.md and wires
+  item refs in public/roadmaps/*.json. Use when creating or updating roadmap
+  articles, content/*.md, or when rewriting a roadmap level step by step.
 ---
 
 # Roadmap articles
 
 ## Workflow
 
-1. Prefer CORE/KILLER items without `ref` (run `npm run content:status`).
-2. Choose a stable `ref` path: `area/slug` (e.g. `js/closures`, `auth/jwt`).
-3. Create `content/{ref}.md` using the template below — or bulk-fill stubs with `npm run content:fill` (skips existing files; assigns refs in roadmap JSON).
-4. In roadmap JSON, replace the string item with `{ "label": "<same label>", "ref": "<ref>" }`. Reuse the same `ref` on frontend and backend when the topic overlaps.
-5. Re-run `npm run content:status` — missing/orphans should stay clean.
-6. Hand-polish generated stubs for important topics: denser summary, specific «Как работает», real interview Q&A.
+1. Prefer CORE/KILLER items; keep stable `ref` = `area/slug`.
+2. Rewrite **one roadmap level at a time** when the user asks — never bulk-rewrite all levels in one go.
+3. Create/update `content/{ref}.md` with the template below.
+4. Wire `{ "label", "ref" }` in roadmap JSON; reuse shared refs across FE/BE when the topic is the same.
+5. `npm run content:status` — 0 missing / 0 orphans.
+6. Do **not** rely on `content:fill` for final quality; fill stubs are drafts only.
 
 ## File template
 
 ```markdown
 ---
 title: Short topic name
-summary: 1–2 sentences — what it is and why it matters in interviews/production.
-video: optional YouTube id or URL
-image: optional image URL (Wikimedia Special:FilePath preferred)
-image_credit: "Source note; mention video/image authors when present."
+summary: Idempotency — повторный одинаковый HTTP-запрос приводит к тому же результату на сервере, что и один запрос.
 ---
 
-## Зачем нужно
+## Для чего
 
-1 short paragraph: interview/production motivation.
+Чтобы безопасно повторять запросы при retry, сетевых сбоях или таймаутах, не создавая побочный эффект несколько раз.
 
-## Как работает
+## Пример
 
-Mechanism in plain language. Optional short code block. Optional links to MDN / Handbook / canonical talks.
+PUT /users/123 — отправили 3 раза → у пользователя одно и то же состояние.
 
-(Topic-specific H2 allowed: ## Виды, ## Защита, ## Базовые классы — keep 1–3 such sections max.)
+DELETE /users/123 — повторный DELETE не удаляет «ещё раз».
 
-## Что спрашивают
+## Примечание
 
-- 2–4 typical interview questions (bullet list)
+GET, PUT, DELETE — по HTTP идемпотентны. POST — по умолчанию нет.
 
-## Ответы
+Ключевая мысль: retry безопасен → повторение не должно дополнительно менять состояние сервера.
 
-### Exact question text from the list above
+## Вопросы и ответы
 
-Concise answer (interview-ready). Markdown ok: bold terms, short code, lists.
+### Чем idempotency отличается от safety?
 
-### Next question…
+Safety — без побочных эффектов (GET). Idempotency — повтор даёт тот же эффект, что один вызов (PUT/DELETE могут менять состояние, но повтор безопасно).
 
-…
+### Зачем это на собесе и в проде?
+
+Чтобы объяснить, почему retry очередей/клиента не плодит дубликаты заказов и как проектировать API под повторную доставку.
 ```
 
-## Rules of thumb
+`summary` = **определение** (показывается в UI как вступление). Отдельного `## Определение` в markdown **нет**.
 
-- **Language**: Russian, technical terms in English where natural (`Promise`, `macrotask`).
-- **Length**: tight — not a textbook. Enough to answer the bullets in «Ответы».
-- **Answers**: every bullet under «Что спрашивают» must have a matching `###` under «Ответы» (same wording). Answers start collapsed in the UI via that section.
-- **Frontmatter**: `title` + `summary` required. `video` / `image` / `image_credit` optional; credit when media exists.
-- **Media**: prefer well-known talks (JSConf, Computerphile) or Wikimedia; don’t invent video IDs.
-- **No** long tutorials, emoji, or fluff intros.
+`## Примечание` — опционально (только если нюанс реально важен).
 
-## Example refs already in use
+## Вопросы и ответы (обязательно для уровня 0)
 
-`js/async-await`, `js/event-loop-microtasks`, `js/event-loop-macrotasks`, `ts/generics-constraints`, `http/status-codes`, `security/xss`, `security/csrf`, `microservices/idempotency-key`
+Для **всех тем уровня 0** любого roadmap секция `## Вопросы и ответы` **обязательна**.
+
+- Только `###` вопрос + ответ (без списка «Что спрашивают»).
+- 2–4 типичных вопроса собеса по теме.
+- Ответы короткие, как на собесе: можно произнести вслух.
+- При переписывании уровня 0 **не удалять** Q&A: обновить под новый текст статьи.
+- Для уровней выше 0 — желательно для CORE/KILLER, не блокер.
+
+Парсер UI: `## Вопросы и ответы` или `## Ответы` → сворачиваемый блок в модалке.
+
+## Эталон формулировок (обязательно)
+
+Краткая подсказка для технического собеседования:
+
+1. **Определение** → поле `summary` — простыми точными словами  
+2. **Для чего** → `## Для чего` — какую проблему решает  
+3. **Пример** → `## Пример` — минимальный практический пример  
+4. **Примечание** → `## Примечание` — только важный нюанс, если есть  
+5. **Вопросы и ответы** → `## Вопросы и ответы` — обязательно на уровне 0  
+
+**Стиль:** коротко, по делу, без воды, легко запомнить и произнести вслух.
+
+### Good vs bad
+
+BAD summary: `Callback — функция продолжения; ад вложенности.`  
+GOOD summary: `Callback — это функция, которую передают другой функции, чтобы та вызвала её позже.`
+
+BAD purpose: `Нужен, чтобы промисы/async обычно читаемее. Иначе на практике…`  
+GOOD purpose: `Чтобы не зашивать действие внутрь функции, а передавать его снаружи.`
+
+BAD Q&A: шаблон «объясните X из блока Y» без сути.  
+GOOD Q&A: конкретный вопрос собеса + ответ в 1–3 предложениях по теме статьи.
+
+### Hard rules
+
+- Never write `## Определение` — definition lives only in `summary`.
+- Level 0 articles **must** keep `## Вопросы и ответы` with real interview Q&A.
+- No “важно на собесе”, “база CORE”, “KILLER-вопрос”, telegram `;`-lists.
+- No textbook padding, emoji, fake video IDs.
+- Russian prose; English terms where natural (`Promise`, `PUT`, `retry`).
+- Prefer spoken interview length: a few sentences per section, not pages.
+
+## Gold content example (HTTP Idempotency)
+
+1. **summary:** Idempotency — повторный одинаковый HTTP-запрос приводит к тому же результату на сервере, что и один запрос.  
+2. **Для чего:** Чтобы безопасно повторять запросы при retry / сбоях / таймаутах, не создавая побочный эффект несколько раз.  
+3. **Пример:** `PUT`/`DELETE` можно повторять без доп. эффекта.  
+4. **Примечание:** GET/PUT/DELETE идемпотентны по HTTP; POST — нет.  
+5. **Q&A:** чем отличается от safety; зачем retry без дубликатов.

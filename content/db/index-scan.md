@@ -1,38 +1,16 @@
 ---
-title: index scan
-summary: "index scan: Index scan/bitmap/index only — разные пути. Важно на собесе и в проде в контексте «Query Optimization»."
+title: Index scan
+summary: Index scan — доступ к строкам через индекс: найти ключи в дереве, затем (часто) достать heap-страницы.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Поиск узких мест и анализ планов выполнения. Где уместно — Postgres, планы EXPLAIN и индексы.
+Чтобы ускорить селективные фильтры и упорядочивание по индексированным колонкам.
 
-## Как работает
+## Пример
 
-**index scan**: Index scan/bitmap/index only — разные пути.
+`Index Scan using users_email_idx on users` при `WHERE email = $1`.
 
-Lookup + heap fetch стоимость.
+## Примечание
 
-Корреляция порядка индекса и таблицы влияет.
-
-Документация: [PostgreSQL](https://www.postgresql.org/docs/current/).
-
-## Что спрашивают
-
-- Объясните index scan своими словами на примере из «Query Optimization».
-- Какие ошибки и edge cases связаны с index scan?
-- Какие альтернативы index scan и когда они лучше?
-
-## Ответы
-
-### Объясните index scan своими словами на примере из «Query Optimization».
-
-Index scan/bitmap/index only — разные пути. Держите структуру: проблема → механизм → пример. Корреляция порядка индекса и таблицы влияет.
-
-### Какие ошибки и edge cases связаны с index scan?
-
-Lookup + heap fetch стоимость. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы index scan и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Корреляция порядка индекса и таблицы влияет.
+Bitmap Index Scan / Index Only Scan — варианты. Много попаданий → random I/O в heap может проиграть seq scan; смотрите ANALYZE.

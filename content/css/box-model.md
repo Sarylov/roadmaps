@@ -1,38 +1,27 @@
 ---
-title: box model
-summary: "box model: Box model: content + padding + border (+ margin снаружи). Важно на собесе и в проде в контексте «HTML/CSS»."
+title: Box model
+summary: Box model — как считается размер элемента: content + padding + border (+ margin снаружи).
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Каркас интерфейса: семантика, раскладка, формы и доступность. Упор на каскад, layout и доступность.
+Чтобы понимать, почему блок «шире, чем width» и как считать раскладку.
 
-## Как работает
+## Пример
 
-**box model**: Box model: content + padding + border (+ margin снаружи).
+`width: 200px; padding: 20px; border: 1px` при `content-box` → визуально ~242px.  
+`box-sizing: border-box` — width включает padding и border.
 
-content-box vs border-box меняет ширину — путаница в layout.
+## Примечание
 
-border-box почти всегда удобнее для UI-разметки.
+Margin collapse у вертикальных margin соседних блоков. `border-box` почти стандарт в современных проектах.
 
-MDN: [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS).
+## Вопросы и ответы
 
-## Что спрашивают
+### Чем content-box отличается от border-box?
 
-- Объясните box model своими словами на примере из «HTML/CSS».
-- Какие ошибки и edge cases связаны с box model?
-- Какие альтернативы box model и когда они лучше?
+content-box: width = только контент. border-box: width включает padding и border.
 
-## Ответы
+### Входит ли margin в width?
 
-### Объясните box model своими словами на примере из «HTML/CSS».
-
-Box model: content + padding + border (+ margin снаружи). Держите структуру: проблема → механизм → пример. border-box почти всегда удобнее для UI-разметки.
-
-### Какие ошибки и edge cases связаны с box model?
-
-content-box vs border-box меняет ширину — путаница в layout. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы box model и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. border-box почти всегда удобнее для UI-разметки.
+Нет, margin снаружи бокса. На размер «внутри» border не влияет.

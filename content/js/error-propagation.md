@@ -1,38 +1,39 @@
 ---
-title: error propagation
-summary: "error propagation: Ошибки async должны всплывать к границе обработки. Важно на собесе и в проде в контексте «Async JavaScript»."
+title: Error propagation
+summary: Error propagation — путь ошибки от места сбоя до границы, где её обрабатывают (лог, HTTP-ответ, retry).
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Асинхронность и конкурентное выполнение кода. Упор на event loop, this, coercion и практические ловушки runtime.
+Чтобы сбой не терялся молча и вызывающий код мог решить: повторить, отдать 5xx или показать доменную ошибку.
 
-## Как работает
+## Пример
 
-**error propagation**: Ошибки async должны всплывать к границе обработки.
+```js
+async function handler(req, res) {
+  try {
+    await service.create(req.body)
+  } catch (e) {
+    // граница API: маппинг в статус, а не пустой catch
+    res.status(400).json({ error: e.message })
+  }
+}
+```
 
-Пустой catch глотает сигнал.
+## Примечание
 
-Единый mapper в API-слой.
+Пустой `catch` / `.then` без `throw`/`return` глотает сигнал. В Promise-цепочке ошибка всплывает до ближайшего `.catch`.
 
-MDN: [JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide).
+## Вопросы и ответы
 
-## Что спрашивают
+### Что такое error propagation?
 
-- Объясните error propagation своими словами на примере из «Async JavaScript».
-- Какие ошибки и edge cases связаны с error propagation?
-- Какие альтернативы error propagation и когда они лучше?
+Путь ошибки от места сбоя до границы, где её обрабатывают: лог, HTTP-ответ, retry. Сбой не должен теряться молча по дороге.
 
-## Ответы
+### Где обычно ловят ошибку в API?
 
-### Объясните error propagation своими словами на примере из «Async JavaScript».
+На границе handler’а: смапить в статус/тело ответа. Внутри сервисов чаще пробрасывают, а не глотают пустым `catch`.
 
-Ошибки async должны всплывать к границе обработки. Держите структуру: проблема → механизм → пример. Единый mapper в API-слой.
+### Как ошибка идёт по Promise-цепочке?
 
-### Какие ошибки и edge cases связаны с error propagation?
-
-Пустой catch глотает сигнал. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы error propagation и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Единый mapper в API-слой.
+Reject всплывает до ближайшего `.catch`. Если в `.then` забыли `throw`/`return` rejected Promise — сигнал обрывается и вызывающий код «не видит» сбой.

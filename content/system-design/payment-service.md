@@ -1,36 +1,16 @@
 ---
-title: payment service
-summary: "payment service: Платежи: идемпотентность, ledger, PCI границы. Важно на собесе и в проде в контексте «System Design Practice»."
+title: Payment service
+summary: Payment service — приём и учёт платежей: идемпотентность, точная денежная арифметика, интеграция с провайдером, ledger.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Практика проектирования реальных распределённых систем. Цифры, bottleneck и явные trade-offs.
+Практика критичного write-path: дубли, reverse/refund, аудит, строгая consistency там, где деньги.
 
-## Как работает
+## Пример
 
-**payment service**: Платежи: идемпотентность, ledger, PCI границы.
+`POST /charge` + Idempotency-Key → запись intent → вызов Stripe → ledger entry. Webhook подтверждает статус асинхронно.
 
-Точная арифметика денег, статусы, вебхуки PSP.
+## Примечание
 
-Аудит и reconcile.
-
-## Что спрашивают
-
-- Объясните payment service своими словами на примере из «System Design Practice».
-- Какие ошибки и edge cases связаны с payment service?
-- Какие альтернативы payment service и когда они лучше?
-
-## Ответы
-
-### Объясните payment service своими словами на примере из «System Design Practice».
-
-Платежи: идемпотентность, ledger, PCI границы. Держите структуру: проблема → механизм → пример. Аудит и reconcile.
-
-### Какие ошибки и edge cases связаны с payment service?
-
-Точная арифметика денег, статусы, вебхуки PSP. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы payment service и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Аудит и reconcile.
+Деньги — integer minor units, не float. Exactly-once эффект через идемпотентность + ledger. Reconciliation с провайдером обязателен.

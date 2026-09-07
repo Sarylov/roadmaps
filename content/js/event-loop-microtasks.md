@@ -1,42 +1,34 @@
 ---
 title: Microtasks
-summary: Очередь задач, которая полностью опустошается перед следующей макротаской. Из‑за неё Promise.then и queueMicrotask выполняются «сразу после» текущего кода, но до рендера и таймеров.
-video: 8aGhZQkoFbQ
-image_credit: "Видео: Philip Roberts — What the heck is the event loop anyway? (JSConf EU). Дополнительно: Jake Archibald — In The Loop."
+summary: Microtasks — очередь задач (Promise.then, queueMicrotask), которая полностью опустошается перед следующей macrotask.
 ---
 
-## Зачем нужно
+## Для чего
 
-Без microtasks невозможно понять порядок выполнения `async/await`, Promise-цепочек и почему «мгновенный» `.then` всё равно не синхронный.
+Чтобы понять порядок: почему `Promise.then` почти всегда раньше `setTimeout(0)`, и как ведёт себя `await`.
 
-## Как работает
+## Пример
 
-1. Выполняется текущий синхронный код.
-2. Event loop опустошает **microtask queue** целиком.
-3. Только потом берёт следующую macrotask (таймер, I/O, click).
+```js
+setTimeout(() => console.log('macro'), 0)
+Promise.resolve().then(() => console.log('micro'))
+// → micro, затем macro
+```
 
-В microtasks попадают: `Promise.then/catch/finally`, `queueMicrotask`, мутации `MutationObserver`.
+## Примечание
 
-Более глубокий разбор с анимациями очередей: [Jake Archibald — In The Loop](https://www.youtube.com/watch?v=cCOL7MCFHAQ).
+Если microtask снова ставит microtask, очередь не отпустит macrotasks/render — возможен starvation.
 
-Текст: [javascript.info — Event loop](https://javascript.info/event-loop).
+## Вопросы и ответы
 
-## Что спрашивают
+### Что попадает в microtasks?
 
-- Почему `Promise.resolve().then(...)` раньше `setTimeout(..., 0)`?
-- Что будет, если microtask в цикле ставит новую microtask?
-- Как `await` связан с microtasks?
+В основном колбэки `Promise.then`/`catch`/`finally` и `queueMicrotask`. После `await` продолжение тоже идёт через microtask.
 
-## Ответы
+### Почему `Promise.then` раньше `setTimeout(0)`?
 
-### Почему `Promise.resolve().then(...)` раньше `setTimeout(..., 0)`?
+После синхронного кода event loop сначала полностью опустошает очередь microtasks, и только потом берёт следующую macrotask (таймер).
 
-`setTimeout(..., 0)` кладёт колбэк в **macrotask** queue. `.then` — в **microtask** queue. После текущего синхронного кода event loop сначала опустошает все microtasks, и только потом берёт следующую macrotask (таймер). Поэтому Promise-колбэк выполняется раньше.
+### Чем опасен бесконечный поток microtasks?
 
-### Что будет, если microtask в цикле ставит новую microtask?
-
-Очередь microtasks опустошается **целиком**, включая задачи, добавленные «по ходу». Бесконечный цикл `queueMicrotask` / `Promise.then`, который снова ставит microtask, **Starve** macrotasks: таймеры, клики и render не наступят (в браузере страница «зависнет»).
-
-### Как `await` связан с microtasks?
-
-`await` разбивает `async`-функцию: после того как Promise resolved, **продолжение** после `await` ставится как microtask (фактически через Promise). Поэтому код после `await` не синхронный — он уступает текущему стеку и другим уже стоящим microtasks.
+Каждый microtask может поставить новый — macrotasks и render не получат ход (starvation), UI/таймеры «замрут».

@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState, type CSSProperties } from 'react'
+import { useCallback, useEffect, useMemo, useState, type CSSProperties } from 'react'
 import { ItemModal } from './components/ItemModal'
 import { RoadmapView } from './components/RoadmapView'
 import { useTheme } from './hooks/useTheme'
 import type { Priority, Roadmap, RoadmapMeta } from './types'
+import { collectArticleRefs, getArticleNeighbors } from './utils/articleNav'
 import { getPriorityStyle } from './utils/colors'
 import {
   ALL_PRIORITIES,
@@ -112,6 +113,17 @@ export default function App() {
   }
 
   const activeRoadmaps = loaded.filter((r) => activeIds.has(r.meta.id))
+
+  const articleNeighbors = useMemo(() => {
+    const roadmaps = loaded.filter((r) => activeIds.has(r.meta.id)).map((r) => r.data)
+    const refs = collectArticleRefs(roadmaps, priorities)
+    const { prev, next, index, total } = getArticleNeighbors(refs, activeItem)
+    return {
+      prev,
+      next,
+      position: index >= 0 ? { index: index + 1, total } : null,
+    }
+  }, [loaded, activeIds, priorities, activeItem])
 
   if (loading) {
     return (
@@ -233,7 +245,14 @@ export default function App() {
         )}
       </main>
 
-      <ItemModal itemRef={activeItem} onClose={closeItem} />
+      <ItemModal
+        itemRef={activeItem}
+        onClose={closeItem}
+        prevRef={articleNeighbors.prev}
+        nextRef={articleNeighbors.next}
+        onNavigate={openItem}
+        position={articleNeighbors.position}
+      />
     </div>
   )
 }

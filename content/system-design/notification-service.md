@@ -1,36 +1,16 @@
 ---
-title: notification service
-summary: "notification service: Уведомления: email/push/sms, шаблоны, предпочтения. Важно на собесе и в проде в контексте «System Design Practice»."
+title: Notification service
+summary: Notification service — доставка уведомлений (push, email, SMS, in-app) по событиям с шаблонами и предпочтениями пользователя.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Практика проектирования реальных распределённых систем. Цифры, bottleneck и явные trade-offs.
+Практика: fan-out каналов, retries, приоритеты, rate limits провайдеров, идемпотентность.
 
-## Как работает
+## Пример
 
-**notification service**: Уведомления: email/push/sms, шаблоны, предпочтения.
+Событие `order.shipped` → worker выбирает каналы → шаблон → провайдер. Fail email → retry/DLQ; push отдельно.
 
-Очереди, ретраи, dedup.
+## Примечание
 
-Quiet hours и unsubscribe — compliance.
-
-## Что спрашивают
-
-- Объясните notification service своими словами на примере из «System Design Practice».
-- Какие ошибки и edge cases связаны с notification service?
-- Какие альтернативы notification service и когда они лучше?
-
-## Ответы
-
-### Объясните notification service своими словами на примере из «System Design Practice».
-
-Уведомления: email/push/sms, шаблоны, предпочтения. Держите структуру: проблема → механизм → пример. Quiet hours и unsubscribe — compliance.
-
-### Какие ошибки и edge cases связаны с notification service?
-
-Очереди, ретраи, dedup. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы notification service и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Quiet hours и unsubscribe — compliance.
+Не блокируйте checkout на SMTP. Уважайте unsubscribe/quiet hours. Дедуп по `notificationId`.

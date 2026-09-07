@@ -1,38 +1,21 @@
 ---
-title: primary keys
-summary: "primary keys: PK уникально идентифицирует строку. Важно на собесе и в проде в контексте «Data Modeling»."
+title: Primary keys
+summary: Primary key — столбец (или набор), который уникально идентифицирует строку таблицы и не бывает NULL.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Проектирование структуры данных и связей между сущностями. Где уместно — Postgres, планы EXPLAIN и индексы.
+Чтобы однозначно ссылаться на запись и строить на ней внешние ключи.
 
-## Как работает
+## Пример
 
-**primary keys**: PK уникально идентифицирует строку.
+```sql
+CREATE TABLE users (
+  id bigserial PRIMARY KEY,
+  email text NOT NULL
+);
+```
 
-Natural vs surrogate (uuid/bigserial) trade-offs.
+## Примечание
 
-Менять PK больно — лучше стабильный surrogate.
-
-Документация: [PostgreSQL](https://www.postgresql.org/docs/current/).
-
-## Что спрашивают
-
-- Объясните primary keys своими словами на примере из «Data Modeling».
-- Какие ошибки и edge cases связаны с primary keys?
-- Какие альтернативы primary keys и когда они лучше?
-
-## Ответы
-
-### Объясните primary keys своими словами на примере из «Data Modeling».
-
-PK уникально идентифицирует строку. Держите структуру: проблема → механизм → пример. Менять PK больно — лучше стабильный surrogate.
-
-### Какие ошибки и edge cases связаны с primary keys?
-
-Natural vs surrogate (uuid/bigserial) trade-offs. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы primary keys и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Менять PK больно — лучше стабильный surrogate.
+Natural key (email) vs surrogate (`id`/`uuid`): менять PK больно — чаще берут стабильный surrogate, uniqueness — отдельным UNIQUE.

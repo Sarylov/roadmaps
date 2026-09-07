@@ -1,36 +1,16 @@
 ---
-title: storage
-summary: "storage: Где хранить токены: memory vs sessionStorage vs cookie. Важно на собесе и в проде в контексте «Capacity Estimation»."
+title: Storage
+summary: Storage estimation — сколько байт нужно хранить (записи × размер × реплики × retention × рост).
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Оценка нагрузки, ресурсов и роста системы. Цифры, bottleneck и явные trade-offs.
+Чтобы выбрать диск/БД/объектное хранилище и понять стоимость и партиционирование.
 
-## Как работает
+## Пример
 
-**storage**: Где хранить токены: memory vs sessionStorage vs cookie.
+100M объектов × 500B metadata ≈ 50GB + индексы + ×3 репликации. Картинки — в S3, не в Postgres row.
 
-XSS читает JS-storage; cookie нужен Secure/SameSite.
+## Примечание
 
-Refresh rotation и revocation — must-have.
-
-## Что спрашивают
-
-- Объясните storage своими словами на примере из «Capacity Estimation».
-- Какие ошибки и edge cases связаны с storage?
-- Какие альтернативы storage и когда они лучше?
-
-## Ответы
-
-### Объясните storage своими словами на примере из «Capacity Estimation».
-
-Где хранить токены: memory vs sessionStorage vs cookie. Держите структуру: проблема → механизм → пример. Refresh rotation и revocation — must-have.
-
-### Какие ошибки и edge cases связаны с storage?
-
-XSS читает JS-storage; cookie нужен Secure/SameSite. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы storage и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Refresh rotation и revocation — must-have.
+Считайте индексы и версии/бэкапы. Retention и lifecycle режут рост.

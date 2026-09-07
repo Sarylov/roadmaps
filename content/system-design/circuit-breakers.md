@@ -1,36 +1,16 @@
 ---
-title: circuit breakers
-summary: "circuit breakers: Размыкание цепей вызовов при деградации. Важно на собесе и в проде в контексте «Reliability»."
+title: Circuit breakers
+summary: Circuit breaker в дизайне — предохранитель на вызовах зависимостей: open/half-open/closed по ошибкам и latency.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Поведение системы при сбоях и временной недоступности зависимостей. Цифры, bottleneck и явные trade-offs.
+Чтобы каскадные отказы не роняли весь продукт и быстрее включать degraded mode.
 
-## Как работает
+## Пример
 
-**circuit breakers**: Размыкание цепей вызовов при деградации.
+Search down → breaker open → главная без блока рекомендаций, checkout жив.
 
-Общий паттерн resilience.
+## Примечание
 
-Метрики state open/half-open.
-
-## Что спрашивают
-
-- Какую проблему решает паттерн circuit breakers?
-- Как устроить circuit breakers end-to-end?
-- Когда circuit breakers избыточен и чем заменить?
-
-## Ответы
-
-### Какую проблему решает паттерн circuit breakers?
-
-Размыкание цепей вызовов при деградации. Без проблемы паттерн — cargo cult. Метрики state open/half-open.
-
-### Как устроить circuit breakers end-to-end?
-
-Шаги, участники, данные, что происходит при сбое. Общий паттерн resilience.
-
-### Когда circuit breakers избыточен и чем заменить?
-
-Сравните с более простым подходом и назовите цену сложности. Для маленькой системы часто хватает монолитного варианта без circuit breakers.
+На собесе свяжите с timeout, retry budget и fallback. Иначе breaker — просто слово.

@@ -1,36 +1,16 @@
 ---
-title: context propagation
-summary: context propagation в блоке «Distributed Tracing» — нужно уметь объяснить механизм, риск и альтернативы.
+title: Context propagation
+summary: Context propagation — передача trace/span context (и baggage) через границы процессов: HTTP headers, messaging metadata.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Отслеживание запроса через несколько сервисов и компонентов. Сигнал → алерт → кого пейджить; correlation.
+Чтобы дочерний сервис продолжил тот же trace, а не начал «новый мир» без связи.
 
-## Как работает
+## Пример
 
-**context propagation** — тема блока «Distributed Tracing» (observability). Отслеживание запроса через несколько сервисов и компонентов.
+W3C `traceparent` в HTTP; в Kafka — заголовок сообщения. SDK OpenTelemetry делает inject/extract.
 
-Типичная ошибка — использовать context propagation «по привычке» без понимания границ и failure modes в «Distributed Tracing».
+## Примечание
 
-Сигнал → алерт → кого пейджить; correlation.
-
-## Что спрашивают
-
-- Объясните context propagation своими словами на примере из «Distributed Tracing».
-- Какие ошибки и edge cases связаны с context propagation?
-- Какие альтернативы context propagation и когда они лучше?
-
-## Ответы
-
-### Объясните context propagation своими словами на примере из «Distributed Tracing».
-
-**context propagation** — тема блока «Distributed Tracing» (observability). Отслеживание запроса через несколько сервисов и компонентов. Держите структуру: проблема → механизм → пример. Сигнал → алерт → кого пейджить; correlation.
-
-### Какие ошибки и edge cases связаны с context propagation?
-
-Типичная ошибка — использовать context propagation «по привычке» без понимания границ и failure modes в «Distributed Tracing». Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы context propagation и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Сигнал → алерт → кого пейджить; correlation.
+Сломали propagation → «дыры» в трейсах. Обновляйте middleware/клиенты единообразно; не режьте неизвестные headers на proxy без нужды.

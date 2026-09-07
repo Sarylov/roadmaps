@@ -1,38 +1,21 @@
 ---
-title: caching
-summary: "caching: HTTP caching: Cache-Control, ETag, Vary. Важно на собесе и в проде в контексте «HTTP»."
+title: Caching
+summary: HTTP caching — правила, когда ответ можно взять из кэша (браузер/CDN/прокси) вместо повторного похода на origin.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Протокол, поверх которого строится большая часть backend API. Упор на семантику метода/статуса/заголовков и кэш.
+Чтобы снизить latency и нагрузку на сервер для повторяющихся чтений.
 
-## Как работает
+## Пример
 
-**caching**: HTTP caching: Cache-Control, ETag, Vary.
+```http
+Cache-Control: public, max-age=3600
+ETag: "v42"
+```
 
-персонализированный контент + public cache = утечки.
+Клиент/CDN при `If-None-Match: "v42"` может получить `304 Not Modified`.
 
-Валидация vs expiration модель.
+## Примечание
 
-MDN: [HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP).
-
-## Что спрашивают
-
-- Объясните caching своими словами на примере из «HTTP».
-- Какие ошибки и edge cases связаны с caching?
-- Какие альтернативы caching и когда они лучше?
-
-## Ответы
-
-### Объясните caching своими словами на примере из «HTTP».
-
-HTTP caching: Cache-Control, ETag, Vary. Держите структуру: проблема → механизм → пример. Валидация vs expiration модель.
-
-### Какие ошибки и edge cases связаны с caching?
-
-персонализированный контент + public cache = утечки. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы caching и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Валидация vs expiration модель.
+Персонализированные ответы (`Authorization`, cookie-сессия) нельзя слепо класть в `public` кэш — риск утечки. Смотрите `Vary`, `private`/`no-store`.

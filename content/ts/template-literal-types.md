@@ -1,38 +1,38 @@
 ---
-title: template literal types
-summary: "template literal types: Шаблонные литеральные типы склеивают string unions. Важно на собесе и в проде в контексте «Advanced Types»."
+title: Template Literal Types
+summary: Template literal types — строковые типы вида `` `${A}-${B}` ``, которые склеивают literal/union в новые строковые литералы.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Продвинутые средства построения типов. Упор на систему типов, inference и дизайн публичного API.
+Чтобы точно типизировать имена событий, CSS-классы, route path, ключи вроде `on${Event}` без ручного перечисления всех комбинаций.
 
-## Как работает
+## Пример
 
-**template literal types**: Шаблонные литеральные типы склеивают string unions.
+```ts
+type HttpMethod = 'get' | 'post'
+type Route = '/users' | '/posts'
 
-API роутов/событий типизируют точно.
+type Endpoint = `${HttpMethod} ${Route}`
+// 'get /users' | 'get /posts' | 'post /users' | 'post /posts'
 
-Не злоупотреблять — ошибки становятся «простынями».
+type PropEvent<E extends string> = `on${Capitalize<E>}`
+```
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
+## Примечание
 
-## Что спрашивают
+Union в шаблоне даёт декартово произведение комбинаций — удобно, но взрывается на больших union. Есть intrinsic helpers: `Uppercase`, `Lowercase`, `Capitalize`, `Uncapitalize`.
 
-- Объясните template literal types своими словами на примере из «Advanced Types».
-- Какие ошибки и edge cases связаны с template literal types?
-- Какие альтернативы template literal types и когда они лучше?
+## Вопросы и ответы
 
-## Ответы
+### Чем это лучше обычного `string`?
 
-### Объясните template literal types своими словами на примере из «Advanced Types».
+`string` принимает любую строку. Template literal ловит опечатки в именах событий/роутов на compile time.
 
-Шаблонные литеральные типы склеивают string unions. Держите структуру: проблема → механизм → пример. Не злоупотреблять — ошибки становятся «простынями».
+### Как извлечь части строки на уровне типов?
 
-### Какие ошибки и edge cases связаны с template literal types?
+Через conditional + `infer`: `` T extends `${infer Head}/${infer Tail}` ? ... `` — типичный паттерн парсинга path.
 
-API роутов/событий типизируют точно. Назовите симптом в проде и как поймать тестом или метрикой.
+### Где это используют на бэкенде?
 
-### Какие альтернативы template literal types и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Не злоупотреблять — ошибки становятся «простынями».
+Типизация Redis/Kafka keys, event names, OpenAPI path params, builder'ы query string — везде, где строка — часть контракта.

@@ -1,36 +1,21 @@
 ---
-title: aggregations
-summary: "aggregations: Агрегации: SUM/COUNT/GROUP BY. Важно на собесе и в проде в контексте «Query Builder»."
+title: Aggregations
+summary: Aggregations — запросы с `COUNT`/`SUM`/`AVG`/`GROUP BY` (и аналоги в ORM) для сводок, а не построчного списка.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Гибкое построение сложных запросов без полного перехода на raw SQL. Слои приложения, DI и границы транзакций.
+Чтобы считать метрики и отчёты в БД, не выгружая все строки в Node.
 
-## Как работает
+## Пример
 
-**aggregations**: Агрегации: SUM/COUNT/GROUP BY.
+```ts
+await db.select({
+  status: orders.status,
+  n: count(),
+}).from(orders).groupBy(orders.status);
+```
 
-Тяжёлые агрегаты — выносить в rollup/MV.
+## Примечание
 
-Индексы и precompute.
-
-## Что спрашивают
-
-- Объясните aggregations своими словами на примере из «Query Builder».
-- Какие ошибки и edge cases связаны с aggregations?
-- Какие альтернативы aggregations и когда они лучше?
-
-## Ответы
-
-### Объясните aggregations своими словами на примере из «Query Builder».
-
-Агрегации: SUM/COUNT/GROUP BY. Держите структуру: проблема → механизм → пример. Индексы и precompute.
-
-### Какие ошибки и edge cases связаны с aggregations?
-
-Тяжёлые агрегаты — выносить в rollup/MV. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы aggregations и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Индексы и precompute.
+Тяжёлые агрегации на больших таблицах — кандидаты на материализованные view / read model / кэш. `HAVING` фильтрует уже после группировки.

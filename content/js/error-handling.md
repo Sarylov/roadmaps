@@ -1,38 +1,36 @@
 ---
-title: error handling
-summary: error handling в блоке «JavaScript Core» — нужно уметь объяснить механизм, риск и альтернативы.
+title: Error handling
+summary: Error handling — способ поймать сбой, не дать процессу «упасть молча» и отдать понятную ошибку наверх.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Язык, на котором работает Node.js backend. Упор на event loop, this, coercion и практические ловушки runtime.
+Чтобы отличать ожидаемые доменные ошибки от аварий, логировать причину и отвечать клиенту предсказуемо.
 
-## Как работает
+## Пример
 
-**error handling** — тема блока «JavaScript Core» (js). Язык, на котором работает Node.js backend.
+```js
+try {
+  JSON.parse(raw)
+} catch (e) {
+  throw new Error('Invalid JSON', { cause: e })
+}
+```
 
-Типичная ошибка — использовать error handling «по привычке» без понимания границ и failure modes в «JavaScript Core».
+## Примечание
 
-Упор на event loop, this, coercion и практические ловушки runtime.
+`throw` прерывает текущий стек. В async ошибки идут через rejected Promise / `try/catch` вокруг `await`. Пустой `catch` — почти всегда баг.
 
-MDN: [JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide).
+## Вопросы и ответы
 
-## Что спрашивают
+### Как ловить ошибки в синхронном и async-коде?
 
-- Объясните error handling своими словами на примере из «JavaScript Core».
-- Какие ошибки и edge cases связаны с error handling?
-- Какие альтернативы error handling и когда они лучше?
+Синхронно — `try/catch` вокруг `throw`. С Promise — `.catch` или `try/catch` вокруг `await`. Без обработки rejected Promise уходит в `unhandledRejection`.
 
-## Ответы
+### Почему пустой `catch` — плохая идея?
 
-### Объясните error handling своими словами на примере из «JavaScript Core».
+Ошибка проглатывается: сбой не виден в логах и вызывающий код думает, что всё ок. Минимум — залогировать и/или пробросить дальше (`throw` / `cause`).
 
-**error handling** — тема блока «JavaScript Core» (js). Язык, на котором работает Node.js backend. Держите структуру: проблема → механизм → пример. Упор на event loop, this, coercion и практические ловушки runtime.
+### Зачем `Error` с `cause`?
 
-### Какие ошибки и edge cases связаны с error handling?
-
-Типичная ошибка — использовать error handling «по привычке» без понимания границ и failure modes в «JavaScript Core». Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы error handling и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Упор на event loop, this, coercion и практические ловушки runtime.
+Чтобы обернуть низкоуровневую ошибку понятным сообщением, не теряя исходную причину: `new Error('Invalid JSON', { cause: e })`.

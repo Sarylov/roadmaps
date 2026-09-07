@@ -1,36 +1,16 @@
 ---
-title: traffic policies
-summary: "traffic policies: Retry/timeout/canary на уровне mesh/gateway. Важно на собесе и в проде в контексте «Service Mesh»."
+title: Traffic policies
+summary: Traffic policies в mesh/gateway — правила маршрутизации и устойчивости: canary, timeout, retry, outlier ejection.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Инфраструктурный слой для трафика между сервисами. Слои приложения, DI и границы транзакций.
+Чтобы управлять выкладкой и поведением трафика декларативно, не правя код каждого клиента.
 
-## Как работает
+## Пример
 
-**traffic policies**: Retry/timeout/canary на уровне mesh/gateway.
+Canary 5% на новую версию; timeout 1s; retry только на idempotent GET; выброс нездоровых endpoints.
 
-Дубли политик в app и mesh путают.
+## Примечание
 
-Единый слой правил.
-
-## Что спрашивают
-
-- Объясните traffic policies своими словами на примере из «Service Mesh».
-- Какие ошибки и edge cases связаны с traffic policies?
-- Какие альтернативы traffic policies и когда они лучше?
-
-## Ответы
-
-### Объясните traffic policies своими словами на примере из «Service Mesh».
-
-Retry/timeout/canary на уровне mesh/gateway. Держите структуру: проблема → механизм → пример. Единый слой правил.
-
-### Какие ошибки и edge cases связаны с traffic policies?
-
-Дубли политик в app и mesh путают. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы traffic policies и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Единый слой правил.
+Политики клиента и mesh могут дублироваться — согласуйте, иначе retry storm. Сначала измерьте, потом ужесточайте.

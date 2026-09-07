@@ -1,38 +1,17 @@
 ---
-title: equality
-summary: "equality: == vs === vs Object.is: разные правила равенства. Важно на собесе и в проде в контексте «Типы и переменные»."
+title: Equality
+summary: Equality — сравнение: `==` с coercion, `===` без, `Object.is` строже к `NaN` и `±0`.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Язык, runtime и асинхронность, на которых держится весь фронт. Упор на event loop, this, coercion и практические ловушки runtime.
+Чтобы выбирать семантику сравнения и не путать `NaN`, `null`/`undefined`.
 
-## Как работает
+## Пример
 
-**equality**: == vs === vs Object.is: разные правила равенства.
+`0 == false` → true; `0 === false` → false.  
+`NaN === NaN` → false; `Object.is(NaN, NaN)` → true.
 
-NaN === NaN false, Object.is(NaN,NaN) true; +0/−0.
+## Примечание
 
-Для бизнес-логики почти всегда === или Object.is.
-
-MDN: [JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide).
-
-## Что спрашивают
-
-- Объясните equality своими словами на примере из «Типы и переменные».
-- Какие ошибки и edge cases связаны с equality?
-- Какие альтернативы equality и когда они лучше?
-
-## Ответы
-
-### Объясните equality своими словами на примере из «Типы и переменные».
-
-== vs === vs Object.is: разные правила равенства. Держите структуру: проблема → механизм → пример. Для бизнес-логики почти всегда === или Object.is.
-
-### Какие ошибки и edge cases связаны с equality?
-
-NaN === NaN false, Object.is(NaN,NaN) true; +0/−0. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы equality и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Для бизнес-логики почти всегда === или Object.is.
+Для бизнес-логики почти всегда `===`. `Object.is` — когда важны edge cases чисел.

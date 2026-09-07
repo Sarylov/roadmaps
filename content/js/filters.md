@@ -1,38 +1,16 @@
 ---
-title: filters
-summary: "filters: Exception filters мапят ошибки в HTTP. Важно на собесе и в проде в контексте «NestJS»."
+title: Filters (NestJS)
+summary: Exception filter в NestJS — ловит исключения и формирует HTTP-ответ (статус, тело ошибки).
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Основной framework для структурированного production backend на Node.js. Упор на event loop, this, coercion и практические ловушки runtime.
+Чтобы ошибки домена/инфраструктуры превращались в стабильный API error format, а не в сырой stack.
 
-## Как работает
+## Пример
 
-**filters**: Exception filters мапят ошибки в HTTP.
+`HttpExceptionFilter`: `NotFoundException` → `404` + `{ message, code }`. Непойманное → `500` без внутренностей.
 
-Доменные ошибки ≠ 500 по умолчанию.
+## Примечание
 
-Логируйте с correlation id.
-
-MDN: [JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide).
-
-## Что спрашивают
-
-- Объясните filters своими словами на примере из «NestJS».
-- Какие ошибки и edge cases связаны с filters?
-- Какие альтернативы filters и когда они лучше?
-
-## Ответы
-
-### Объясните filters своими словами на примере из «NestJS».
-
-Exception filters мапят ошибки в HTTP. Держите структуру: проблема → механизм → пример. Логируйте с correlation id.
-
-### Какие ошибки и edge cases связаны с filters?
-
-Доменные ошибки ≠ 500 по умолчанию. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы filters и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Логируйте с correlation id.
+Фильтры бывают глобальные, на контроллер или метод. Бизнес-ошибки лучше кидать типизированными exceptions, а не `throw 'string'`.

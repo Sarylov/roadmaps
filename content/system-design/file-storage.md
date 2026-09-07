@@ -1,36 +1,16 @@
 ---
-title: file storage
-summary: "file storage: Object storage (S3), presigned URL, вирус-скан. Важно на собесе и в проде в контексте «System Design Practice»."
+title: File storage
+summary: File storage design — загрузка/хранение/раздача больших бинарников (S3/blob) + метаданные в БД.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Практика проектирования реальных распределённых систем. Цифры, bottleneck и явные trade-offs.
+Практика: direct upload, CDN, вирус-скан, права доступа, multipart для больших файлов.
 
-## Как работает
+## Пример
 
-**file storage**: Object storage (S3), presigned URL, вирус-скан.
+Клиент получает presigned URL → upload в S3 → callback → запись metadata. Download через CDN/signed URL.
 
-Метаданные в БД, байты в object store.
+## Примечание
 
-Multipart и CDN.
-
-## Что спрашивают
-
-- Объясните file storage своими словами на примере из «System Design Practice».
-- Какие ошибки и edge cases связаны с file storage?
-- Какие альтернативы file storage и когда они лучше?
-
-## Ответы
-
-### Объясните file storage своими словами на примере из «System Design Practice».
-
-Object storage (S3), presigned URL, вирус-скан. Держите структуру: проблема → механизм → пример. Multipart и CDN.
-
-### Какие ошибки и edge cases связаны с file storage?
-
-Метаданные в БД, байты в object store. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы file storage и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Multipart и CDN.
+Не гоните гигабайты через API-сервер. Отдельно: virus scan async, lifecycle cold storage, лимиты размера.

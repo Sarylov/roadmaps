@@ -1,38 +1,20 @@
 ---
 title: URL
-summary: "URL: URL/URLSearchParams — стандартный парсинг. Важно на собесе и в проде в контексте «Node.js APIs»."
+summary: URL / URLSearchParams — стандартный парсер ссылок и query-параметров (тот же WHATWG API, что в браузере).
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Базовые модули runtime, необходимые для backend-разработки. Событийный цикл Node, backpressure и блокировки потока.
+Чтобы разбирать и собирать URL без хрупких regex и ручной склейки строк.
 
-## Как работает
+## Пример
 
-**URL**: URL/URLSearchParams — стандартный парсинг.
+```js
+const u = new URL('https://api.example.com/v1/users?active=1')
+u.pathname // /v1/users
+u.searchParams.get('active') // "1"
+```
 
-Не парсите regex’ом.
+## Примечание
 
-WHATWG URL в Node — тот же API, что в браузере.
-
-Документация: [Node.js](https://nodejs.org/docs/latest/api/).
-
-## Что спрашивают
-
-- Как работает URL и какая у него семантика?
-- Чем URL отличается от близких API в «Node.js APIs»?
-- Какой edge case с URL чаще всего ловят на собесе?
-
-## Ответы
-
-### Как работает URL и какая у него семантика?
-
-URL/URLSearchParams — стандартный парсинг. Умейте показать крошечный пример и объяснить edge case. WHATWG URL в Node — тот же API, что в браузере.
-
-### Чем URL отличается от близких API в «Node.js APIs»?
-
-Сравните контракт: успех/ошибка, идемпотентность, сложность, стоимость. Не парсите regex’ом.
-
-### Какой edge case с URL чаще всего ловят на собесе?
-
-Не парсите regex’ом. Добавьте, как тестировать и что будет в production под нагрузкой.
+Для относительных путей нужен base: `new URL('/x', 'https://example.com')`. Не парсите query самописным `split('&')`.

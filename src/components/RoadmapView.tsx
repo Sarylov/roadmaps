@@ -1,5 +1,10 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { Priority, Roadmap } from '../types'
+import { normalizeItem } from '../types'
+import {
+  ARTICLE_PROGRESS_EVENT,
+  countRemembered,
+} from '../utils/articleProgress'
 import { getLevelColor } from '../utils/colors'
 import { LevelSection } from './LevelSection'
 
@@ -31,10 +36,31 @@ export function RoadmapView({
     [roadmap, priorities],
   )
 
+  const itemRefs = useMemo(() => {
+    const refs: string[] = []
+    for (const level of filteredLevels) {
+      for (const topic of level.topics) {
+        for (const raw of topic.items) {
+          const ref = normalizeItem(raw).ref
+          if (ref) refs.push(ref)
+        }
+      }
+    }
+    return refs
+  }, [filteredLevels])
+
+  const [progressTick, setProgressTick] = useState(0)
+  useEffect(() => {
+    const bump = () => setProgressTick((n) => n + 1)
+    window.addEventListener(ARTICLE_PROGRESS_EVENT, bump)
+    return () => window.removeEventListener(ARTICLE_PROGRESS_EVENT, bump)
+  }, [])
+
   const stats = useMemo(() => {
     const topics = filteredLevels.reduce((sum, l) => sum + l.topics.length, 0)
-    return { levels: filteredLevels.length, topics }
-  }, [filteredLevels])
+    const { remembered, total } = countRemembered(itemRefs)
+    return { levels: filteredLevels.length, topics, remembered, total }
+  }, [filteredLevels, itemRefs, progressTick])
 
   const levelAnchor = (levelId: string) => `${anchorPrefix}__${levelId}`
 
@@ -62,6 +88,14 @@ export function RoadmapView({
           <span className="rounded-full bg-[var(--surface)] border border-[var(--border)] px-2.5 py-1">
             {stats.topics} тем
           </span>
+          {stats.total > 0 && (
+            <span
+              className="rounded-full bg-[var(--surface)] border border-[var(--border)] px-2.5 py-1"
+              title="Темы с отметкой «Запомнил»"
+            >
+              Запомнил {stats.remembered} из {stats.total}
+            </span>
+          )}
           {roadmap.stack && (
             <span className="text-[var(--fg-faint)]">
               {Object.entries(roadmap.stack)

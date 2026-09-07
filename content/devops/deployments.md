@@ -1,32 +1,16 @@
 ---
-title: Kubernetes Deployments
-summary: Deployment управляет stateless Pods через ReplicaSet и выполняет декларативные rolling updates. Он сравнивает desired state с фактическим и заменяет экземпляры.
+title: Deployments
+summary: Deployment — контроллер K8s: желаемое число реплик Pod'ов одного приложения и стратегия обновления.
 ---
 
-## Зачем нужно
+## Для чего
 
-Тема регулярно встречается на backend-интервью: сильный ответ связывает механизм с наблюдаемым поведением, отказами и production-решением.
+Чтобы декларативно держать N копий сервиса и выкатывать новые образы без ручного create pod.
 
-## Как работает
+## Пример
 
-Изменение pod template создаёт новый ReplicaSet. `maxSurge` ограничивает дополнительные pods, `maxUnavailable` — недоступные; readiness не пускает трафик до готовности, progress deadline обнаруживает застрявший rollout.
+`Deployment api` replicas: 3, image `api:1.4`. Apply → ReplicaSet создаёт/гасит поды rolling update.
 
-## Что спрашивают
+## Примечание
 
-- Как работает Kubernetes Deployments на практике?
-- Какой типичный failure mode связан с Kubernetes Deployments?
-- Какие trade-offs важно назвать для Kubernetes Deployments?
-
-## Ответы
-
-### Как работает Kubernetes Deployments на практике?
-
-Изменение pod template создаёт новый ReplicaSet. `maxSurge` ограничивает дополнительные pods, `maxUnavailable` — недоступные; readiness не пускает трафик до готовности, progress deadline обнаруживает застрявший rollout.
-
-### Какой типичный failure mode связан с Kubernetes Deployments?
-
-Если readiness поверхностная, rollout считается успешным при сломанной зависимости. Один несовместимый schema migration ломает старую или новую версию; слишком короткий termination grace обрывает requests.
-
-### Какие trade-offs важно назвать для Kubernetes Deployments?
-
-Используют backward-compatible expand/contract migrations, immutable image digest, readiness и graceful shutdown. `rollout undo` возвращает template, но не откатывает БД или внешние side effects.
+Deployment для stateless. StatefulSet — для упорядоченных stateful (Kafka, БД). Не путать Deployment с самим Service.

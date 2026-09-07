@@ -1,38 +1,16 @@
 ---
 title: Terraform
-summary: "Terraform: IaC декларативно; plan/apply. Важно на собесе и в проде в контексте «Infrastructure as Code»."
+summary: Terraform — IaC инструмент: декларативно описываете облачные ресурсы, plan/apply приводит инфраструктуру к желаемому state.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Описание инфраструктуры в виде кода. Упор на каскад, layout и доступность.
+Чтобы сети, БД, IAM и кластеры воспроизводились из кода, а не из кликов в консоли.
 
-## Как работает
+## Пример
 
-**Terraform**: IaC декларативно; plan/apply.
+`aws_db_instance` + `aws_eks_cluster` в `.tf` → `terraform plan` → `apply`. Один модуль VPC на все env.
 
-State — критичный артефакт (lock в remote).
+## Примечание
 
-Модули и blast radius.
-
-MDN: [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS).
-
-## Что спрашивают
-
-- Что такое Terraform и какую задачу закрывает?
-- Какие ключевые абстракции Terraform нужно знать на собесе?
-- Какие operational pitfalls у Terraform?
-
-## Ответы
-
-### Что такое Terraform и какую задачу закрывает?
-
-IaC декларативно; plan/apply. Опишите место в стеке «Infrastructure as Code». Модули и blast radius.
-
-### Какие ключевые абстракции Terraform нужно знать на собесе?
-
-Назовите 3–5 сущностей/операций и как они стыкуются. State — критичный артефакт (lock в remote).
-
-### Какие operational pitfalls у Terraform?
-
-State — критичный артефакт (lock в remote). Говорите про деплой, мониторинг, лимиты и failure modes, не только про happy path.
+State — источник правды Terraform; храните удалённо с lock. Не правьте вручную то, чем владеет Terraform, без reconcile.

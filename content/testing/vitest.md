@@ -1,36 +1,19 @@
 ---
 title: Vitest
-summary: Vitest в блоке «Unit Testing» — нужно уметь объяснить механизм, риск и альтернативы.
+summary: Vitest — быстрый test runner на Vite: API совместим с Jest, нативный ESM и TypeScript.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Изолированная проверка бизнес-логики. Границы unit/integration/e2e и борьба с flaky.
+Чтобы тестировать код с тем же пайплайном трансформации, что и dev/build на Vite.
 
-## Как работает
+## Пример
 
-**Vitest** — тема блока «Unit Testing» (testing). Изолированная проверка бизнес-логики.
+```ts
+import { describe, it, expect } from 'vitest';
+it('works', () => expect(1 + 1).toBe(2));
+```
 
-Типичная ошибка — использовать Vitest «по привычке» без понимания границ и failure modes в «Unit Testing».
+## Примечание
 
-Границы unit/integration/e2e и борьба с flaky.
-
-## Что спрашивают
-
-- Что такое Vitest и какую задачу закрывает?
-- Какие ключевые абстракции Vitest нужно знать на собесе?
-- Какие operational pitfalls у Vitest?
-
-## Ответы
-
-### Что такое Vitest и какую задачу закрывает?
-
-**Vitest** — тема блока «Unit Testing» (testing). Изолированная проверка бизнес-логики. Опишите место в стеке «Unit Testing». Границы unit/integration/e2e и борьба с flaky.
-
-### Какие ключевые абстракции Vitest нужно знать на собесе?
-
-Назовите 3–5 сущностей/операций и как они стыкуются. Типичная ошибка — использовать Vitest «по привычке» без понимания границ и failure modes в «Unit Testing».
-
-### Какие operational pitfalls у Vitest?
-
-Типичная ошибка — использовать Vitest «по привычке» без понимания границ и failure modes в «Unit Testing». Говорите про деплой, мониторинг, лимиты и failure modes, не только про happy path.
+Почти drop-in вместо Jest в современных TS-репо. Для тяжёлого Nest/legacy CJS Jest всё ещё частый дефолт.

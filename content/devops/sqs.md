@@ -1,36 +1,16 @@
 ---
 title: SQS
-summary: "SQS: SQS — очередь AWS; standard vs FIFO. Важно на собесе и в проде в контексте «AWS»."
+summary: SQS — управляемая очередь сообщений AWS: producers кладут сообщения, consumers забирают с at-least-once семантикой.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Практический cloud stack для production backend. Операции, rollback и безопасность поставки.
+Чтобы развязать сервисы и сгладить пики без своего Rabbit/Kafka на старте.
 
-## Как работает
+## Пример
 
-**SQS**: SQS — очередь AWS; standard vs FIFO.
+API кладёт job в SQS → worker polling → обработка → delete. DLQ после N receive.
 
-Visibility timeout и DLQ.
+## Примечание
 
-at-least-once.
-
-## Что спрашивают
-
-- Объясните SQS своими словами на примере из «AWS».
-- Какие ошибки и edge cases связаны с SQS?
-- Какие альтернативы SQS и когда они лучше?
-
-## Ответы
-
-### Объясните SQS своими словами на примере из «AWS».
-
-SQS — очередь AWS; standard vs FIFO. Держите структуру: проблема → механизм → пример. at-least-once.
-
-### Какие ошибки и edge cases связаны с SQS?
-
-Visibility timeout и DLQ. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы SQS и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. at-least-once.
+Visibility timeout ≈ «lock» на время обработки. Standard — высокая throughput, дубли; FIFO — порядок и дедуп в пределах ограничений. Не замена event log с долгим replay как у Kafka.

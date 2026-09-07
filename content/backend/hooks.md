@@ -1,32 +1,17 @@
 ---
-title: Hooks в Fastify
-summary: Hooks Fastify встраивают логику в жизненный цикл запроса и приложения. Правильная фаза важна для auth, body, сериализации и освобождения ресурсов.
+title: Hooks
+summary: Hooks во Fastify — точки жизненного цикла запроса/приложения (`onRequest`, `preHandler`, `onResponse`…), куда вешают общий код.
 ---
 
-## Зачем нужно
+## Для чего
 
-Тема регулярно встречается на backend-интервью: сильный ответ связывает механизм с наблюдаемым поведением, отказами и production-решением.
+Чтобы вынести auth, логирование, тайминги и подготовку контекста из каждого handler'а.
 
-## Как работает
+## Пример
 
-Последовательность включает `onRequest`, `preParsing`, `preValidation`, `preHandler`, `preSerialization`, `onSend`, `onResponse`; application hooks управляют startup/shutdown. Hook наследуется вниз по plugin scope.
+`preHandler` проверяет JWT → кладёт `request.user`.  
+Handler уже работает с пользователем, не парсит токен сам.
 
-## Что спрашивают
+## Примечание
 
-- Как работает Hooks в Fastify на практике?
-- Какой типичный failure mode связан с Hooks в Fastify?
-- Какие trade-offs важно назвать для Hooks в Fastify?
-
-## Ответы
-
-### Как работает Hooks в Fastify на практике?
-
-Последовательность включает `onRequest`, `preParsing`, `preValidation`, `preHandler`, `preSerialization`, `onSend`, `onResponse`; application hooks управляют startup/shutdown. Hook наследуется вниз по plugin scope.
-
-### Какой типичный failure mode связан с Hooks в Fastify?
-
-Смешивание callback-стиля и `async` вызывает двойное продолжение запроса. В `onRequest` body ещё не разобран, а ошибка в `onResponse` уже не может изменить отправленный ответ. Тяжёлый global hook добавляет latency каждому route.
-
-### Какие trade-offs важно назвать для Hooks в Fastify?
-
-Auth без body ставят в `onRequest`, проверку после schema — в `preHandler`, метрики завершения — в `onResponse`. Бизнес-логику держат в handler/service, чтобы lifecycle не стал скрытым pipeline.
+Hooks ограничены encapsulation плагина: hook в `/admin` плагине не обязан висеть на публичных роутах. Порядок хуков имеет значение.

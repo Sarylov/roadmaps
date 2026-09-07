@@ -1,38 +1,22 @@
 ---
-title: discriminants
-summary: "discriminants: Discriminated union: общее literal-поле kind/type. Важно на собесе и в проде в контексте «Type Narrowing»."
+title: Discriminants
+summary: Discriminated union — объединение объектов с общим литеральным полем (`type`), по которому TS сужает остальные поля.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Типовая модель приложения и контрактов между слоями. Упор на систему типов, inference и дизайн публичного API.
+Чтобы безопасно моделировать варианты состояния (loading/success/error) без кучи optional-полей.
 
-## Как работает
+## Пример
 
-**discriminants**: Discriminated union: общее literal-поле kind/type.
+```ts
+type Res =
+  | { status: 'ok'; data: User }
+  | { status: 'err'; error: string };
 
-switch по discriminant — exhaustive check.
+if (res.status === 'ok') res.data; // User
+```
 
-Эталон моделирования состояний UI/API.
+## Примечание
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
-
-## Что спрашивают
-
-- Объясните discriminants своими словами на примере из «Type Narrowing».
-- Какие ошибки и edge cases связаны с discriminants?
-- Какие альтернативы discriminants и когда они лучше?
-
-## Ответы
-
-### Объясните discriminants своими словами на примере из «Type Narrowing».
-
-Discriminated union: общее literal-поле kind/type. Держите структуру: проблема → механизм → пример. Эталон моделирования состояний UI/API.
-
-### Какие ошибки и edge cases связаны с discriminants?
-
-switch по discriminant — exhaustive check. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы discriminants и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Эталон моделирования состояний UI/API.
+Дискриминант должен быть литералом. После `switch (res.status)` в каждой ветке — узкий тип.

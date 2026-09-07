@@ -1,38 +1,36 @@
 ---
 title: refresh
-summary: "refresh: Refresh token обновляет access token без re-login. Важно на собесе и в проде в контексте «JWT»."
+summary: refresh — это token обновляет access token без re-login.
 ---
 
 ## Зачем нужно
 
-Частый KILLER-вопрос на собеседованиях. HTTP, realtime, auth и защита клиентского периметра. Связка login → хранение секрета → refresh/logout и XSS/CSRF риски.
+Чтобы явно выразить и переиспользовать поведение, связанное с «refresh», а не держать его зашитым в одном месте.
 
 ## Как работает
 
-**refresh**: Refresh token обновляет access token без re-login.
+refresh — это token обновляет access token без re-login.
 
-Reuse detection при краже refresh.
-
-Короткий access + длинный refresh — обычный компромисс.
+Частая ошибка: reuse detection при краже refresh.
 
 Ориентир: [OWASP Auth Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html).
 
 ## Что спрашивают
 
-- Объясните refresh своими словами на примере из «JWT».
-- Какие ошибки и edge cases связаны с refresh?
-- Какие альтернативы refresh и когда они лучше?
+- Что такое refresh простыми словами?
+- Зачем в коде нужен refresh?
+- Какие ошибки и ограничения связаны с refresh?
 
 ## Ответы
 
-### Объясните refresh своими словами на примере из «JWT».
+### Что такое refresh простыми словами?
 
-Refresh token обновляет access token без re-login. Держите структуру: проблема → механизм → пример. Короткий access + длинный refresh — обычный компромисс.
+refresh — это token обновляет access token без re-login.
 
-### Какие ошибки и edge cases связаны с refresh?
+### Зачем в коде нужен refresh?
 
-Reuse detection при краже refresh. Назовите симптом в проде и как поймать тестом или метрикой.
+Чтобы явно выразить и переиспользовать поведение, связанное с «refresh», а не держать его зашитым в одном месте.
 
-### Какие альтернативы refresh и когда они лучше?
+### Какие ошибки и ограничения связаны с refresh?
 
-Сравните минимум два подхода по сложности, perf и риску. Короткий access + длинный refresh — обычный компромисс.
+Reuse detection при краже refresh. Имеет смысл сравнить с ближайшей альтернативой и понять, когда механизм избыточен.

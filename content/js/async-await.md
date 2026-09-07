@@ -1,52 +1,35 @@
 ---
 title: async / await
-summary: Синтаксический сахар над Promise: `await` приостанавливает функцию и продолжает её через microtask, когда Promise выполнится. Ошибки ловятся через try/catch.
-video: 8aGhZQkoFbQ
-image_credit: "Видео: Philip Roberts — event loop (база для понимания, почему await не блокирует поток)."
+summary: async/await — синтаксис над Promise: await ждёт результат, не блокируя поток, а async-функция всегда возвращает Promise.
 ---
 
-## Зачем нужно
+## Для чего
 
-Читаемый асинхронный код без пирамиды `.then`. На собеседованиях почти всегда спрашивают порядок выполнения и обработку ошибок.
+Чтобы писать асинхронный код линейно и ловить ошибки обычным `try/catch`.
 
-## Как работает
+## Пример
 
 ```js
 async function load() {
-  const data = await fetch('/api')
-  return data.json()
+  const res = await fetch('/api')
+  return res.json()
 }
 ```
 
-- `async`-функция всегда возвращает Promise.
-- После `await` продолжение ставится в microtask queue.
-- `throw` внутри `async` → rejected Promise; ловится `try/catch` или `.catch`.
+## Примечание
 
-## Что спрашивают
+Несколько `await` подряд — водопад. Для параллели: `Promise.all([fetch(a), fetch(b)])`. После `await` продолжение идёт через microtask.
 
-- Чем `await` отличается от `.then` по порядку в event loop?
-- Что вернёт `async function`, если внутри нет `return`?
-- Как параллелить запросы: `Promise.all` vs несколько `await` подряд?
+## Вопросы и ответы
 
-## Ответы
+### Что возвращает `async`-функция?
 
-### Чем `await` отличается от `.then` по порядку в event loop?
+Всегда Promise: обычный `return` становится fulfilled, `throw` — rejected. Можно и явно `return Promise`.
 
-По смыслу это одно и то же: продолжение после `await` — microtask, как и колбэк `.then`. Разница в читаемости и в том, что `try/catch` вокруг `await` ловит rejection естественно. Тонкости порядка появляются, когда смешивают синхронный код, несколько `.then` и `await` в одном тике — но модель одна: microtasks до следующей macrotask.
+### Блокирует ли `await` поток?
 
-### Что вернёт `async function`, если внутри нет `return`?
+Нет: функция приостанавливается, поток свободен для другого кода; продолжение после `await` идёт через microtask, когда промис settled.
 
-Всегда **Promise**. Без `return` — `Promise`, который resolve’ится в `undefined`. С `return x` — resolve в `x`. С `throw` / rejected `await` — rejected Promise.
+### Как не сделать водопад из нескольких запросов?
 
-### Как параллелить запросы: `Promise.all` vs несколько `await` подряд?
-
-```js
-// последовательно — второй ждёт первого
-const a = await fetch('/a')
-const b = await fetch('/b')
-
-// параллельно
-const [a, b] = await Promise.all([fetch('/a'), fetch('/b')])
-```
-
-Несколько `await` подряд — водопад. Чтобы стартовать сразу, создайте Promise’ы до `await` или используйте `Promise.all` / `Promise.allSettled`.
+Не писать `await a` затем `await b`, если они независимы. Запускайте параллельно: `Promise.all([fetch(a), fetch(b)])`, потом один `await`.

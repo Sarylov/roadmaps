@@ -1,38 +1,35 @@
 ---
-title: narrowing
-summary: "narrowing: Narrowing сужает union control-flow анализом. Важно на собесе и в проде в контексте «Основы TypeScript»."
+title: Narrowing
+summary: Narrowing — сужение типа внутри ветки кода по control-flow анализу (`typeof`, `in`, equality, type guards).
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Типовая модель backend-приложения и его контрактов. Упор на систему типов, inference и дизайн публичного API.
+Чтобы безопасно работать с union: после проверки компилятор знает конкретный вариант и разрешает его поля и методы.
 
-## Как работает
+## Пример
 
-**narrowing**: Narrowing сужает union control-flow анализом.
+```ts
+function len(x: string | string[]) {
+  if (typeof x === "string") return x.length;
+  return x.length; // x: string[]
+}
+```
 
-Type guard и assert помогают компилятору.
+## Примечание
 
-После mutate/alias narrowing может сброситься.
+Свои проверки оформляют как type predicate: `function isUser(v: unknown): v is User`. `asserts` — жёстче: при успехе сужает тип вызывающего scope.
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
+## Вопросы и ответы
 
-## Что спрашивают
+### Какие способы narrowing знает TypeScript?
 
-- Объясните narrowing своими словами на примере из «Основы TypeScript».
-- Какие ошибки и edge cases связаны с narrowing?
-- Какие альтернативы narrowing и когда они лучше?
+`typeof`, `instanceof`, проверка на `null`/`undefined`, equality, `in`, discriminant поле, user-defined type guards и `asserts`.
 
-## Ответы
+### Что такое type guard?
 
-### Объясните narrowing своими словами на примере из «Основы TypeScript».
+Функция/проверка, по результату которой TS сужает тип. Пример: `typeof x === "string"` или `v is User`.
 
-Narrowing сужает union control-flow анализом. Держите структуру: проблема → механизм → пример. После mutate/alias narrowing может сброситься.
+### Почему после `if (!x) return` тип сужается?
 
-### Какие ошибки и edge cases связаны с narrowing?
-
-Type guard и assert помогают компилятору. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы narrowing и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. После mutate/alias narrowing может сброситься.
+Control-flow analysis: в оставшемся коде `x` не может быть falsy-вариантом из union (с учётом настроек strictness).

@@ -1,34 +1,8 @@
-import type { ReactNode } from 'react'
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 import type { ArticleAnswer } from '../types'
-import { ZoomableImage } from './ImageLightbox'
+import { ArticleMarkdown } from './articleMarkdown'
 
 interface ArticleAnswersProps {
   answers: ArticleAnswer[]
-}
-
-const markdownComponents = {
-  img: ({ src, alt }: { src?: string; alt?: string }) =>
-    src ? (
-      <div className="my-3">
-        <ZoomableImage
-          src={src}
-          alt={alt ?? ''}
-          className="rounded-xl border border-[var(--border)] bg-[var(--chip-muted)] max-h-[320px] w-full object-contain"
-        />
-      </div>
-    ) : null,
-  a: ({ href, children }: { href?: string; children?: ReactNode }) => (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer noopener"
-      className="underline decoration-dotted underline-offset-2 text-[var(--accent)]"
-    >
-      {children}
-    </a>
-  ),
 }
 
 export function ArticleAnswers({ answers }: ArticleAnswersProps) {
@@ -36,7 +10,7 @@ export function ArticleAnswers({ answers }: ArticleAnswersProps) {
 
   return (
     <section className="mt-6 pt-5 border-t border-[var(--border)]">
-      <h2 className="text-sm font-bold text-[var(--fg-strong)] mb-3">Ответы</h2>
+      <h2 className="text-sm font-bold text-[var(--fg-strong)] mb-3">Вопросы и ответы</h2>
       <div className="space-y-2">
         {answers.map((answer) => (
           <details
@@ -54,9 +28,7 @@ export function ArticleAnswers({ answers }: ArticleAnswersProps) {
             </summary>
             {answer.body && (
               <div className="article-prose px-4 pb-4 pl-9 text-sm text-[var(--fg)] leading-relaxed border-t border-[var(--border)] pt-3">
-                <Markdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                  {answer.body}
-                </Markdown>
+                <ArticleMarkdown>{answer.body}</ArticleMarkdown>
               </div>
             )}
           </details>

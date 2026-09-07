@@ -1,38 +1,26 @@
 ---
-title: autocomplete
-summary: "autocomplete: autocomplete подсказывает браузеру тип поля (email, current-password). Важно на собесе и в проде в контексте «Формы»."
+title: Autocomplete
+summary: Autocomplete — подсказки браузера по полям формы (`autocomplete="email"`, `current-password`) и UX автозаполнения.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Каркас интерфейса: семантика, раскладка, формы и доступность. Упор на каскад, layout и доступность.
+Чтобы пароли/адреса подставлялись безопасно и быстрее, а менеджеры паролей понимали поля.
 
-## Как работает
+## Пример
 
-**autocomplete**: autocomplete подсказывает браузеру тип поля (email, current-password).
+`autocomplete="username"`, `autocomplete="new-password"` на регистрации, `current-password` на логине.
 
-Неверные токены ломают менеджеры паролей.
+## Примечание
 
-Критично для login/checkout и security UX.
+Неправильные значения ломают password managers. `autocomplete="off"` часто игнорируют на login — лучше корректные токены.
 
-MDN: [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS).
+## Вопросы и ответы
 
-## Что спрашивают
+### Зачем autocomplete, если есть свой UI?
 
-- Объясните autocomplete своими словами на примере из «Формы».
-- Какие ошибки и edge cases связаны с autocomplete?
-- Какие альтернативы autocomplete и когда они лучше?
+Браузерный менеджер паролей и автозаполнение ОС опираются на стандартные токены — это и безопасность, и UX.
 
-## Ответы
+### Чем new-password отличается от current-password?
 
-### Объясните autocomplete своими словами на примере из «Формы».
-
-autocomplete подсказывает браузеру тип поля (email, current-password). Держите структуру: проблема → механизм → пример. Критично для login/checkout и security UX.
-
-### Какие ошибки и edge cases связаны с autocomplete?
-
-Неверные токены ломают менеджеры паролей. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы autocomplete и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Критично для login/checkout и security UX.
+`new-password` — создание/смена; `current-password` — вход с существующим.

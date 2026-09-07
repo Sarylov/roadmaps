@@ -1,38 +1,26 @@
 ---
-title: screen readers
-summary: "screen readers: Screen readers читают доступное имя, роль и состояние. Важно на собесе и в проде в контексте «Доступность (a11y)»."
+title: Screen readers
+summary: Screen reader — AT, озвучивающая/показывающая интерфейс через accessibility tree (роли, имена, состояния).
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Каркас интерфейса: семантика, раскладка, формы и доступность. Упор на каскад, layout и доступность.
+Чтобы понимать, как незрячие пользователи «видят» страницу, и проверять семантику/ARIA.
 
-## Как работает
+## Пример
 
-**screen readers**: Screen readers читают доступное имя, роль и состояние.
+NVDA/VoiceOver: список заголовков, landmarks, форм-контролы по имени из label. Картинка без alt — «image» без смысла.
 
-Иконки-кнопки без accessible name «молчат».
+## Примечание
 
-Тестируют VoiceOver/NVDA + keyboard, не только Lighthouse.
+Тестируйте реальным SR, не только axe. Визуально скрытый текст (`sr-only`) ≠ `display:none` (последний часто выкидывают из a11y tree).
 
-MDN: [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS).
+## Вопросы и ответы
 
-## Что спрашивают
+### Откуда SR берёт имя кнопки?
 
-- Объясните screen readers своими словами на примере из «Доступность (a11y)».
-- Какие ошибки и edge cases связаны с screen readers?
-- Какие альтернативы screen readers и когда они лучше?
+Accessible name: содержимое, `aria-label`, `aria-labelledby`, связанный label — по правилам name computation.
 
-## Ответы
+### Почему decorative image с alt=""?
 
-### Объясните screen readers своими словами на примере из «Доступность (a11y)».
-
-Screen readers читают доступное имя, роль и состояние. Держите структуру: проблема → механизм → пример. Тестируют VoiceOver/NVDA + keyboard, не только Lighthouse.
-
-### Какие ошибки и edge cases связаны с screen readers?
-
-Иконки-кнопки без accessible name «молчат». Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы screen readers и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Тестируют VoiceOver/NVDA + keyboard, не только Lighthouse.
+Пустой alt помечает декоратив — SR пропускает; без alt может читать URL файла.

@@ -1,36 +1,16 @@
 ---
-title: non-functional requirements
-summary: "non-functional requirements: NFR: latency, availability, security, cost. Важно на собесе и в проде в контексте «Requirements»."
+title: Non-functional requirements
+summary: Non-functional requirements (NFR) — качество системы: latency, availability, consistency, security, cost — не «какие кнопки».
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Определение границ и требований системы до выбора технологий. Цифры, bottleneck и явные trade-offs.
+Чтобы выбрать архитектуру под SLO, а не под красивую схему.
 
-## Как работает
+## Пример
 
-**non-functional requirements**: NFR: latency, availability, security, cost.
+p99 redirect < 100ms, availability 99.9%, данные кликов могут отставать (eventual). От этого зависят кэш, реплики, очередь.
 
-Без цифр NFR бесполезны.
+## Примечание
 
-Драйвят архитектуру сильнее фич.
-
-## Что спрашивают
-
-- Объясните non-functional requirements своими словами на примере из «Requirements».
-- Какие ошибки и edge cases связаны с non-functional requirements?
-- Какие альтернативы non-functional requirements и когда они лучше?
-
-## Ответы
-
-### Объясните non-functional requirements своими словами на примере из «Requirements».
-
-NFR: latency, availability, security, cost. Держите структуру: проблема → механизм → пример. Драйвят архитектуру сильнее фич.
-
-### Какие ошибки и edge cases связаны с non-functional requirements?
-
-Без цифр NFR бесполезны. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы non-functional requirements и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Драйвят архитектуру сильнее фич.
+NFR должны быть измеримы. «Быстро и надёжно» без цифр на собесе — слабо.

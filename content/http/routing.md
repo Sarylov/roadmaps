@@ -1,38 +1,16 @@
 ---
-title: routing
-summary: "routing: Файловый/конфиг routing фреймворка. Важно на собесе и в проде в контексте «API Gateway / BFF»."
+title: Routing
+summary: Routing на gateway — решение, на какой backend/сервис отправить входящий запрос по path/host/headers.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Единая точка входа для клиентов и агрегация вызовов. Упор на семантику метода/статуса/заголовков и кэш.
+Чтобы единая точка входа распределяла трафик по микросервисам без знания клиента о всех URL внутри.
 
-## Как работает
+## Пример
 
-**routing**: Файловый/конфиг routing фреймворка.
+`/api/orders/*` → Orders, `/api/users/*` → Users. Canary: 5% на `orders-v2` по header.
 
-Conflict static vs dynamic segments.
+## Примечание
 
-Layouts и parallel routes — продвинутые паттерны.
-
-MDN: [HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP).
-
-## Что спрашивают
-
-- Объясните routing своими словами на примере из «API Gateway / BFF».
-- Какие ошибки и edge cases связаны с routing?
-- Какие альтернативы routing и когда они лучше?
-
-## Ответы
-
-### Объясните routing своими словами на примере из «API Gateway / BFF».
-
-Файловый/конфиг routing фреймворка. Держите структуру: проблема → механизм → пример. Layouts и parallel routes — продвинутые паттерны.
-
-### Какие ошибки и edge cases связаны с routing?
-
-Conflict static vs dynamic segments. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы routing и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Layouts и parallel routes — продвинутые паттерны.
+Gateway routing ≠ бизнес-логика. Держите правила простыми; сложную оркестрацию — в BFF/сервисах.

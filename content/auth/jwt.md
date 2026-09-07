@@ -1,36 +1,16 @@
 ---
 title: JWT
-summary: JSON Web Token — подписанный (часто компактный) токен с claims. Сервер проверяет подпись и срок; сам токен обычно stateless, поэтому отзыв и хранение на клиенте — отдельные решения.
+summary: JWT (JSON Web Token) — компактный токен из header.payload.signature: сервер проверяет подпись и читает claims без обязательного session store.
 ---
 
-## Зачем нужно
+## Для чего
 
-Стандартный вопрос auth: access/refresh, где хранить, чем JWT отличается от session cookie. Легко наговорить опасный localStorage + долгий TTL.
+Чтобы передавать доказательство аутентификации между сервисами/клиентом в stateless-схеме.
 
-## Как работает
+## Пример
 
-Формат: `header.payload.signature` (Base64url). Payload (claims): `sub`, `exp`, `iat`, роли… Подпись HMAC/RSA — подделка без секрета/ключа не пройдёт.
+Access JWT: `{ sub: userId, exp }` подписан секретом/ключом. API проверяет подпись и `exp`, не ходит в Redis на каждый запрос.
 
-Типичный поток: login → access (короткий) + refresh (длинный, часто httpOnly cookie или отдельное хранилище) → API с `Authorization: Bearer …` → refresh при 401.
+## Примечание
 
-Спека: [RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519). Практика: [jwt.io](https://jwt.io/introduction).
-
-## Что спрашивают
-
-- JWT vs session id в cookie — плюсы/минусы?
-- Где хранить access token на фронте?
-- Как отозвать JWT до `exp`?
-
-## Ответы
-
-### JWT vs session id в cookie — плюсы/минусы?
-
-**Session id**: сервер хранит сессию (Redis/DB) → простой logout/revoke, легко ротировать данные сессии; нужна sticky/shared store. **JWT**: проверка без lookup (если только подпись+claims) → проще горизонтально; logout/revoke сложнее, токен больше, секреты/ключи критичны. Часто гибрид: JWT access + server-side refresh/session denylist.
-
-### Где хранить access token на фронте?
-
-Компромиссы: **memory** — лучше от XSS, плохо при reload; **httpOnly cookie** — недоступен JS (XSS не украдёт), нужен CSRF-учёт; **localStorage** — удобно, но XSS = кража. Для SPA часто: короткий access в memory + refresh в httpOnly cookie.
-
-### Как отозвать JWT до `exp`?
-
-Чистый stateless JWT **нельзя** «удалить» на клиентах. Варианты: короткий `exp` + refresh rotation; denylist/`jti` в Redis до expiry; смена signing key (жёстко); version claim в user record. Без одного из механизмов logout на API ненадёжен.
+JWT не «шифрует» payload по умолчанию — не кладите секреты в claims. Отзыв до `exp` сложнее, чем у session: blacklist, короткий TTL + refresh.

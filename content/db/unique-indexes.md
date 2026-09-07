@@ -1,38 +1,18 @@
 ---
-title: unique indexes
-summary: "unique indexes: Unique гарантирует уникальность (и даёт индекс). Важно на собесе и в проде в контексте «Indexes»."
+title: Unique indexes
+summary: Unique index — индекс, который запрещает дубликаты значений (основа UNIQUE/PK).
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Ускорение запросов и понимание стоимости доступа к данным. Где уместно — Postgres, планы EXPLAIN и индексы.
+Чтобы инвариант «email один на систему» держала БД, а не только приложение.
 
-## Как работает
+## Пример
 
-**unique indexes**: Unique гарантирует уникальность (и даёт индекс).
+```sql
+CREATE UNIQUE INDEX ON users (email);
+```
 
-NULL семантика в unique — нюанс PG.
+## Примечание
 
-Частичные unique indexes полезны.
-
-Документация: [PostgreSQL](https://www.postgresql.org/docs/current/).
-
-## Что спрашивают
-
-- Объясните unique indexes своими словами на примере из «Indexes».
-- Какие ошибки и edge cases связаны с unique indexes?
-- Какие альтернативы unique indexes и когда они лучше?
-
-## Ответы
-
-### Объясните unique indexes своими словами на примере из «Indexes».
-
-Unique гарантирует уникальность (и даёт индекс). Держите структуру: проблема → механизм → пример. Частичные unique indexes полезны.
-
-### Какие ошибки и edge cases связаны с unique indexes?
-
-NULL семантика в unique — нюанс PG. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы unique indexes и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Частичные unique indexes полезны.
+В Postgres несколько `NULL` в UNIQUE обычно допускаются (NULL ≠ NULL). Нужна «один NULL» — partial unique index / другой дизайн.

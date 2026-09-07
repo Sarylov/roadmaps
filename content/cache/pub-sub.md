@@ -1,36 +1,17 @@
 ---
 title: Pub/Sub
-summary: "Pub/Sub: Pub/Sub: fire-and-forget fanout, без persistence. Важно на собесе и в проде в контексте «Redis Advanced»."
+summary: Redis Pub/Sub — издатель шлёт сообщение в channel, подписчики получают его в реальном времени (без долгого хранения).
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Продвинутые сценарии использования Redis. Инвалидация, TTL и stampede — частые темы.
+Чтобы раздавать события «сейчас» (invalidate cache, live notify) между процессами.
 
-## Как работает
+## Пример
 
-**Pub/Sub**: Pub/Sub: fire-and-forget fanout, без persistence.
+Сервис A: `PUBLISH user:1:updated {}`.  
+Сервисы B/C подписаны — сбрасывают локальный кэш пользователя.
 
-Не для критичных событий (нужны Streams/Kafka).
+## Примечание
 
-Потеря при offline subscriber.
-
-## Что спрашивают
-
-- Объясните Pub/Sub своими словами на примере из «Redis Advanced».
-- Какие ошибки и edge cases связаны с Pub/Sub?
-- Какие альтернативы Pub/Sub и когда они лучше?
-
-## Ответы
-
-### Объясните Pub/Sub своими словами на примере из «Redis Advanced».
-
-Pub/Sub: fire-and-forget fanout, без persistence. Держите структуру: проблема → механизм → пример. Потеря при offline subscriber.
-
-### Какие ошибки и edge cases связаны с Pub/Sub?
-
-Не для критичных событий (нужны Streams/Kafka). Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы Pub/Sub и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Потеря при offline subscriber.
+Нет persistence и ack: кто не был online — пропустил. Нужны гарантии/история — Streams или брокер (Kafka/Rabbit).

@@ -1,38 +1,20 @@
 ---
 title: crypto
-summary: "crypto: crypto для хешей/HMAC/random/JWT verify. Важно на собесе и в проде в контексте «Node.js APIs»."
+summary: crypto — криптографические примитивы Node: хеши, HMAC, random, шифрование, verify подписей.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Базовые модули runtime, необходимые для backend-разработки. Событийный цикл Node, backpressure и блокировки потока.
+Чтобы безопасно считать пароли/токены, генерировать секреты и проверять подписи, а не через `Math.random`.
 
-## Как работает
+## Пример
 
-**crypto**: crypto для хешей/HMAC/random/JWT verify.
+```js
+import { randomBytes, createHash, timingSafeEqual } from 'node:crypto'
+randomBytes(32)
+createHash('sha256').update('data').digest('hex')
+```
 
-Math.random не для security.
+## Примечание
 
-timingSafeEqual для сравнения секретов.
-
-Документация: [Node.js](https://nodejs.org/docs/latest/api/).
-
-## Что спрашивают
-
-- Объясните crypto своими словами на примере из «Node.js APIs».
-- Какие ошибки и edge cases связаны с crypto?
-- Какие альтернативы crypto и когда они лучше?
-
-## Ответы
-
-### Объясните crypto своими словами на примере из «Node.js APIs».
-
-crypto для хешей/HMAC/random/JWT verify. Держите структуру: проблема → механизм → пример. timingSafeEqual для сравнения секретов.
-
-### Какие ошибки и edge cases связаны с crypto?
-
-Math.random не для security. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы crypto и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. timingSafeEqual для сравнения секретов.
+Сравнение секретов — `timingSafeEqual`. Пароли — dedicated KDF (scrypt/argon2/bcrypt), не голый SHA. Часть операций грузит thread pool.

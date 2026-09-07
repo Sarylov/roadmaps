@@ -1,38 +1,16 @@
 ---
-title: preflight
-summary: "preflight: Preflight — OPTIONS перед «непростым» cross-origin запросом. Важно на собесе и в проде в контексте «CORS»."
+title: Preflight
+summary: Preflight — автоматический `OPTIONS`-запрос браузера перед «непростым» cross-origin запросом; сервер отвечает CORS-разрешениями.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. HTTP, realtime, auth и защита клиентского периметра. Упор на семантику метода/статуса/заголовков и кэш.
+Чтобы браузер узнал, можно ли слать метод/заголовки/JSON на другой origin.
 
-## Как работает
+## Пример
 
-**preflight**: Preflight — OPTIONS перед «непростым» cross-origin запросом.
+`POST` с `Content-Type: application/json` на другой домен → сначала `OPTIONS`, потом сам POST, если allow-headers/methods ок.
 
-Кастомные headers/Content-Type вызывают preflight.
+## Примечание
 
-Кэшируется Access-Control-Max-Age.
-
-MDN: [HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP).
-
-## Что спрашивают
-
-- Объясните preflight своими словами на примере из «CORS».
-- Какие ошибки и edge cases связаны с preflight?
-- Какие альтернативы preflight и когда они лучше?
-
-## Ответы
-
-### Объясните preflight своими словами на примере из «CORS».
-
-Preflight — OPTIONS перед «непростым» cross-origin запросом. Держите структуру: проблема → механизм → пример. Кэшируется Access-Control-Max-Age.
-
-### Какие ошибки и edge cases связаны с preflight?
-
-Кастомные headers/Content-Type вызывают preflight. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы preflight и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Кэшируется Access-Control-Max-Age.
+«Simple» GET/POST form-urlencoded без кастомных headers — без preflight. Preflight кэшируется (`Access-Control-Max-Age`).

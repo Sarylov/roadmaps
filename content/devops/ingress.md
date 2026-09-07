@@ -1,36 +1,16 @@
 ---
-title: ingress
-summary: "ingress: Ingress — L7 вход (TLS, path/host routing). Важно на собесе и в проде в контексте «Kubernetes»."
+title: Ingress
+summary: Ingress — HTTP(S) вход в кластер: правила host/path → Service, обычно через Ingress Controller (nginx/ALB).
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Оркестрация контейнеров и запуск сервисов в production. Операции, rollback и безопасность поставки.
+Чтобы с одного LB/IP развести много сервисов по доменам и путям и терминировать TLS.
 
-## Как работает
+## Пример
 
-**ingress**: Ingress — L7 вход (TLS, path/host routing).
+`api.example.com/orders` → Service `orders:80`. TLS secret на Ingress. Без Ingress наружу светили бы много LoadBalancer'ов.
 
-Аннотации контроллера специфичны.
+## Примечание
 
-Сертификаты и WAF рядом.
-
-## Что спрашивают
-
-- Объясните ingress своими словами на примере из «Kubernetes».
-- Какие ошибки и edge cases связаны с ingress?
-- Какие альтернативы ingress и когда они лучше?
-
-## Ответы
-
-### Объясните ingress своими словами на примере из «Kubernetes».
-
-Ingress — L7 вход (TLS, path/host routing). Держите структуру: проблема → механизм → пример. Сертификаты и WAF рядом.
-
-### Какие ошибки и edge cases связаны с ingress?
-
-Аннотации контроллера специфичны. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы ingress и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Сертификаты и WAF рядом.
+Нужен установленный controller. Ingress — L7 HTTP; произвольный TCP — другие ресурсы (Gateway API/NodePort).

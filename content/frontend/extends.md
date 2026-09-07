@@ -1,36 +1,21 @@
 ---
 title: extends
-summary: "extends: extends связывает [[Prototype]] ctor и prototype. Важно на собесе и в проде в контексте «Классы»."
+summary: extends — наследование классов: subclass получает прототипную связь с parent, `super` вызывает родителя.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Язык, runtime и асинхронность, на которых держится весь фронт. UX, bundle и архитектурные границы UI.
+Чтобы специализировать поведение (`Dog extends Animal`) с переиспользованием базового API.
 
-## Как работает
+## Пример
 
-**extends**: extends связывает [[Prototype]] ctor и prototype.
+```js
+class Dog extends Animal {
+  constructor(name) { super(name); this.kind = 'dog' }
+  speak() { return 'woof' }
+}
+```
 
-Можно extends от expression (mixin-фабрики).
+## Примечание
 
-Ошибки при неправильном super() до this.
-
-## Что спрашивают
-
-- Объясните extends своими словами на примере из «Классы».
-- Какие ошибки и edge cases связаны с extends?
-- Какие альтернативы extends и когда они лучше?
-
-## Ответы
-
-### Объясните extends своими словами на примере из «Классы».
-
-extends связывает [[Prototype]] ctor и prototype. Держите структуру: проблема → механизм → пример. Ошибки при неправильном super() до this.
-
-### Какие ошибки и edge cases связаны с extends?
-
-Можно extends от expression (mixin-фабрики). Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы extends и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Ошибки при неправильном super() до this.
+В subclass constructor `super` до `this` обязателен. Наследование UI-компонентов часто хуже композиции.

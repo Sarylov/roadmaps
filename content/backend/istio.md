@@ -1,36 +1,16 @@
 ---
 title: Istio
-summary: "Istio: Istio — service mesh на Envoy. Важно на собесе и в проде в контексте «Service Mesh»."
+summary: Istio — service mesh на Envoy sidecar: трафик, mTLS, политики, телеметрия между сервисами в кластере.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Инфраструктурный слой для трафика между сервисами. Слои приложения, DI и границы транзакций.
+Чтобы стандартизировать retries, TLS, canary и observability без SDK в каждом сервисе.
 
-## Как работает
+## Пример
 
-**Istio**: Istio — service mesh на Envoy.
+VirtualService/DestinationRule: 10% на v2. PeerAuthentication — mTLS strict между сервисами.
 
-mTLS, traffic split, observability.
+## Примечание
 
-Операционная сложность высокая.
-
-## Что спрашивают
-
-- Что такое Istio и какую задачу закрывает?
-- Какие ключевые абстракции Istio нужно знать на собесе?
-- Какие operational pitfalls у Istio?
-
-## Ответы
-
-### Что такое Istio и какую задачу закрывает?
-
-Istio — service mesh на Envoy. Опишите место в стеке «Service Mesh». Операционная сложность высокая.
-
-### Какие ключевые абстракции Istio нужно знать на собесе?
-
-Назовите 3–5 сущностей/операций и как они стыкуются. mTLS, traffic split, observability.
-
-### Какие operational pitfalls у Istio?
-
-mTLS, traffic split, observability. Говорите про деплой, мониторинг, лимиты и failure modes, не только про happy path.
+Мощный и тяжёлый operationally. Малым командам часто хватает Ingress + app libraries; mesh — когда сервисов и политик много.

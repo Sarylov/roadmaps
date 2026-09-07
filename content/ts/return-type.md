@@ -1,32 +1,42 @@
 ---
-title: Utility type ReturnType
-summary: ReturnType<T> извлекает возвращаемый тип функции через conditional type и infer. Он помогает синхронизировать производные типы с реализацией.
+title: ReturnType
+summary: `ReturnType<T>` — utility type, который извлекает возвращаемый тип из типа функции T.
 ---
 
-## Зачем нужно
+## Для чего
 
-Utility полезен, когда функция — источник истины, например factory или selector. Чрезмерное использование может связать публичный API с деталями реализации.
+Чтобы производные типы (DTO ответа, состояние стора) синхронизировались с реализацией функции-источника истины без дублирования.
 
-## Как работает
+## Пример
 
-`ReturnType<T>` использует условный тип `T extends (...args: any) => infer R ? R : any`. Для `async`-функции результатом будет `Promise<X>`; внутреннее значение получают через `Awaited<ReturnType<T>>`. Для overload signatures TypeScript обычно извлекает return type последней, наиболее общей сигнатуры, а не выбирает overload по аргументам.
+```ts
+function createUser(name: string) {
+  return { id: crypto.randomUUID(), name }
+}
 
-## Что спрашивают
+type User = ReturnType<typeof createUser>
+// { id: string; name: string }
 
-- Как работает infer в ReturnType?
-- Что вернёт ReturnType для async-функции?
-- Как ReturnType работает с overload?
+async function load() {
+  return { ok: true as const }
+}
+type LoadResult = Awaited<ReturnType<typeof load>> // { ok: true }
+```
 
-## Ответы
+## Примечание
 
-### Как работает infer в ReturnType?
+Реализация — через conditional + `infer R`. Для `async` функция вернёт `Promise<...>`; «голое» значение — через `Awaited<ReturnType<T>>`. При overload берётся обычно последняя, самая общая сигнатура.
 
-В conditional type `infer R` объявляет переменную типа в позиции результата функции. Если `T` подходит сигнатуре, TypeScript подставляет найденный тип `R`.
+## Вопросы и ответы
+
+### Как ReturnType связан с infer?
+
+Примерно: `T extends (...args: any) => infer R ? R : any`. `infer R` вытаскивает тип результата из сигнатуры функции.
 
 ### Что вернёт ReturnType для async-функции?
 
-`Promise<ResolvedValue>`, потому что именно это возвращает функция. Для типа resolved-значения используют `Awaited<ReturnType<typeof fn>>`.
+`Promise<ResolvedValue>`. Если нужен resolved-тип — `Awaited<ReturnType<typeof fn>>`.
 
-### Как ReturnType работает с overload?
+### Когда ReturnType вреден для публичного API?
 
-Он не моделирует конкретный вызов; вывод делается из последней сигнатуры overload, обычно самой широкой. Если нужен точный вариант, лучше явно экспортировать соответствующий тип.
+Если функция — деталь реализации, `ReturnType` протечёт внутреннюю форму наружу. Тогда лучше явный экспортируемый тип результата, а функция к нему приводят.

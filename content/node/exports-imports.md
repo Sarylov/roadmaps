@@ -1,38 +1,23 @@
 ---
-title: exports/imports
-summary: "exports/imports: exports/imports conditional maps. Важно на собесе и в проде в контексте «Modules & Packages»."
+title: exports / imports
+summary: exports/imports в package.json — карта публичных точек входа пакета (и условий: import/require, node/browser).
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Модульная система и управление зависимостями. Событийный цикл Node, backpressure и блокировки потока.
+Чтобы скрыть внутренности пакета и дать один стабильный API вместо deep import `lib/internal/...`.
 
-## Как работает
+## Пример
 
-**exports/imports**: exports/imports conditional maps.
+```json
+{
+  "exports": {
+    ".": "./dist/index.js",
+    "./plugin": "./dist/plugin.js"
+  }
+}
+```
 
-Неверный exports ломает deep import клиентов.
+## Примечание
 
-Тестируйте require и import потребителей.
-
-Документация: [Node.js](https://nodejs.org/docs/latest/api/).
-
-## Что спрашивают
-
-- Объясните exports/imports своими словами на примере из «Modules & Packages».
-- Какие ошибки и edge cases связаны с exports/imports?
-- Какие альтернативы exports/imports и когда они лучше?
-
-## Ответы
-
-### Объясните exports/imports своими словами на примере из «Modules & Packages».
-
-exports/imports conditional maps. Держите структуру: проблема → механизм → пример. Тестируйте require и import потребителей.
-
-### Какие ошибки и edge cases связаны с exports/imports?
-
-Неверный exports ломает deep import клиентов. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы exports/imports и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Тестируйте require и import потребителей.
+Неверный `exports` ломает и ESM, и CJS потребителей. Тестируйте оба способа подключения, если поддерживаете dual package.

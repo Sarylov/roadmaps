@@ -1,32 +1,25 @@
 ---
-title: Формат HTTP-ошибок
-summary: Единый формат ошибки даёт клиенту стабильный machine-readable code, понятное сообщение и correlation ID. Он не должен раскрывать stack, SQL или внутреннюю топологию.
+title: Error format
+summary: Error format — единый JSON-контракт ошибок API: код/тип, сообщение, детали по полям, корреляция.
 ---
 
-## Зачем нужно
+## Для чего
 
-Тема регулярно встречается на backend-интервью: сильный ответ связывает механизм с наблюдаемым поведением, отказами и production-решением.
+Чтобы клиенты одинаково парсили сбои и поддержка могла найти запрос по id.
 
-## Как работает
+## Пример
 
-Problem Details (`application/problem+json`) использует `type`, `title`, `status`, `detail`, `instance`; API добавляет стабильный `code` и список field errors. Централизованный handler отображает известные domain errors, неизвестные — в 500.
+```json
+{
+  "type": "validation_error",
+  "message": "Invalid body",
+  "fields": { "email": "required" },
+  "requestId": "01H…"
+}
+```
 
-## Что спрашивают
+Плюс подходящий HTTP status (`400`/`409`/`500`).
 
-- Как работает Формат HTTP-ошибок на практике?
-- Какой типичный failure mode связан с Формат HTTP-ошибок?
-- Какие trade-offs важно назвать для Формат HTTP-ошибок?
+## Примечание
 
-## Ответы
-
-### Как работает Формат HTTP-ошибок на практике?
-
-Problem Details (`application/problem+json`) использует `type`, `title`, `status`, `detail`, `instance`; API добавляет стабильный `code` и список field errors. Централизованный handler отображает известные domain errors, неизвестные — в 500.
-
-### Какой типичный failure mode связан с Формат HTTP-ошибок?
-
-Клиент, завязанный на человеческий `message`, ломается после перевода текста. Возврат 200 с `{success:false}` портит retries/metrics/cache; stack и exception message раскрывают секреты.
-
-### Какие trade-offs важно назвать для Формат HTTP-ошибок?
-
-HTTP status описывает класс результата, `code` — конкретную причину для программы, `detail` — безопасный текст. В logs сохраняют полную ошибку с тем же correlation/trace ID, но response минимизируют.
+Не отдавайте stack trace наружу. Domенные коды ≠ всегда HTTP status один-в-один — документируйте оба слоя.

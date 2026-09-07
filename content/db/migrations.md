@@ -1,38 +1,16 @@
 ---
-title: migrations
-summary: "migrations: Миграции версионируют схему. Важно на собесе и в проде в контексте «PostgreSQL»."
+title: Migrations
+summary: Migrations — версионированные изменения схемы БД (up/down или только forward), применяемые одинаково на всех окружениях.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Основная relational database в Node.js backend stack. Где уместно — Postgres, планы EXPLAIN и индексы.
+Чтобы эволюция DDL была повторяемой: local → staging → prod без ручных «поправил в psql».
 
-## Как работает
+## Пример
 
-**migrations**: Миграции версионируют схему.
+Файлы `001_create_users.sql`, `002_add_email_unique.sql` через Flyway / Liquibase / knex / prisma migrate.
 
-Локовые миграции на больших таблицах опасны.
+## Примечание
 
-Zero-downtime: добавить nullable → backfill → constrain.
-
-Документация: [PostgreSQL](https://www.postgresql.org/docs/current/).
-
-## Что спрашивают
-
-- Объясните migrations своими словами на примере из «PostgreSQL».
-- Какие ошибки и edge cases связаны с migrations?
-- Какие альтернативы migrations и когда они лучше?
-
-## Ответы
-
-### Объясните migrations своими словами на примере из «PostgreSQL».
-
-Миграции версионируют схему. Держите структуру: проблема → механизм → пример. Zero-downtime: добавить nullable → backfill → constrain.
-
-### Какие ошибки и edge cases связаны с migrations?
-
-Локовые миграции на больших таблицах опасны. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы migrations и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Zero-downtime: добавить nullable → backfill → constrain.
+Миграции на больших таблицах могут лочить — нужны expand/contract, concurrent indexes. Откат данных ≠ откат кода: планируйте совместимость.

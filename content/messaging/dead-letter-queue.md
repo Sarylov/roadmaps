@@ -1,36 +1,16 @@
 ---
-title: Dead Letter Queue
-summary: DLQ хранит сообщения, которые не удалось обработать после заданной политики retry. Это карантин для расследования и replay, а не автоматическое решение ошибок.
+title: Dead letter queue
+summary: Dead letter queue (DLQ) — очередь для сообщений, которые исчерпали retry или отвергнуты как poison.
 ---
 
-## Зачем нужно
+## Для чего
 
-Без DLQ poison message может бесконечно блокировать partition/queue или создавать дорогой retry storm.
+Чтобы сломанные job не блокировали основную очередь и их можно было разобрать вручную/алертом.
 
-## Как работает
+## Пример
 
-Consumer классифицирует ошибку: transient идёт в retry с backoff, permanent/исчерпавшая попытки — в DLQ вместе с original payload и metadata: topic, offset, attempts, error, trace id. Перемещение должно не приводить к тихой потере исходного сообщения.
+После 5 fail платёжный job уходит в `payments.dlq`. Онколл смотрит payload, чинит данные, requeue.
 
-## Практические нюансы
+## Примечание
 
-Нужны alert, owner, retention, доступ с учётом PII и инструмент controlled replay. Перед replay исправляют причину, сохраняют порядок там, где он важен, и обеспечивают идемпотентность. Размер DLQ — симптом качества, не KPI успеха.
-
-## Что спрашивают
-
-- Какие ошибки отправлять в DLQ?
-- Что нужно хранить вместе с сообщением?
-- Как безопасно переиграть DLQ?
-
-## Ответы
-
-### Какие ошибки отправлять в DLQ?
-
-Невалидная схема, нарушенный бизнес-инвариант или transient error после исчерпания retry budget. Auth outage или timeout сначала требуют backoff, а не мгновенного карантина всех сообщений.
-
-### Что нужно хранить вместе с сообщением?
-
-Original payload без повреждения, headers, source topic/partition/offset, timestamps, attempts, exception category, consumer version и correlation id.
-
-### Как безопасно переиграть DLQ?
-
-Выбрать причину/диапазон, исправить consumer или данные, replay с rate limit в отдельный поток и наблюдать эффект. Consumer и side effects должны быть идемпотентны.
+DLQ без мониторинга — свалка. Нужны метрики глубины, retention и процедура replay.

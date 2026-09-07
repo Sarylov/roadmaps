@@ -1,32 +1,17 @@
 ---
-title: Multi-stage Docker builds
-summary: Multi-stage build отделяет компиляцию от runtime image. В итоговый образ попадают только артефакты и production-зависимости, а не toolchain и исходные секреты.
+title: Multi-stage builds
+summary: Multi-stage build — несколько `FROM` в одном Dockerfile: собираете в builder-образе, в финальный копируете только артефакт.
 ---
 
-## Зачем нужно
+## Для чего
 
-Тема регулярно встречается на backend-интервью: сильный ответ связывает механизм с наблюдаемым поведением, отказами и production-решением.
+Чтобы итоговый image был меньше и без компиляторов/devDependencies.
 
-## Как работает
+## Пример
 
-Несколько `FROM` создают stages; `COPY --from=builder` переносит `dist` и нужные файлы. Builder содержит TypeScript/compiler и devDependencies, runtime использует меньший base с Node и запускается non-root.
+Stage `build`: `npm ci` + `npm run build`.  
+Stage `runner`: `COPY --from=build /app/dist` + prod deps → маленький runtime image.
 
-## Что спрашивают
+## Примечание
 
-- Как работает Multi-stage Docker builds на практике?
-- Какой типичный failure mode связан с Multi-stage Docker builds?
-- Какие trade-offs важно назвать для Multi-stage Docker builds?
-
-## Ответы
-
-### Как работает Multi-stage Docker builds на практике?
-
-Несколько `FROM` создают stages; `COPY --from=builder` переносит `dist` и нужные файлы. Builder содержит TypeScript/compiler и devDependencies, runtime использует меньший base с Node и запускается non-root.
-
-### Какой типичный failure mode связан с Multi-stage Docker builds?
-
-Слепое копирование всего `node_modules` переносит devDependencies и native binary под другую libc/архитектуру. Minimal image без CA certificates или shell осложняет HTTPS и диагностику.
-
-### Какие trade-offs важно назвать для Multi-stage Docker builds?
-
-Build и runtime должны быть ABI-совместимы; production dependencies устанавливают отдельно. Distroless уменьшает attack surface, но slim удобнее для эксплуатации — выбор фиксируют через security и debug requirements.
+Меньше attack surface и быстрее pull. Не тащите исходники и `.git` в финальный слой.

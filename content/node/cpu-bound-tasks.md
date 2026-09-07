@@ -1,38 +1,18 @@
 ---
 title: CPU-bound tasks
-summary: "CPU-bound tasks: CPU-bound нельзя «async-ить» магией на одном потоке. Важно на собесе и в проде в контексте «Workers & Processes»."
+summary: CPU-bound tasks — задачи, упирающиеся в вычисления на CPU, а не в ожидание I/O.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Работа с CPU-bound задачами и отдельными процессами. Событийный цикл Node, backpressure и блокировки потока.
+Чтобы не блокировать event loop «тяжёлой математикой» в том же потоке, что и HTTP.
 
-## Как работает
+## Пример
 
-**CPU-bound tasks**: CPU-bound нельзя «async-ить» магией на одном потоке.
+Большой sync JSON/parse, image resize, crypto на больших данных в request handler → latency всех клиентов растёт.
 
-worker_threads/child_process/queue.
+Вынос: `worker_threads`, `child_process`, очередь jobs (BullMQ и т.п.).
 
-Батчинг и алгоритмы важнее микрооптимизаций.
+## Примечание
 
-Документация: [Node.js](https://nodejs.org/docs/latest/api/).
-
-## Что спрашивают
-
-- Объясните CPU-bound tasks своими словами на примере из «Workers & Processes».
-- Какие ошибки и edge cases связаны с CPU-bound tasks?
-- Какие альтернативы CPU-bound tasks и когда они лучше?
-
-## Ответы
-
-### Объясните CPU-bound tasks своими словами на примере из «Workers & Processes».
-
-CPU-bound нельзя «async-ить» магией на одном потоке. Держите структуру: проблема → механизм → пример. Батчинг и алгоритмы важнее микрооптимизаций.
-
-### Какие ошибки и edge cases связаны с CPU-bound tasks?
-
-worker_threads/child_process/queue. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы CPU-bound tasks и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Батчинг и алгоритмы важнее микрооптимизаций.
+`async/await` не делает CPU параллельным. Сначала измерьте; иногда достаточно алгоритма/батчинга без воркеров.

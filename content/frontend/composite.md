@@ -1,34 +1,16 @@
 ---
-title: Compositing
-summary: Compositing собирает растеризованные слои в итоговый кадр; перемещение готового слоя может обойти layout и paint.
+title: Composite
+summary: Composite — сборка слоёв (layers) на GPU: transform/opacity часто без layout и полного paint.
 ---
 
-## Зачем нужно
+## Для чего
 
-Compositor-friendly анимации чаще укладываются в бюджет кадра, но бездумное создание слоёв повышает расход GPU-памяти и стоимость их загрузки.
+Чтобы анимировать плавно: вынести элемент на слой и двигать `transform`, не трогая layout.
 
-## Как работает
+## Пример
 
-Браузер делит страницу на paint layers, часть которых получает отдельные composited layers. После raster GPU/compositor применяет transform, opacity, clipping и собирает кадр. Compositor может работать независимо от занятого JavaScript main thread, если обновлению не нужны style/layout/paint.
+`transform: translateX` / `opacity` → composite. `left`/`top`/`width` — layout. `will-change` / отдельные слои — осторожно с памятью.
 
-Promotion зависит от движка и ситуации; `will-change` лишь подсказка. DevTools Layers и trace показывают фактические слои, raster и composite.
+## Примечание
 
-## Что спрашивают
-
-- Чем compositing отличается от paint?
-- Почему `transform` обычно быстрее `left` в анимации?
-- Какова цена большого числа compositor layers?
-
-## Ответы
-
-### Чем compositing отличается от paint?
-
-Paint создаёт команды рисования и растеризованные пиксели слоя. Compositing позиционирует уже готовые слои и смешивает их в кадр.
-
-### Почему `transform` обычно быстрее `left` в анимации?
-
-`left` меняет геометрию и обычно запускает layout и paint. Transform отдельного слоя можно менять на compositor. Это проверяемая оптимизация, а не гарантия для любого элемента.
-
-### Какова цена большого числа compositor layers?
-
-Текстуры занимают память, требуют raster/upload и управления. При нехватке ресурсов слои могут переиспользоваться или вытесняться, вызывая дополнительную работу и ухудшая плавность.
+Лишние слои жрут RAM. Не ставьте `will-change` на всё подряд.

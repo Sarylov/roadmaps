@@ -1,36 +1,17 @@
 ---
-title: delays
-summary: "delays: Delayed jobs через ETA/visibility. Важно на собесе и в проде в контексте «Queues»."
+title: Delays
+summary: Delayed job — сообщение становится доступным consumer'у только после заданной задержки.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Фоновая обработка задач и разгрузка synchronous request path. Delivery guarantees, порядок и идемпотентность consumer’а.
+Чтобы планировать «сделай через N» (напоминание, soft-delete purge, отложенный retry).
 
-## Как работает
+## Пример
 
-**delays**: Delayed jobs через ETA/visibility.
+Bull/Bee: `queue.add(job, { delay: 60_000 })`.  
+Rabbit: TTL + DLX или delayed-message plugin.
 
-Не крутить sleep в воркере.
+## Примечание
 
-Планировщик/queue native delay.
-
-## Что спрашивают
-
-- Объясните delays своими словами на примере из «Queues».
-- Какие ошибки и edge cases связаны с delays?
-- Какие альтернативы delays и когда они лучше?
-
-## Ответы
-
-### Объясните delays своими словами на примере из «Queues».
-
-Delayed jobs через ETA/visibility. Держите структуру: проблема → механизм → пример. Планировщик/queue native delay.
-
-### Какие ошибки и edge cases связаны с delays?
-
-Не крутить sleep в воркере. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы delays и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Планировщик/queue native delay.
+Точность не realtime-гарантия — брокер/воркер дают best-effort. Массовые delay на одном ключе могут создать thundering herd в момент fire.

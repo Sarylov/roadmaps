@@ -63,3 +63,12 @@ export function saveArticleProgress(
   writeAll(map)
   return next
 }
+
+export function countRemembered(refs: Iterable<string>): { remembered: number; total: number } {
+  const unique = [...new Set(refs)]
+  let remembered = 0
+  for (const ref of unique) {
+    if (getArticleProgress(ref).tag === 'remembered') remembered += 1
+  }
+  return { remembered, total: unique.length }
+}

@@ -1,36 +1,17 @@
 ---
-title: networking
-summary: "networking: VPC, subnet, security groups, LB. Важно на собесе и в проде в контексте «Linux»."
+title: Networking
+summary: Networking на хосте — интерфейсы, IP, порты, маршруты, DNS: как процесс слушает и куда ходит трафик.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. ОС-основа большинства production backend-сред. Операции, rollback и безопасность поставки.
+Чтобы дебажить «сервис не доступен»: bind address, firewall, DNS, конфликт портов.
 
-## Как работает
+## Пример
 
-**networking**: VPC, subnet, security groups, LB.
+`ss -tlnp` / `netstat` — кто слушает `:3000`.  
+`curl localhost:3000/health`. В Docker порт `3000:3000` — publish на хост.
 
-Публичные vs private endpoints.
+## Примечание
 
-Egress контроль.
-
-## Что спрашивают
-
-- Объясните networking своими словами на примере из «Linux».
-- Какие ошибки и edge cases связаны с networking?
-- Какие альтернативы networking и когда они лучше?
-
-## Ответы
-
-### Объясните networking своими словами на примере из «Linux».
-
-VPC, subnet, security groups, LB. Держите структуру: проблема → механизм → пример. Egress контроль.
-
-### Какие ошибки и edge cases связаны с networking?
-
-Публичные vs private endpoints. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы networking и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Egress контроль.
+`127.0.0.1` vs `0.0.0.0`: listen только localhost не виден снаружи. DNS в compose — имена сервисов, не `localhost` соседнего контейнера.

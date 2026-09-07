@@ -1,36 +1,16 @@
 ---
-title: instrumentation
-summary: instrumentation в блоке «OpenTelemetry» — нужно уметь объяснить механизм, риск и альтернативы.
+title: Instrumentation
+summary: Instrumentation — встройка сбора телеметрии в код/runtime: ручная или auto (middleware, агенты OpenTelemetry).
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Стандартная инструментализация backend для telemetry. Слои приложения, DI и границы транзакций.
+Чтобы сервисы сами отдавали логи/метрики/трейсы без ручного «printf» на каждый шаг.
 
-## Как работает
+## Пример
 
-**instrumentation** — тема блока «OpenTelemetry» (backend). Стандартная инструментализация backend для telemetry.
+OTel Node SDK + auto-instrumentation `http`/`pg` → span'ы запросов и SQL. Плюс свои span'ы вокруг бизнес-операций.
 
-Типичная ошибка — использовать instrumentation «по привычке» без понимания границ и failure modes в «OpenTelemetry».
+## Примечание
 
-Слои приложения, DI и границы транзакций.
-
-## Что спрашивают
-
-- Объясните instrumentation своими словами на примере из «OpenTelemetry».
-- Какие ошибки и edge cases связаны с instrumentation?
-- Какие альтернативы instrumentation и когда они лучше?
-
-## Ответы
-
-### Объясните instrumentation своими словами на примере из «OpenTelemetry».
-
-**instrumentation** — тема блока «OpenTelemetry» (backend). Стандартная инструментализация backend для telemetry. Держите структуру: проблема → механизм → пример. Слои приложения, DI и границы транзакций.
-
-### Какие ошибки и edge cases связаны с instrumentation?
-
-Типичная ошибка — использовать instrumentation «по привычке» без понимания границ и failure modes в «OpenTelemetry». Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы instrumentation и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Слои приложения, DI и границы транзакций.
+Auto закрывает типовые клиенты; доменную семантику (`order.checkout`) добавляют вручную. Следите за overhead и sampling.

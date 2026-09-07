@@ -1,38 +1,36 @@
 ---
 title: Partial
-summary: "Partial: Partial делает все поля optional. Важно на собесе и в проде в контексте «Utility Types»."
+summary: `Partial<T>` — utility type, который делает все свойства T опциональными (`?`).
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Готовые типовые преобразования, постоянно используемые в проектах. Упор на систему типов, inference и дизайн публичного API.
+Чтобы описать частичное обновление, patch-DTO или опции, где вызывающий передаёт только часть полей.
 
-## Как работает
+## Пример
 
-**Partial**: Partial делает все поля optional.
+```ts
+type User = { id: string; name: string; email: string }
 
-Для deep partial нужен рекурсивный utility.
+function updateUser(id: string, patch: Partial<Omit<User, 'id'>>) {
+  // patch.name?, patch.email?
+}
+```
 
-Не забывайте required поля на runtime.
+## Примечание
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
+`Partial` — shallow: вложенные объекты не становятся partial. Для deep partial пишут рекурсивный mapped type.
 
-## Что спрашивают
+## Вопросы и ответы
 
-- Как работает Partial и какая у него семантика?
-- Чем Partial отличается от близких API в «Utility Types»?
-- Какой edge case с Partial чаще всего ловят на собесе?
+### Чем Partial отличается от опциональных полей вручную?
 
-## Ответы
+Поведение то же, но `Partial<T>` синхронизируется с `T`: добавили поле в `T` — оно сразу optional в patch-типе.
 
-### Как работает Partial и какая у него семантика?
+### Partial делает значения `T | undefined`?
 
-Partial делает все поля optional. Умейте показать крошечный пример и объяснить edge case. Не забывайте required поля на runtime.
+Поля становятся optional (`prop?: T`). Это не то же самое, что `prop: T | undefined` без `?` — зависит от `exactOptionalPropertyTypes` и того, передаёте ли вы `undefined` явно.
 
-### Чем Partial отличается от близких API в «Utility Types»?
+### Когда Partial вреден?
 
-Сравните контракт: успех/ошибка, идемпотентность, сложность, стоимость. Для deep partial нужен рекурсивный utility.
-
-### Какой edge case с Partial чаще всего ловят на собесе?
-
-Для deep partial нужен рекурсивный utility. Добавьте, как тестировать и что будет в production под нагрузкой.
+Когда «частичность» на самом деле неверна: например create-DTO, где `name` обязателен. Тогда лучше явный тип или `Pick` + точечные `?`.

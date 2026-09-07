@@ -1,38 +1,18 @@
 ---
-title: foreign keys
-summary: "foreign keys: FK обеспечивает referential integrity. Важно на собесе и в проде в контексте «Data Modeling»."
+title: Foreign keys
+summary: Foreign key — ограничение: значение в дочерней таблице должно существовать в родительской (или быть NULL, если дозволено).
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Проектирование структуры данных и связей между сущностями. Где уместно — Postgres, планы EXPLAIN и индексы.
+Чтобы БД сама запрещала «заказ без пользователя» и битые ссылки.
 
-## Как работает
+## Пример
 
-**foreign keys**: FK обеспечивает referential integrity.
+```sql
+user_id bigint REFERENCES users(id) ON DELETE RESTRICT
+```
 
-ON DELETE CASCADE опасен без понимания.
+## Примечание
 
-Индекс на FK часто нужен.
-
-Документация: [PostgreSQL](https://www.postgresql.org/docs/current/).
-
-## Что спрашивают
-
-- Объясните foreign keys своими словами на примере из «Data Modeling».
-- Какие ошибки и edge cases связаны с foreign keys?
-- Какие альтернативы foreign keys и когда они лучше?
-
-## Ответы
-
-### Объясните foreign keys своими словами на примере из «Data Modeling».
-
-FK обеспечивает referential integrity. Держите структуру: проблема → механизм → пример. Индекс на FK часто нужен.
-
-### Какие ошибки и edge cases связаны с foreign keys?
-
-ON DELETE CASCADE опасен без понимания. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы foreign keys и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Индекс на FK часто нужен.
+`ON DELETE CASCADE` удобен и опасен — можно снести дерево данных одним DELETE. На FK часто нужен индекс для JOIN/удалений.

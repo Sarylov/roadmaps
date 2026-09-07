@@ -1,38 +1,37 @@
 ---
 title: Omit
-summary: "Omit: Omit<T,K> исключает ключи. Важно на собесе и в проде в контексте «Utility Types»."
+summary: `Omit<T, K>` — utility type, который исключает из T ключи K и оставляет остальные.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Готовые типовые преобразования, постоянно используемые в проектах. Упор на систему типов, inference и дизайн публичного API.
+Чтобы получить тип «как T, но без секретных/служебных полей» — create DTO без `id`, ответ без `passwordHash`.
 
-## Как работает
+## Пример
 
-**Omit**: Omit<T,K> исключает ключи.
+```ts
+type User = { id: string; name: string; passwordHash: string }
 
-Together with Partial — паттерн update DTO.
+type PublicUser = Omit<User, 'passwordHash'>
+// { id: string; name: string }
 
-Не заменяет runtime валидацию.
+type CreateUser = Omit<User, 'id'>
+```
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
+## Примечание
 
-## Что спрашивают
+Частый паттерн update: `Partial<Omit<User, 'id'>>` — все поля кроме id опциональны. `K` должен пересекаться с ключами `T`.
 
-- Как работает Omit и какая у него семантика?
-- Чем Omit отличается от близких API в «Utility Types»?
-- Какой edge case с Omit чаще всего ловят на собесе?
+## Вопросы и ответы
 
-## Ответы
+### Чем Omit отличается от Pick?
 
-### Как работает Omit и какая у него семантика?
+`Omit` вычитает ключи, `Pick` выбирает. При большом объекте и паре лишних полей удобнее `Omit`.
 
-Omit<T,K> исключает ключи. Умейте показать крошечный пример и объяснить edge case. Не заменяет runtime валидацию.
+### Omit удаляет вложенные поля?
 
-### Чем Omit отличается от близких API в «Utility Types»?
+Нет, только top-level ключи. Для deep omit нужен свой рекурсивный utility.
 
-Сравните контракт: успех/ошибка, идемпотентность, сложность, стоимость. Together with Partial — паттерн update DTO.
+### Безопасно ли Omit для публичного API?
 
-### Какой edge case с Omit чаще всего ловят на собесе?
-
-Together with Partial — паттерн update DTO. Добавьте, как тестировать и что будет в production под нагрузкой.
+Если `T` — внутренняя entity, `Omit` может протечь новые поля при расширении entity. Иногда явнее перечислить публичные поля через `Pick`.

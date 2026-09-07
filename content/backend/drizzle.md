@@ -1,36 +1,18 @@
 ---
 title: Drizzle
-summary: "Drizzle: Drizzle — SQL-like schema/query builder ближе к SQL. Важно на собесе и в проде в контексте «ORM»."
+summary: Drizzle — TypeScript-first SQL ORM/query builder: схема в коде, запросы близки к SQL, сильная типизация.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Абстракция работы с БД внутри TypeScript-приложения. Слои приложения, DI и границы транзакций.
+Чтобы контролировать SQL явнее, чем в «магическом» ORM, но не терять типы и удобные join/where.
 
-## Как работает
+## Пример
 
-**Drizzle**: Drizzle — SQL-like schema/query builder ближе к SQL.
+```ts
+await db.select().from(users).where(eq(users.email, email));
+```
 
-Контроль SQL выше, магии меньше.
+## Примечание
 
-Миграции и реляционные хелперы — знать.
-
-## Что спрашивают
-
-- Что такое Drizzle и какую задачу закрывает?
-- Какие ключевые абстракции Drizzle нужно знать на собесе?
-- Какие operational pitfalls у Drizzle?
-
-## Ответы
-
-### Что такое Drizzle и какую задачу закрывает?
-
-Drizzle — SQL-like schema/query builder ближе к SQL. Опишите место в стеке «ORM». Миграции и реляционные хелперы — знать.
-
-### Какие ключевые абстракции Drizzle нужно знать на собесе?
-
-Назовите 3–5 сущностей/операций и как они стыкуются. Контроль SQL выше, магии меньше.
-
-### Какие operational pitfalls у Drizzle?
-
-Контроль SQL выше, магии меньше. Говорите про деплой, мониторинг, лимиты и failure modes, не только про happy path.
+Ближе к SQL → проще рассуждать про индексы и планы. Меньше «автомагии» relations, чем у Prisma — больше явного кода join'ов.

@@ -1,36 +1,17 @@
 ---
-title: sorted sets
-summary: "sorted sets: ZSET — score+member, лидерборды/очереди delay. Важно на собесе и в проде в контексте «Redis»."
+title: Sorted sets
+summary: Redis Sorted Set (ZSET) — множество уникальных members с score; порядок по score (лидерборды, очереди по времени).
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Высокопроизводительное in-memory хранилище и вспомогательная инфраструктура backend. Инвалидация, TTL и stampede — частые темы.
+Чтобы быстро брать топ-N, диапазоны по score и rank элемента.
 
-## Как работает
+## Пример
 
-**sorted sets**: ZSET — score+member, лидерборды/очереди delay.
+`ZADD leaderboard 1500 player:1`  
+`ZREVRANGE leaderboard 0 9 WITHSCORES` — топ-10.
 
-Диапазоны по score.
+## Примечание
 
-Память выше обычных set.
-
-## Что спрашивают
-
-- Объясните sorted sets своими словами на примере из «Redis».
-- Какие ошибки и edge cases связаны с sorted sets?
-- Какие альтернативы sorted sets и когда они лучше?
-
-## Ответы
-
-### Объясните sorted sets своими словами на примере из «Redis».
-
-ZSET — score+member, лидерборды/очереди delay. Держите структуру: проблема → механизм → пример. Память выше обычных set.
-
-### Какие ошибки и edge cases связаны с sorted sets?
-
-Диапазоны по score. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы sorted sets и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Память выше обычных set.
+Один member — один score (повторный `ZADD` обновляет). Для delayed jobs часто score = timestamp выполнения.

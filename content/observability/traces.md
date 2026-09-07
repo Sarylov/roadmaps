@@ -1,32 +1,16 @@
 ---
-title: Distributed traces
-summary: Trace собирает причинно связанные spans одного запроса и показывает путь через сервисы. Он помогает найти, где формируется latency и ошибка, но зависит от propagation и sampling.
+title: Traces
+summary: Trace — дерево/граф span'ов одного запроса или сценария across процессов; визуализирует путь вызова.
 ---
 
-## Зачем нужно
+## Для чего
 
-Тема регулярно встречается на backend-интервью: сильный ответ связывает механизм с наблюдаемым поведением, отказами и production-решением.
+Чтобы в микросервисах ответить: «какой сервис тормозит этот checkout?».
 
-## Как работает
+## Пример
 
-Trace context проходит по HTTP/message headers; backend собирает spans по trace ID. Head sampling решает в начале и дёшев, tail sampling может сохранить редкие slow/error traces после просмотра результата.
+Trace id `abc` связывает gateway → order → payment → DB. Один медленный span payment = причина p99.
 
-## Что спрашивают
+## Примечание
 
-- Как работает Distributed traces на практике?
-- Какой типичный failure mode связан с Distributed traces?
-- Какие trade-offs важно назвать для Distributed traces?
-
-## Ответы
-
-### Как работает Distributed traces на практике?
-
-Trace context проходит по HTTP/message headers; backend собирает spans по trace ID. Head sampling решает в начале и дёшев, tail sampling может сохранить редкие slow/error traces после просмотра результата.
-
-### Какой типичный failure mode связан с Distributed traces?
-
-Без propagation каждый сервис создаёт отдельный trace. 100% sampling дорого, а слишком низкий random sampling теряет редкие ошибки; часы hosts и async messaging требуют корректных semantic conventions/links.
-
-### Какие trade-offs важно назвать для Distributed traces?
-
-Метрики обнаруживают проблему, traces локализуют путь, logs дают детали события. Sampling выбирают по объёму и SLO: ошибки и high latency сохраняют чаще, health checks — почти никогда.
+Нужна context propagation между сервисами. Sampling снижает объём (head/tail-based) — иначе дорого.

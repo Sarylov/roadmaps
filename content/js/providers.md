@@ -1,32 +1,16 @@
 ---
-title: Providers в NestJS
-summary: Provider — объект, которым управляет IoC-контейнер NestJS. Через providers оформляют сервисы, repository adapters, factories и внешние клиенты.
+title: Providers (NestJS)
+summary: Provider в NestJS — класс или значение, которое контейнер может создать и внедрить (обычно `@Injectable()` сервис).
 ---
 
-## Зачем нужно
+## Для чего
 
-Тема регулярно встречается на backend-интервью: сильный ответ связывает механизм с наблюдаемым поведением, отказами и production-решением.
+Чтобы зависимости объявлялись явно и подставлялись фреймворком, а не через `new` по всему коду.
 
-## Как работает
+## Пример
 
-Provider регистрируется по token: class, string или symbol. Запись `useClass`, `useValue`, `useFactory` либо `useExisting` определяет создание; scope бывает singleton, request или transient. Constructor injection делает зависимости явными.
+`UsersService` — provider. В `UsersController` конструктор `constructor(private users: UsersService)` — Nest передаёт инстанс.
 
-## Что спрашивают
+## Примечание
 
-- Как работает Providers в NestJS на практике?
-- Какой типичный failure mode связан с Providers в NestJS?
-- Какие trade-offs важно назвать для Providers в NestJS?
-
-## Ответы
-
-### Как работает Providers в NestJS на практике?
-
-Provider регистрируется по token: class, string или symbol. Запись `useClass`, `useValue`, `useFactory` либо `useExisting` определяет создание; scope бывает singleton, request или transient. Constructor injection делает зависимости явными.
-
-### Какой типичный failure mode связан с Providers в NestJS?
-
-Request-scoped provider протягивает request scope вверх по графу и повышает allocation/latency. Строковые token легко столкнуть, а mutable singleton создаёт утечки данных между запросами.
-
-### Какие trade-offs важно назвать для Providers в NestJS?
-
-По умолчанию выбирают stateless singleton. Symbol token отделяет порт от реализации; factory подходит для конфигурации клиента, `useExisting` — для alias без второго экземпляра. Request scope нужен только для действительно request-local состояния.
+Provider регистрируют в `providers` модуля (или `exports` для других модулей). Токен может быть классом, строкой или Symbol.

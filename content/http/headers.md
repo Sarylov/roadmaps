@@ -1,32 +1,26 @@
 ---
-title: HTTP headers
-summary: HTTP headers передают metadata запроса и ответа: представление, caching, authentication, routing и tracing. Имена регистронезависимы, но смысл и возможность объединения зависят от поля.
+title: Headers
+summary: Headers — метаданные HTTP-запроса/ответа: Content-Type, Authorization, Cache-Control, Cookie и др.
 ---
 
-## Зачем нужно
+## Для чего
 
-Тема регулярно встречается на backend-интервью: сильный ответ связывает механизм с наблюдаемым поведением, отказами и production-решением.
+Чтобы передать тип тела, кэш, авторизацию и договорённости клиента с сервером отдельно от payload.
 
-## Как работает
+## Пример
 
-`Content-Type` описывает body, `Accept` — желаемый response; `Authorization` несёт credentials, `Cache-Control` — политику cache, `Vary` — какие request headers меняют представление. Hop-by-hop headers proxy не пересылает дальше.
+```http
+GET /api/users HTTP/1.1
+Authorization: Bearer <token>
+Accept: application/json
+```
 
-## Что спрашивают
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: private, max-age=60
+```
 
-- Как работает HTTP headers на практике?
-- Какой типичный failure mode связан с HTTP headers?
-- Какие trade-offs важно назвать для HTTP headers?
+## Примечание
 
-## Ответы
-
-### Как работает HTTP headers на практике?
-
-`Content-Type` описывает body, `Accept` — желаемый response; `Authorization` несёт credentials, `Cache-Control` — политику cache, `Vary` — какие request headers меняют представление. Hop-by-hop headers proxy не пересылает дальше.
-
-### Какой типичный failure mode связан с HTTP headers?
-
-Доверие `X-Forwarded-For` от прямого клиента подменяет IP; неправильный `Vary` смешивает языки/авторизацию в cache. Большие headers приводят к 431 и могут использоваться для DoS.
-
-### Какие trade-offs важно назвать для HTTP headers?
-
-Приложение доверяет forwarded headers только от известных proxies. Секреты не помещают в URL, чувствительные response помечают `private/no-store`, а custom metadata ограничивают размером и документируют.
+Не логируйте `Authorization`/`Cookie` целиком. Hop-by-hop заголовки (Connection…) не destinат end-to-end как остальные.

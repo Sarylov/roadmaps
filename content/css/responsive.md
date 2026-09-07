@@ -1,38 +1,26 @@
 ---
-title: responsive
-summary: "responsive: Responsive — layout под разные viewport (media queries, fluid units). Важно на собесе и в проде в контексте «HTML/CSS»."
+title: Responsive
+summary: Responsive — вёрстка под разные ширины экрана: fluid layout, media queries, относительные единицы.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Каркас интерфейса: семантика, раскладка, формы и доступность. Упор на каскад, layout и доступность.
+Чтобы один сайт нормально работал на телефоне, планшете и десктопе.
 
-## Как работает
+## Пример
 
-**responsive**: Responsive — layout под разные viewport (media queries, fluid units).
+`max-width: 100%` у картинок; `@media (min-width: 768px) { … }`; grid/flex вместо фиксированных px-колонок.
 
-Фиксированные px и отсутствие meta viewport ломают мобилку.
+## Примечание
 
-Mobile-first проще наращивать, чем «сжимать десктоп».
+Mobile-first: базовые стили для узкого экрана, затем `min-width`. Viewport meta обязателен на мобилках.
 
-MDN: [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS).
+## Вопросы и ответы
 
-## Что спрашивают
+### Что важнее: media queries или гибкий layout?
 
-- Объясните responsive своими словами на примере из «HTML/CSS».
-- Какие ошибки и edge cases связаны с responsive?
-- Какие альтернативы responsive и когда они лучше?
+Оба. Сначала fluid (flex/grid/%), media — для смены композиции и типографики.
 
-## Ответы
+### Зачем viewport meta?
 
-### Объясните responsive своими словами на примере из «HTML/CSS».
-
-Responsive — layout под разные viewport (media queries, fluid units). Держите структуру: проблема → механизм → пример. Mobile-first проще наращивать, чем «сжимать десктоп».
-
-### Какие ошибки и edge cases связаны с responsive?
-
-Фиксированные px и отсутствие meta viewport ломают мобилку. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы responsive и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Mobile-first проще наращивать, чем «сжимать десктоп».
+Без него мобильный браузер рисует «десктопную» ширину и масштабирует — ломает адаптив.

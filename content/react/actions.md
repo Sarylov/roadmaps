@@ -1,38 +1,16 @@
 ---
-title: actions
-summary: "actions: Server Actions/mutations с серверным выполнением. Важно на собесе и в проде в контексте «React Server Components»."
+title: Actions
+summary: React Actions / Server Actions — функции мутаций (часто на сервере), вызываемые из форм/`action`, с pending-состоянием на клиенте.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Компонентная модель, состояние, роутинг и серверный React. Упор на ререндеры, ключи, эффекты и Strict Mode.
+Чтобы упростить POST-формы и мутации без ручного wiring API-route + fetch + useState loading.
 
-## Как работает
+## Пример
 
-**actions**: Server Actions/mutations с серверным выполнением.
+`<form action={createPost}>` или `useActionState` / `useFormStatus` для pending/ошибок. На сервере — запись в БД + revalidate.
 
-Нужны authz и валидация на сервере.
+## Примечание
 
-Идемпотентность и progressive enhancement формы.
-
-Документация: [react.dev](https://react.dev/).
-
-## Что спрашивают
-
-- Объясните actions своими словами на примере из «React Server Components».
-- Какие ошибки и edge cases связаны с actions?
-- Какие альтернативы actions и когда они лучше?
-
-## Ответы
-
-### Объясните actions своими словами на примере из «React Server Components».
-
-Server Actions/mutations с серверным выполнением. Держите структуру: проблема → механизм → пример. Идемпотентность и progressive enhancement формы.
-
-### Какие ошибки и edge cases связаны с actions?
-
-Нужны authz и валидация на сервере. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы actions и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Идемпотентность и progressive enhancement формы.
+Нужна auth/валидация на сервере. Не путать с Redux actions. Идемпотентность и CSRF-защита — по правилам фреймворка.

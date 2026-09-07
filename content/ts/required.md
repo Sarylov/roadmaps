@@ -1,38 +1,39 @@
 ---
 title: Required
-summary: "Required: Required делает optional поля обязательными. Важно на собесе и в проде в контексте «Utility Types»."
+summary: `Required<T>` — utility type, который делает все свойства T обязательными (убирает `?`).
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Готовые типовые преобразования, постоянно используемые в проектах. Упор на систему типов, inference и дизайн публичного API.
+Чтобы после слияния с defaults или валидации зафиксировать: конфиг полный, optional больше нет.
 
-## Как работает
+## Пример
 
-**Required**: Required делает optional поля обязательными.
+```ts
+type Options = { host?: string; port?: number }
 
-Обратный Partial для финализации конфигов.
+type ResolvedOptions = Required<Options>
+// { host: string; port: number }
 
-Полезно после merge defaults.
+function resolve(opts: Options): Required<Options> {
+  return { host: opts.host ?? 'localhost', port: opts.port ?? 3000 }
+}
+```
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
+## Примечание
 
-## Что спрашивают
+Обратный к `Partial`. Как и `Partial`, работает shallow — вложенные optional не трогает. Не убирает `| undefined` из типа значения, только модификатор `?` у свойства.
 
-- Как работает Required и какая у него семантика?
-- Чем Required отличается от близких API в «Utility Types»?
-- Какой edge case с Required чаще всего ловят на собесе?
+## Вопросы и ответы
 
-## Ответы
+### Чем Required отличается от NonNullable?
 
-### Как работает Required и какая у него семантика?
+`Required` убирает optional у ключей объекта. `NonNullable<T>` убирает `null | undefined` из самого типа `T` (часто для union/примитивов).
 
-Required делает optional поля обязательными. Умейте показать крошечный пример и объяснить edge case. Полезно после merge defaults.
+### Зачем Required на собесе?
 
-### Чем Required отличается от близких API в «Utility Types»?
+Показать, что понимаешь пару Partial/Required и сценарий «input частичный → после defaults тип полный».
 
-Сравните контракт: успех/ошибка, идемпотентность, сложность, стоимость. Обратный Partial для финализации конфигов.
+### Можно ли сделать обязательным только одно поле?
 
-### Какой edge case с Required чаще всего ловят на собесе?
-
-Обратный Partial для финализации конфигов. Добавьте, как тестировать и что будет в production под нагрузкой.
+Да, не через голый `Required<T>`, а вручную или `T & { field: NonNullable<T['field']> }` / точечный mapped type — `Required` всегда по всем ключам.

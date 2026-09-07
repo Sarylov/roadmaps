@@ -1,36 +1,16 @@
 ---
-title: test pyramid
-summary: test pyramid в блоке «Testing Strategy» — нужно уметь объяснить механизм, риск и альтернативы.
+title: Test pyramid
+summary: Test pyramid — много быстрых unit, меньше integration, ещё меньше E2E: баланс скорости и уверенности.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Выбор правильного уровня тестов и поддержание их стабильности. Границы unit/integration/e2e и борьба с flaky.
+Чтобы не строить стратегию из одних медленных UI/E2E и не ждать час на каждый PR.
 
-## Как работает
+## Пример
 
-**test pyramid** — тема блока «Testing Strategy» (testing). Выбор правильного уровня тестов и поддержание их стабильности.
+Доменные правила — unit. SQL/repository — integration. Checkout flow — несколько E2E. Обратная «пицца» из E2E — антипаттерн.
 
-Типичная ошибка — использовать test pyramid «по привычке» без понимания границ и failure modes в «Testing Strategy».
+## Примечание
 
-Границы unit/integration/e2e и борьба с flaky.
-
-## Что спрашивают
-
-- Объясните test pyramid своими словами на примере из «Testing Strategy».
-- Какие ошибки и edge cases связаны с test pyramid?
-- Какие альтернативы test pyramid и когда они лучше?
-
-## Ответы
-
-### Объясните test pyramid своими словами на примере из «Testing Strategy».
-
-**test pyramid** — тема блока «Testing Strategy» (testing). Выбор правильного уровня тестов и поддержание их стабильности. Держите структуру: проблема → механизм → пример. Границы unit/integration/e2e и борьба с flaky.
-
-### Какие ошибки и edge cases связаны с test pyramid?
-
-Типичная ошибка — использовать test pyramid «по привычке» без понимания границ и failure modes в «Testing Strategy». Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы test pyramid и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Границы unit/integration/e2e и борьба с flaky.
+Пирамида — ориентир, не догма. Для API-first бэка mid-слой (API/integration) часто толще UI-E2E.

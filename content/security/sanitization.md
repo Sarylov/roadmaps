@@ -1,38 +1,17 @@
 ---
-title: sanitization
-summary: "sanitization: Sanitize HTML белым списком тегов/атрибутов (DOMPurify и т.п.). Важно на собесе и в проде в контексте «XSS/CSRF»."
+title: Sanitization
+summary: Sanitization — очистка HTML от опасных тегов/атрибутов, когда нужно разрешить «безопасную» разметку (rich text).
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. HTTP, realtime, auth и защита клиентского периметра. Кратко держите threat model: кто атакующий и что получает.
+Чтобы показывать user-generated HTML (комменты с `<b>`) без XSS.
 
-## Как работает
+## Пример
 
-**sanitization**: Sanitize HTML белым списком тегов/атрибутов (DOMPurify и т.п.).
+DOMPurify: `DOMPurify.sanitize(html)` перед `dangerouslySetInnerHTML`.  
+Запрет `script`, `on*`, `javascript:` URL.
 
-После sanitize всё равно думайте о контексте вставки.
+## Примечание
 
-Лучше не принимать HTML, если можно Markdown/структуру.
-
-Ориентир: [OWASP Top 10](https://owasp.org/www-project-top-ten/).
-
-## Что спрашивают
-
-- Объясните sanitization своими словами на примере из «XSS/CSRF».
-- Какие ошибки и edge cases связаны с sanitization?
-- Какие альтернативы sanitization и когда они лучше?
-
-## Ответы
-
-### Объясните sanitization своими словами на примере из «XSS/CSRF».
-
-Sanitize HTML белым списком тегов/атрибутов (DOMPurify и т.п.). Держите структуру: проблема → механизм → пример. Лучше не принимать HTML, если можно Markdown/структуру.
-
-### Какие ошибки и edge cases связаны с sanitization?
-
-После sanitize всё равно думайте о контексте вставки. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы sanitization и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Лучше не принимать HTML, если можно Markdown/структуру.
+Свой regex «вырезать script» хрупок. Если HTML не нужен — лучше plain text + escaping.

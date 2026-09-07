@@ -1,36 +1,16 @@
 ---
-title: autoscaling
-summary: "autoscaling: HPA по CPU/custom metrics. Важно на собесе и в проде в контексте «Kubernetes»."
+title: Autoscaling
+summary: Autoscaling — автоматическое изменение числа реплик/нод по метрикам нагрузки (CPU, RPS, custom).
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Оркестрация контейнеров и запуск сервисов в production. Операции, rollback и безопасность поставки.
+Чтобы держать capacity под пик без постоянной переплаты за простой.
 
-## Как работает
+## Пример
 
-**autoscaling**: HPA по CPU/custom metrics.
+HPA: CPU > 70% → больше pod'ов Deployment. Cluster autoscaler добавит ноды, если поды Pending.
 
-Правильные метрики важнее «автоскейла ради»
+## Примечание
 
-Cold start и scale-to-zero нюансы.
-
-## Что спрашивают
-
-- Объясните autoscaling своими словами на примере из «Kubernetes».
-- Какие ошибки и edge cases связаны с autoscaling?
-- Какие альтернативы autoscaling и когда они лучше?
-
-## Ответы
-
-### Объясните autoscaling своими словами на примере из «Kubernetes».
-
-HPA по CPU/custom metrics. Держите структуру: проблема → механизм → пример. Cold start и scale-to-zero нюансы.
-
-### Какие ошибки и edge cases связаны с autoscaling?
-
-Правильные метрики важнее «автоскейла ради» Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы autoscaling и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Cold start и scale-to-zero нюансы.
+Без resource requests HPA слеп. Скейлинг БД — другая история (вертикаль/шарды), не только «ещё один pod».

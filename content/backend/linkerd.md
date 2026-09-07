@@ -1,36 +1,16 @@
 ---
 title: Linkerd
-summary: "Linkerd: Linkerd — более «лёгкий» mesh. Важно на собесе и в проде в контексте «Service Mesh»."
+summary: Linkerd — лёгкий service mesh (focus на простоту): mTLS, retries, метрики через ultralight proxy.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Инфраструктурный слой для трафика между сервисами. Слои приложения, DI и границы транзакций.
+Чтобы получить security/reliability mesh с меньшим cognitive load, чем у «полного» Istio.
 
-## Как работает
+## Пример
 
-**Linkerd**: Linkerd — более «лёгкий» mesh.
+Mesh inject на namespace → трафик между pods автоматически в mTLS, dashboard success rate/latency.
 
-Те же идеи sidecar/mTLS.
+## Примечание
 
-Выбор mesh = ops зрелость.
-
-## Что спрашивают
-
-- Что такое Linkerd и какую задачу закрывает?
-- Какие ключевые абстракции Linkerd нужно знать на собесе?
-- Какие operational pitfalls у Linkerd?
-
-## Ответы
-
-### Что такое Linkerd и какую задачу закрывает?
-
-Linkerd — более «лёгкий» mesh. Опишите место в стеке «Service Mesh». Выбор mesh = ops зрелость.
-
-### Какие ключевые абстракции Linkerd нужно знать на собесе?
-
-Назовите 3–5 сущностей/операций и как они стыкуются. Те же идеи sidecar/mTLS.
-
-### Какие operational pitfalls у Linkerd?
-
-Те же идеи sidecar/mTLS. Говорите про деплой, мониторинг, лимиты и failure modes, не только про happy path.
+Меньше фич traffic shaping «из коробки» vs Istio — смотрите актуальные возможности под ваш кейс.

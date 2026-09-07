@@ -1,38 +1,17 @@
 ---
-title: interceptors
-summary: "interceptors: Interceptors — AOP вокруг handler (кэш, map, timing). Важно на собесе и в проде в контексте «NestJS»."
+title: Interceptors (NestJS)
+summary: Interceptor в NestJS — AOP вокруг handler: код до/после вызова, можно менять Observable результата.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Основной framework для структурированного production backend на Node.js. Упор на event loop, this, coercion и практические ловушки runtime.
+Чтобы централизовать логирование, маппинг ответа, кэш, таймауты без копипасты в каждом методе.
 
-## Как работает
+## Пример
 
-**interceptors**: Interceptors — AOP вокруг handler (кэш, map, timing).
+`TransformInterceptor` оборачивает результат в `{ data }`.  
+`LoggingInterceptor` пишет duration запроса.
 
-Скрытая магия усложняет дебаг.
+## Примечание
 
-Прозрачность важнее «умности».
-
-MDN: [JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide).
-
-## Что спрашивают
-
-- Объясните interceptors своими словами на примере из «NestJS».
-- Какие ошибки и edge cases связаны с interceptors?
-- Какие альтернативы interceptors и когда они лучше?
-
-## Ответы
-
-### Объясните interceptors своими словами на примере из «NestJS».
-
-Interceptors — AOP вокруг handler (кэш, map, timing). Держите структуру: проблема → механизм → пример. Прозрачность важнее «умности».
-
-### Какие ошибки и edge cases связаны с interceptors?
-
-Скрытая магия усложняет дебаг. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы interceptors и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Прозрачность важнее «умности».
+Порядок: guards → interceptors (before) → pipes → handler → interceptors (after) → exception filters при ошибке.

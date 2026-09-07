@@ -1,38 +1,17 @@
 ---
-title: layout reads
-summary: "layout reads: Чтение layout (offset*, getBoundingClientRect) может форсировать reflow. Важно на собесе и в проде в контексте «DOM и события»."
+title: Layout reads
+summary: Layout reads — чтение геометрии (`offsetHeight`, `getBoundingClientRect`) заставляет браузер синхронно посчитать layout.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Язык, runtime и асинхронность, на которых держится весь фронт. Упор на event loop, this, coercion и практические ловушки runtime.
+Чтобы не устроить thrashing: чередование write→read→write в цикле убивает FPS.
 
-## Как работает
+## Пример
 
-**layout reads**: Чтение layout (offset*, getBoundingClientRect) может форсировать reflow.
+Плохо: в цикле `el.style.width = …; h = el.offsetHeight`.  
+Лучше: сначала все чтения, потом все записи (или `rAF`).
 
-Чередование write/read в цикле = layout thrashing.
+## Примечание
 
-Батчить чтения, потом записи; или rAF.
-
-MDN: [JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide).
-
-## Что спрашивают
-
-- Объясните layout reads своими словами на примере из «DOM и события».
-- Какие ошибки и edge cases связаны с layout reads?
-- Какие альтернативы layout reads и когда они лучше?
-
-## Ответы
-
-### Объясните layout reads своими словами на примере из «DOM и события».
-
-Чтение layout (offset*, getBoundingClientRect) может форсировать reflow. Держите структуру: проблема → механизм → пример. Батчить чтения, потом записи; или rAF.
-
-### Какие ошибки и edge cases связаны с layout reads?
-
-Чередование write/read в цикле = layout thrashing. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы layout reads и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Батчить чтения, потом записи; или rAF.
+Частый собеседовый перф-вопрос. DevTools Performance показывает Forced reflow.

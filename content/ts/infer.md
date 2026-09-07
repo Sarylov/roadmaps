@@ -1,38 +1,36 @@
 ---
 title: infer
-summary: "infer: infer извлекает тип внутри conditional extends. Важно на собесе и в проде в контексте «Advanced Types»."
+summary: `infer` — объявление type variable внутри conditional type, чтобы «вытащить» кусок типа из подходящего pattern.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Продвинутые средства построения типов. Упор на систему типов, inference и дизайн публичного API.
+Чтобы извлечь вложенный тип из функции, Promise, массива или generic без ручного дублирования сигнатур.
 
-## Как работает
+## Пример
 
-**infer**: infer извлекает тип внутри conditional extends.
+```ts
+type ReturnType<T> = T extends (...args: any) => infer R ? R : never
 
-Типичный паттерн: ReturnType, параметры функций.
+type ElementType<T> = T extends (infer U)[] ? U : T
 
-Ошибка — infer вне extends-ветки.
+type Unpromisify<T> = T extends Promise<infer U> ? U : T
+```
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
+## Примечание
 
-## Что спрашивают
+`infer` работает только в ветке `extends ... ?`. Несколько `infer` в одном pattern допустимы; если pattern не сматчился — берётся else-ветка (`never` / fallback).
 
-- Объясните infer своими словами на примере из «Advanced Types».
-- Какие ошибки и edge cases связаны с infer?
-- Какие альтернативы infer и когда они лучше?
+## Вопросы и ответы
 
-## Ответы
+### Чем `infer` отличается от обычного type parameter?
 
-### Объясните infer своими словами на примере из «Advanced Types».
+Обычный `<T>` задаёт вызывающий или inference снаружи. `infer R` появляется внутри conditional и заполняется из структуры типа, который проверяют.
 
-infer извлекает тип внутри conditional extends. Держите структуру: проблема → механизм → пример. Ошибка — infer вне extends-ветки.
+### Как через `infer` получить параметры функции?
 
-### Какие ошибки и edge cases связаны с infer?
+`T extends (...args: infer P) => any ? P : never` — это идея `Parameters<T>`. `P` будет tuple типов аргументов.
 
-Типичный паттерн: ReturnType, параметры функций. Назовите симптом в проде и как поймать тестом или метрикой.
+### Почему `infer` часто рядом с `never`?
 
-### Какие альтернативы infer и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Ошибка — infer вне extends-ветки.
+В else кладут `never`, чтобы «не подошло» исчезло из union (как в `Exclude`) или явно сигнализировало о невозможном результате.

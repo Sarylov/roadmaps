@@ -1,36 +1,16 @@
 ---
-title: database
-summary: database в блоке «Integration Testing» — нужно уметь объяснить механизм, риск и альтернативы.
+title: Database tests
+summary: Database integration test — проверка кода против реальной (или testcontainer) БД, не против мока репозитория.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Проверка взаимодействия кода с БД, API и другими компонентами. Границы unit/integration/e2e и борьба с flaky.
+Чтобы ловить ошибки SQL, ограничений, транзакций и маппинга ORM, которые unit с моком не увидит.
 
-## Как работает
+## Пример
 
-**database** — тема блока «Integration Testing» (testing). Проверка взаимодействия кода с БД, API и другими компонентами.
+Поднять Postgres → миграции → вставить user → вызвать `findByEmail` → assert строки и unique violation.
 
-Типичная ошибка — использовать database «по привычке» без понимания границ и failure modes в «Integration Testing».
+## Примечание
 
-Границы unit/integration/e2e и борьба с flaky.
-
-## Что спрашивают
-
-- Объясните database своими словами на примере из «Integration Testing».
-- Какие ошибки и edge cases связаны с database?
-- Какие альтернативы database и когда они лучше?
-
-## Ответы
-
-### Объясните database своими словами на примере из «Integration Testing».
-
-**database** — тема блока «Integration Testing» (testing). Проверка взаимодействия кода с БД, API и другими компонентами. Держите структуру: проблема → механизм → пример. Границы unit/integration/e2e и борьба с flaky.
-
-### Какие ошибки и edge cases связаны с database?
-
-Типичная ошибка — использовать database «по привычке» без понимания границ и failure modes в «Integration Testing». Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы database и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Границы unit/integration/e2e и борьба с flaky.
+Нужны изоляция данных (транзакция rollback / truncate) и стабильный setup. Медленнее unit — гоняйте в CI отдельно или точечно.

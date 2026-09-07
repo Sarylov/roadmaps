@@ -1,32 +1,23 @@
 ---
 title: Dockerfile
-summary: Dockerfile декларативно собирает OCI image слоями. Хороший production-файл обеспечивает воспроизводимость, кэширование, минимальную поверхность атаки и корректный PID 1.
+summary: Dockerfile — рецепт сборки image: базовый образ, копирование файлов, `RUN`, `ENV`, `EXPOSE`, `CMD`/`ENTRYPOINT`.
 ---
 
-## Зачем нужно
+## Для чего
 
-Тема регулярно встречается на backend-интервью: сильный ответ связывает механизм с наблюдаемым поведением, отказами и production-решением.
+Чтобы сборка была кодом в репозитории, а не ручными шагами на машине.
 
-## Как работает
+## Пример
 
-Сначала копируют lockfile и устанавливают pinned dependencies, затем исходники и build. `COPY` создаёт слой, `RUN` выполняется при build, `CMD` задаёт default command; `.dockerignore` исключает secrets и лишний context.
+```dockerfile
+FROM node:22-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY . .
+CMD ["node", "dist/main.js"]
+```
 
-## Что спрашивают
+## Примечание
 
-- Как работает Dockerfile на практике?
-- Какой типичный failure mode связан с Dockerfile?
-- Какие trade-offs важно назвать для Dockerfile?
-
-## Ответы
-
-### Как работает Dockerfile на практике?
-
-Сначала копируют lockfile и устанавливают pinned dependencies, затем исходники и build. `COPY` создаёт слой, `RUN` выполняется при build, `CMD` задаёт default command; `.dockerignore` исключает secrets и лишний context.
-
-### Какой типичный failure mode связан с Dockerfile?
-
-`latest`, неприкреплённый base image и `npm install` без lock делают сборку неповторяемой. Root-процесс, скопированный `.env` и shell-form CMD ухудшают безопасность и обработку SIGTERM.
-
-### Какие trade-offs важно назвать для Dockerfile?
-
-Используют digest/pinned version, `npm ci`, non-root `USER`, exec-form `CMD` и multi-stage. Секреты передают BuildKit secret/runtime secret, а не `ARG` или слой image.
+Сначала зависимости — лучше кэш слоёв. Не копируйте `.env` с секретами. Non-root user — хорошая практика для прода.

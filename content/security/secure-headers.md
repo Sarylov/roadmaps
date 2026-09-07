@@ -1,38 +1,16 @@
 ---
-title: secure headers
-summary: "secure headers: Helmet: CSP, HSTS, X-Content-Type-Options… Важно на собесе и в проде в контексте «Security Engineering»."
+title: Secure headers
+summary: Secure headers — HTTP-заголовки (`CSP`, `HSTS`, `X-Content-Type-Options`…), которые усиливают защиту браузера.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Безопасное хранение секретов и обработка пользовательского ввода. Кратко держите threat model: кто атакующий и что получает.
+Чтобы снизить XSS, clickjacking, MIME-sniffing и принудить HTTPS без правок каждого шаблона.
 
-## Как работает
+## Пример
 
-**secure headers**: Helmet: CSP, HSTS, X-Content-Type-Options…
+`Strict-Transport-Security`, `Content-Security-Policy`, `X-Frame-Options` / `frame-ancestors`, `Referrer-Policy`.
 
-Заголовки — слой защиты, не панацея.
+## Примечание
 
-HSTS только когда HTTPS стабилен.
-
-Ориентир: [OWASP Top 10](https://owasp.org/www-project-top-ten/).
-
-## Что спрашивают
-
-- Объясните secure headers своими словами на примере из «Security Engineering».
-- Какие ошибки и edge cases связаны с secure headers?
-- Какие альтернативы secure headers и когда они лучше?
-
-## Ответы
-
-### Объясните secure headers своими словами на примере из «Security Engineering».
-
-Helmet: CSP, HSTS, X-Content-Type-Options… Держите структуру: проблема → механизм → пример. HSTS только когда HTTPS стабилен.
-
-### Какие ошибки и edge cases связаны с secure headers?
-
-Заголовки — слой защиты, не панацея. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы secure headers и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. HSTS только когда HTTPS стабилен.
+CSP нужно настраивать под реальное приложение, иначе сломаете фронт. Helmet в Express/Fastify — быстрый старт, не «включил и забыл».

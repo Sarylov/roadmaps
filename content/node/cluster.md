@@ -1,38 +1,24 @@
 ---
 title: cluster
-summary: "cluster: cluster форкает процессы на портах shared. Важно на собесе и в проде в контексте «Workers & Processes»."
+summary: cluster — форк нескольких Node-процессов, которые делят серверный порт (один master, много workers).
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Работа с CPU-bound задачами и отдельными процессами. Событийный цикл Node, backpressure и блокировки потока.
+Чтобы задействовать несколько CPU на одной машине для I/O-сервиса без внешнего балансировщика.
 
-## Как работает
+## Пример
 
-**cluster**: cluster форкает процессы на портах shared.
+```js
+import cluster from 'node:cluster'
+import os from 'node:os'
+if (cluster.isPrimary) {
+  for (const _ of os.cpus()) cluster.fork()
+} else {
+  // listen(3000) в каждом worker
+}
+```
 
-Нет shared memory JS-куч.
+## Примечание
 
-В k8s чаще несколько pod replicas, не cluster.
-
-Документация: [Node.js](https://nodejs.org/docs/latest/api/).
-
-## Что спрашивают
-
-- Объясните cluster своими словами на примере из «Workers & Processes».
-- Какие ошибки и edge cases связаны с cluster?
-- Какие альтернативы cluster и когда они лучше?
-
-## Ответы
-
-### Объясните cluster своими словами на примере из «Workers & Processes».
-
-cluster форкает процессы на портах shared. Держите структуру: проблема → механизм → пример. В k8s чаще несколько pod replicas, не cluster.
-
-### Какие ошибки и edge cases связаны с cluster?
-
-Нет shared memory JS-куч. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы cluster и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. В k8s чаще несколько pod replicas, не cluster.
+Память между воркерами не общая. В Kubernetes чаще несколько реплик pod, а не `cluster` внутри одного контейнера.

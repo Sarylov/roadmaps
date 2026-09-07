@@ -1,38 +1,37 @@
 ---
-title: optional properties
-summary: "optional properties: ?: — свойство может отсутствовать (не всегда = undefined явно). Важно на собесе и в проде в контексте «Функции и объекты»."
+title: Optional properties
+summary: Опциональное свойство `field?: T` может отсутствовать в объекте; это не всегда то же самое, что `field: T | undefined`.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Типизация функций, объектов и reusable-компонентов. Упор на систему типов, inference и дизайн публичного API.
+Чтобы описать поля, которые не обязательны при создании объекта — конфиги, partial DTO, опции API.
 
-## Как работает
+## Пример
 
-**optional properties**: ?: — свойство может отсутствовать (не всегда = undefined явно).
+```ts
+type Options = {
+  timeout?: number;
+};
 
-exactOptionalPropertyTypes меняет семантику.
+const a: Options = {};           // ок
+const b: Options = { timeout: 5 };
+```
 
-Документируйте разницу absent vs undefined.
+## Примечание
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
+С флагом `exactOptionalPropertyTypes` нельзя явно передать `timeout: undefined`, если свойство лишь optional — только опустить ключ или задать `number`.
 
-## Что спрашивают
+## Вопросы и ответы
 
-- Объясните optional properties своими словами на примере из «Функции и объекты».
-- Какие ошибки и edge cases связаны с optional properties?
-- Какие альтернативы optional properties и когда они лучше?
+### Чем `x?: string` отличается от `x: string | undefined`?
 
-## Ответы
+`?:` — ключ может отсутствовать. `string | undefined` — ключ обычно есть, но значение может быть `undefined`. Разница важна при точных optional-типах и при spread/assign.
 
-### Объясните optional properties своими словами на примере из «Функции и объекты».
+### Как сделать все поля опциональными?
 
-?: — свойство может отсутствовать (не всегда = undefined явно). Держите структуру: проблема → механизм → пример. Документируйте разницу absent vs undefined.
+`Partial<T>` — mapped-тип, помечает каждое свойство как optional.
 
-### Какие ошибки и edge cases связаны с optional properties?
+### Нужен ли `?` у параметра функции?
 
-exactOptionalPropertyTypes меняет семантику. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы optional properties и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Документируйте разницу absent vs undefined.
+Да: `fn(x?: number)` — аргумент можно не передать. Это отдельно от optional property у объекта, но идея та же.

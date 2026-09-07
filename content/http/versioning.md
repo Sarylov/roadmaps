@@ -1,38 +1,17 @@
 ---
-title: versioning
-summary: "versioning: Versioning API: URL/header/media type. Важно на собесе и в проде в контексте «REST API»."
+title: Versioning
+summary: Versioning API — явная схема эволюции контракта (URL /header / media type), чтобы не ломать старых клиентов.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Проектирование понятных и предсказуемых HTTP API. Упор на семантику метода/статуса/заголовков и кэш.
+Чтобы выпускать breaking changes, пока старые клиенты ещё живы.
 
-## Как работает
+## Пример
 
-**versioning**: Versioning API: URL/header/media type.
+`/v1/users` и `/v2/users`  
+или заголовок `Accept: application/vnd.myapi.v2+json`.
 
-Параллельная поддержка N версий дорога.
+## Примечание
 
-Tolerate & deprecate политика.
-
-MDN: [HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP).
-
-## Что спрашивают
-
-- Объясните versioning своими словами на примере из «REST API».
-- Какие ошибки и edge cases связаны с versioning?
-- Какие альтернативы versioning и когда они лучше?
-
-## Ответы
-
-### Объясните versioning своими словами на примере из «REST API».
-
-Versioning API: URL/header/media type. Держите структуру: проблема → механизм → пример. Tolerate & deprecate политика.
-
-### Какие ошибки и edge cases связаны с versioning?
-
-Параллельная поддержка N версий дорога. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы versioning и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Tolerate & deprecate политика.
+Каждая активная версия — стоимость поддержки. Нужна политика deprecation и срок отключения.

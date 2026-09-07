@@ -1,36 +1,16 @@
 ---
-title: database cache
-summary: "database cache: Кэш планов/buffer pool СУБД vs внешний кэш. Важно на собесе и в проде в контексте «Caching»."
+title: Database cache
+summary: Database cache — кэш внутри/рядом с СУБД: buffer pool, query cache (где есть), materialized views.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Кэширование на разных уровнях архитектуры. Инвалидация, TTL и stampede — частые темы.
+Чтобы частые блоки/страницы не читались с диска каждый раз.
 
-## Как работает
+## Пример
 
-**database cache**: Кэш планов/buffer pool СУБД vs внешний кэш.
+Postgres shared_buffers держит горячие страницы. Materialized view для тяжёлого отчёта, refresh по расписанию.
 
-Не путать уровни.
+## Примечание
 
-Тюнинг shared_buffers отдельно от Redis.
-
-## Что спрашивают
-
-- Объясните database cache своими словами на примере из «Caching».
-- Какие ошибки и edge cases связаны с database cache?
-- Какие альтернативы database cache и когда они лучше?
-
-## Ответы
-
-### Объясните database cache своими словами на примере из «Caching».
-
-Кэш планов/buffer pool СУБД vs внешний кэш. Держите структуру: проблема → механизм → пример. Тюнинг shared_buffers отдельно от Redis.
-
-### Какие ошибки и edge cases связаны с database cache?
-
-Не путать уровни. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы database cache и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Тюнинг shared_buffers отдельно от Redis.
+Это не замена явному Redis для кросс-инстанс application cache. Настройка памяти БД — часть capacity planning.

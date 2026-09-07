@@ -1,38 +1,16 @@
 ---
-title: authentication
-summary: authentication в блоке «E2E Testing» — нужно уметь объяснить механизм, риск и альтернативы.
+title: Authentication
+summary: Authentication — проверка, кто вы: логин/пароль, сессия, JWT, OAuth; результат — установленная identity.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Проверка backend-системы через реальные пользовательские сценарии. Кратко держите threat model: кто атакующий и что получает.
+Чтобы отличать анонима от пользователя и дальше решать authorization.
 
-## Как работает
+## Пример
 
-**authentication** — тема блока «E2E Testing» (security). Проверка backend-системы через реальные пользовательские сценарии.
+`POST /login` → cookie/session или access token. Следующий `GET /me` с credentials → профиль, без → `401`.
 
-Типичная ошибка — использовать authentication «по привычке» без понимания границ и failure modes в «E2E Testing».
+## Примечание
 
-Кратко держите threat model: кто атакующий и что получает.
-
-Ориентир: [OWASP Top 10](https://owasp.org/www-project-top-ten/).
-
-## Что спрашивают
-
-- Объясните authentication своими словами на примере из «E2E Testing».
-- Какие ошибки и edge cases связаны с authentication?
-- Какие альтернативы authentication и когда они лучше?
-
-## Ответы
-
-### Объясните authentication своими словами на примере из «E2E Testing».
-
-**authentication** — тема блока «E2E Testing» (security). Проверка backend-системы через реальные пользовательские сценарии. Держите структуру: проблема → механизм → пример. Кратко держите threat model: кто атакующий и что получает.
-
-### Какие ошибки и edge cases связаны с authentication?
-
-Типичная ошибка — использовать authentication «по привычке» без понимания границ и failure modes в «E2E Testing». Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы authentication и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Кратко держите threat model: кто атакующий и что получает.
+Authentication ≠ authorization. В E2E отдельно проверьте expired/invalid token и logout/revoke.

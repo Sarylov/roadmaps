@@ -1,16 +1,19 @@
-import { useCallback, useEffect, useState } from 'react'
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { extractYoutubeId, loadArticle } from '../content/loadArticle'
 import type { Article } from '../types'
 import { ARTICLE_TAGS, getArticleProgress, type ArticleTag } from '../utils/articleProgress'
 import { ArticleAnswers } from './ArticleAnswers'
+import { ArticleMarkdown } from './articleMarkdown'
 import { ArticleProgressPanel } from './ArticleProgressPanel'
 import { ZoomableImage } from './ImageLightbox'
 
 interface ItemModalProps {
   itemRef: string | null
   onClose: () => void
+  prevRef?: string | null
+  nextRef?: string | null
+  onNavigate?: (ref: string) => void
+  position?: { index: number; total: number } | null
 }
 
 function ArticleMedia({ article }: { article: Article }) {
@@ -52,10 +55,22 @@ function ArticleMedia({ article }: { article: Article }) {
   )
 }
 
-export function ItemModal({ itemRef, onClose }: ItemModalProps) {
+function shortRef(ref: string): string {
+  return ref.includes('/') ? ref.slice(ref.indexOf('/') + 1) : ref
+}
+
+export function ItemModal({
+  itemRef,
+  onClose,
+  prevRef = null,
+  nextRef = null,
+  onNavigate,
+  position = null,
+}: ItemModalProps) {
   const [article, setArticle] = useState<Article | null>(null)
   const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'missing'>('idle')
   const [activeTag, setActiveTag] = useState<ArticleTag | null>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
 
   const onProgressChange = useCallback((tag: ArticleTag | null) => {
     setActiveTag(tag)
@@ -73,6 +88,7 @@ export function ItemModal({ itemRef, onClose }: ItemModalProps) {
     setStatus('loading')
     setArticle(null)
     setActiveTag(getArticleProgress(itemRef).tag)
+    panelRef.current?.scrollTo({ top: 0 })
 
     loadArticle(itemRef).then((data) => {
       if (cancelled) return
@@ -93,7 +109,22 @@ export function ItemModal({ itemRef, onClose }: ItemModalProps) {
     if (!itemRef) return
 
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') {
+        onClose()
+        return
+      }
+      const target = e.target as HTMLElement | null
+      if (target && (target.tagName === 'TEXTAREA' || target.tagName === 'INPUT' || target.isContentEditable)) {
+        return
+      }
+      if (e.key === 'ArrowLeft' && prevRef && onNavigate) {
+        e.preventDefault()
+        onNavigate(prevRef)
+      }
+      if (e.key === 'ArrowRight' && nextRef && onNavigate) {
+        e.preventDefault()
+        onNavigate(nextRef)
+      }
     }
     window.addEventListener('keydown', onKey)
     const prev = document.body.style.overflow
@@ -103,11 +134,12 @@ export function ItemModal({ itemRef, onClose }: ItemModalProps) {
       window.removeEventListener('keydown', onKey)
       document.body.style.overflow = prev
     }
-  }, [itemRef, onClose])
+  }, [itemRef, onClose, prevRef, nextRef, onNavigate])
 
   if (!itemRef) return null
 
   const tagLabel = ARTICLE_TAGS.find((t) => t.id === activeTag)?.label
+  const showNav = Boolean(onNavigate && (prevRef || nextRef || position))
 
   return (
     <div
@@ -123,11 +155,20 @@ export function ItemModal({ itemRef, onClose }: ItemModalProps) {
         onClick={onClose}
       />
 
-      <div className="relative z-10 w-full sm:max-w-2xl max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl border border-[var(--border)] bg-[var(--surface-solid)] shadow-xl">
+      <div
+        ref={panelRef}
+        className="relative z-10 w-full sm:max-w-2xl max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl border border-[var(--border)] bg-[var(--surface-solid)] shadow-xl"
+      >
         <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-[var(--border)] bg-[var(--surface-solid)]/95 backdrop-blur px-5 py-4">
           <div className="min-w-0">
             <p className="text-[11px] uppercase tracking-wide text-[var(--fg-faint)] mb-1">
               {itemRef}
+              {position && position.total > 0 && (
+                <span className="normal-case tracking-normal">
+                  {' '}
+                  · {position.index} / {position.total}
+                </span>
+              )}
             </p>
             <div className="flex flex-wrap items-center gap-2">
               <h2 id="item-modal-title" className="text-lg font-bold text-[var(--fg-strong)]">
@@ -169,33 +210,7 @@ export function ItemModal({ itemRef, onClose }: ItemModalProps) {
               <ArticleMedia article={article} />
 
               <div className="article-prose text-sm text-[var(--fg)] leading-relaxed">
-                <Markdown
-                  remarkPlugins={[remarkGfm]}
-                  components={{
-                    img: ({ src, alt }) =>
-                      src ? (
-                        <div className="my-3">
-                          <ZoomableImage
-                            src={src}
-                            alt={alt ?? ''}
-                            className="rounded-xl border border-[var(--border)] bg-[var(--chip-muted)] max-h-[320px] w-full object-contain"
-                          />
-                        </div>
-                      ) : null,
-                    a: ({ href, children }) => (
-                      <a
-                        href={href}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        className="underline decoration-dotted underline-offset-2 text-[var(--accent)]"
-                      >
-                        {children}
-                      </a>
-                    ),
-                  }}
-                >
-                  {article.body}
-                </Markdown>
+                <ArticleMarkdown>{article.body}</ArticleMarkdown>
               </div>
 
               <ArticleAnswers answers={article.answers} />
@@ -204,6 +219,41 @@ export function ItemModal({ itemRef, onClose }: ItemModalProps) {
             </>
           )}
         </div>
+
+        {showNav && (
+          <div className="sticky bottom-0 z-10 flex items-center gap-2 border-t border-[var(--border)] bg-[var(--surface-solid)]/95 backdrop-blur px-4 py-3">
+            <button
+              type="button"
+              disabled={!prevRef}
+              onClick={() => prevRef && onNavigate?.(prevRef)}
+              className="cursor-pointer flex-1 min-w-0 rounded-xl border border-[var(--border-strong)] bg-[var(--surface)] px-3 py-2.5 text-left transition-opacity hover:border-[var(--accent)] disabled:cursor-not-allowed disabled:opacity-35"
+              aria-label={prevRef ? `Назад: ${prevRef}` : 'Назад недоступно'}
+              title={prevRef ?? undefined}
+            >
+              <span className="block text-[10px] uppercase tracking-wide text-[var(--fg-faint)]">
+                ← Назад
+              </span>
+              <span className="block truncate text-sm text-[var(--fg)]">
+                {prevRef ? shortRef(prevRef) : '—'}
+              </span>
+            </button>
+            <button
+              type="button"
+              disabled={!nextRef}
+              onClick={() => nextRef && onNavigate?.(nextRef)}
+              className="cursor-pointer flex-1 min-w-0 rounded-xl border border-[var(--border-strong)] bg-[var(--surface)] px-3 py-2.5 text-right transition-opacity hover:border-[var(--accent)] disabled:cursor-not-allowed disabled:opacity-35"
+              aria-label={nextRef ? `Вперёд: ${nextRef}` : 'Вперёд недоступно'}
+              title={nextRef ?? undefined}
+            >
+              <span className="block text-[10px] uppercase tracking-wide text-[var(--fg-faint)]">
+                Вперёд →
+              </span>
+              <span className="block truncate text-sm text-[var(--fg)]">
+                {nextRef ? shortRef(nextRef) : '—'}
+              </span>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )

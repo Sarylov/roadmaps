@@ -1,36 +1,16 @@
 ---
-title: news feed
-summary: "news feed: Лента: fan-out on write/read, ранжирование. Важно на собесе и в проде в контексте «System Design Practice»."
+title: News feed
+summary: News feed — персональная лента активностей (посты друзей/подписок) с ранжированием и высокой read-нагрузкой.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Практика проектирования реальных распределённых систем. Цифры, bottleneck и явные trade-offs.
+Практика: fan-out on write vs on read, кэш ленты, ranking, eventual consistency.
 
-## Как работает
+## Пример
 
-**news feed**: Лента: fan-out on write/read, ранжирование.
+Fan-out on write: пост пишется в timeline друзей в Redis/Cassandra. Знаменитости — pull on read, иначе взрыв записи.
 
-Тяжёлый celebrity problem.
+## Примечание
 
-Кэш таймлайнов.
-
-## Что спрашивают
-
-- Объясните news feed своими словами на примере из «System Design Practice».
-- Какие ошибки и edge cases связаны с news feed?
-- Какие альтернативы news feed и когда они лучше?
-
-## Ответы
-
-### Объясните news feed своими словами на примере из «System Design Practice».
-
-Лента: fan-out on write/read, ранжирование. Держите структуру: проблема → механизм → пример. Кэш таймлайнов.
-
-### Какие ошибки и edge cases связаны с news feed?
-
-Тяжёлый celebrity problem. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы news feed и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Кэш таймлайнов.
+Гибрид по типу автора. Кэш + precompute. Аналитика/реклама — отдельные пайплайны.

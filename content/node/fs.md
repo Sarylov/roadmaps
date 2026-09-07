@@ -1,32 +1,19 @@
 ---
-title: File system в Node.js
-summary: Модуль `node:fs` даёт sync, callback, Promise и stream API для файлов. Production-ответ должен учитывать блокировку event loop, атомарность и ограничения файловых дескрипторов.
+title: fs
+summary: fs — модуль работы с файловой системой; в проде почти всегда берут асинхронный API (`fs/promises` или стримы).
 ---
 
-## Зачем нужно
+## Для чего
 
-Тема регулярно встречается на backend-интервью: сильный ответ связывает механизм с наблюдаемым поведением, отказами и production-решением.
+Чтобы читать/писать файлы, логи, загрузки, не блокируя event loop на больших объёмах.
 
-## Как работает
+## Пример
 
-`fs/promises` обычно передаёт файловую работу в thread pool libuv. Stream API читает чанками; sync-вызовы выполняются на event-loop thread. Надёжная замена файла делается записью во временный файл, `fsync` при нужной durability и `rename` в пределах filesystem.
+```js
+import { readFile } from 'node:fs/promises'
+const text = await readFile('config.json', 'utf8')
+```
 
-## Что спрашивают
+## Примечание
 
-- Как работает File system в Node.js на практике?
-- Какой типичный failure mode связан с File system в Node.js?
-- Какие trade-offs важно назвать для File system в Node.js?
-
-## Ответы
-
-### Как работает File system в Node.js на практике?
-
-`fs/promises` обычно передаёт файловую работу в thread pool libuv. Stream API читает чанками; sync-вызовы выполняются на event-loop thread. Надёжная замена файла делается записью во временный файл, `fsync` при нужной durability и `rename` в пределах filesystem.
-
-### Какой типичный failure mode связан с File system в Node.js?
-
-`readFile` для большого файла раздувает heap/RSS, sync API задерживает все запросы, а `Promise.all` по тысячам файлов исчерпывает descriptors (`EMFILE`) и pool. Нужны streaming, лимит конкурентности и обработка частичных ошибок.
-
-### Какие trade-offs важно назвать для File system в Node.js?
-
-Sync API уместен при старте CLI/процесса до приёма трафика. Для request path выбирают promises с ограниченной конкуренцией или streams; для пользовательских данных часто надёжнее object storage.
+`readFileSync` / `writeFileSync` в request path — блокировка. Большие файлы — `createReadStream` / `pipeline`, не целиком в память.

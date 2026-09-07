@@ -1,38 +1,19 @@
 ---
 title: child_process
-summary: "child_process: child_process — отдельный OS процесс. Важно на собесе и в проде в контексте «Workers & Processes»."
+summary: child_process — запуск отдельного OS-процесса (exec/spawn/fork) с IPC.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Работа с CPU-bound задачами и отдельными процессами. Событийный цикл Node, backpressure и блокировки потока.
+Чтобы вынести работу в другой процесс или вызвать внешнюю утилиту с изоляцией памяти от Node.
 
-## Как работает
+## Пример
 
-**child_process**: child_process — отдельный OS процесс.
+```js
+import { spawn } from 'node:child_process'
+const p = spawn('ffprobe', ['-v', 'quiet', file])
+```
 
-Изоляция сильнее threads; IPC тяжелее.
+## Примечание
 
-shell:true — риск injection.
-
-Документация: [Node.js](https://nodejs.org/docs/latest/api/).
-
-## Что спрашивают
-
-- Объясните child_process своими словами на примере из «Workers & Processes».
-- Какие ошибки и edge cases связаны с child_process?
-- Какие альтернативы child_process и когда они лучше?
-
-## Ответы
-
-### Объясните child_process своими словами на примере из «Workers & Processes».
-
-child_process — отдельный OS процесс. Держите структуру: проблема → механизм → пример. shell:true — риск injection.
-
-### Какие ошибки и edge cases связаны с child_process?
-
-Изоляция сильнее threads; IPC тяжелее. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы child_process и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. shell:true — риск injection.
+`shell: true` + пользовательский ввод = command injection. `fork` — удобен для Node-детей. Тяжелее по ресурсам, чем `worker_threads`.

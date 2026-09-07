@@ -1,43 +1,35 @@
 ---
 title: Promise
-summary: Promise — объект результата асинхронной операции: pending → fulfilled/rejected. Колбэки `.then` / `.catch` попадают в microtask queue и не блокируют текущий стек.
+summary: Promise — объект результата асинхронной операции: pending → fulfilled или rejected.
 ---
 
-## Зачем нужно
+## Для чего
 
-Без Promise нельзя уверенно говорить про async/await, параллелизм (`all`/`race`) и обработку ошибок в Node/браузере. Это базовый контракт асинхронного API.
+Чтобы композировать асинхронные шаги без пирамиды колбэков и с единым каналом ошибок через `.catch` / `try/catch`.
 
-## Как работает
+## Пример
 
 ```js
-const p = new Promise((resolve, reject) => {
-  // sync start; later:
-  resolve(42) // или reject(err)
-})
-
-p.then(v => v * 2).catch(err => console.error(err))
+fetch('/api')
+  .then(r => r.json())
+  .then(data => console.log(data))
+  .catch(err => console.error(err))
 ```
 
-Состояния: **pending**, **fulfilled**, **rejected** (terminal). `.then` всегда возвращает новый Promise. Ошибка в колбэке / `throw` → rejected следующей цепочки. `async/await` — сахар над теми же microtasks.
+## Примечание
 
-Спека/гайд: [MDN — Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+Колбэки `.then` попадают в microtask queue — после текущего синхронного кода, но обычно раньше `setTimeout(0)`. Необработанный reject — отдельная проблема (`unhandledRejection`).
 
-## Что спрашивают
+## Вопросы и ответы
 
-- Чем Promise отличается от callback hell по контролю ошибок?
-- Что вернёт `.then`, если колбэк ничего не `return`?
-- `Promise.resolve` vs `new Promise(r => r(x))`?
+### Какие состояния у Promise?
 
-## Ответы
+`pending` → потом либо `fulfilled` (значение), либо `rejected` (ошибка). Состояние меняется один раз и дальше неизменно.
 
-### Чем Promise отличается от callback hell по контролю ошибок?
+### Чем Promise лучше колбэков?
 
-В колбэках ошибки часто «теряются» между уровнями (`if (err) return cb(err)`). У Promise единый канал rejection: один `.catch` в конце цепочки (или `try/catch` с `await`) ловит сбой любого шага. Плюс композиция (`all`, `race`) без пирамиды вложенности.
+Цепочки `.then` без пирамиды, ошибки собираются в `.catch`, результат можно вернуть/передать дальше как значение. Композиция асинхронных шагов проще.
 
-### Что вернёт `.then`, если колбэк ничего не `return`?
+### Когда сработает `.then` относительно `setTimeout(0)`?
 
-Новый Promise, который fulfill’ится в **`undefined`**. Если вернуть значение — оно станет fulfillment; если вернуть Promise — цепочка ждёт его; если `throw` — rejection.
-
-### `Promise.resolve` vs `new Promise(r => r(x))`?
-
-Почти эквивалентны для обычного значения. `Promise.resolve(x)` быстрее/короче и **плоско** разворачивает thenable/Promise (`resolve` другого Promise не даёт «Promise в Promise»). `new Promise` нужен, когда результат зависит от колбэков стороннего API (`fs`, DOM events).
+После текущего синхронного кода `.then` идёт в microtasks и обычно раньше macrotask от `setTimeout(0)`. Необработанный reject — `unhandledRejection`.

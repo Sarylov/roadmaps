@@ -44,17 +44,31 @@ function parseFrontmatter(raw: string): { meta: Record<string, string>; body: st
   return { meta, body }
 }
 
-/** Split trailing `## Ответы` / `### вопрос` blocks from the main article body. */
+/** Split trailing Q&A block from the main article body.
+ * Supports `## Ответы` and `## Вопросы и ответы`.
+ * Also drops the redundant `## Что спрашивают` list from the visible body.
+ */
 export function splitArticleAnswers(body: string): {
   body: string
   answers: ArticleAnswer[]
 } {
-  const match = body.match(/(?:^|\n)(##\s+Ответы\s*\n[\s\S]*)$/)
-  if (!match) return { body, answers: [] }
+  const qaMatch = body.match(
+    /(?:^|\n)(##\s+(?:Вопросы и ответы|Ответы)\s*\n[\s\S]*)$/,
+  )
+  if (!qaMatch) {
+    return {
+      body: stripQuestionsSection(body),
+      answers: [],
+    }
+  }
 
-  const answersBlock = match[1]
-  const main = body.slice(0, body.length - answersBlock.length).trimEnd()
-  const afterHeading = answersBlock.replace(/^##\s+Ответы\s*\n/, '').trim()
+  const answersBlock = qaMatch[1]
+  let main = body.slice(0, body.length - answersBlock.length).trimEnd()
+  main = stripQuestionsSection(main)
+
+  const afterHeading = answersBlock
+    .replace(/^##\s+(?:Вопросы и ответы|Ответы)\s*\n/, '')
+    .trim()
   if (!afterHeading) return { body: main, answers: [] }
 
   const answers: ArticleAnswer[] = []
@@ -73,6 +87,12 @@ export function splitArticleAnswers(body: string): {
   }
 
   return { body: main, answers }
+}
+
+function stripQuestionsSection(body: string): string {
+  return body
+    .replace(/(?:^|\n)##\s+Что спрашивают\s*\n[\s\S]*?(?=\n##\s+|$)/, '\n')
+    .trim()
 }
 
 /** Accepts bare id or full YouTube URL → embed id */

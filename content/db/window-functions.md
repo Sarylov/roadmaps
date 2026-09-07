@@ -1,36 +1,20 @@
 ---
-title: Оконные функции SQL
-summary: Оконные функции вычисляют значение по группе связанных строк, не сворачивая результат как GROUP BY. Они нужны для ранжирования, running total и сравнений.
+title: Window functions
+summary: Window functions — вычисления по «окну» строк (PARTITION/ORDER) без схлопывания групп как в GROUP BY.
 ---
 
-## Зачем нужно
+## Для чего
 
-Это стандартный способ решить аналитические задачи без self-join и циклов в приложении.
+Чтобы нумеровать, ранжировать, считать running total, оставляя все строки на месте.
 
-## Как работает
+## Пример
 
-Конструкция `OVER (PARTITION BY ... ORDER BY ... frame)` задаёт раздел, порядок и frame. `row_number`, `rank`, `lag`, `lead`, `sum(...) over` возвращают значение для каждой исходной строки. `PARTITION BY` делит набор, а frame выбирает строки вокруг текущей.
+```sql
+SELECT id, amount,
+       ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at) AS rn
+FROM orders;
+```
 
-## Практические нюансы
+## Примечание
 
-Для агрегатов с `ORDER BY` default frame может дать running result и неожиданно объединять peers. Для полного partition задают `ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING`. Сортировки могут быть дорогими; помогают подходящий индекс и фильтрация до окна.
-
-## Что спрашивают
-
-- Чем оконная функция отличается от GROUP BY?
-- Чем row_number отличается от rank и dense_rank?
-- Что такое window frame?
-
-## Ответы
-
-### Чем оконная функция отличается от GROUP BY?
-
-`GROUP BY` сворачивает группу в одну строку. Window сохраняет каждую строку и добавляет вычисление по её partition/frame.
-
-### Чем row_number отличается от rank и dense_rank?
-
-`row_number` всегда уникально нумерует; `rank` даёт одинаковый ранг ties и оставляет пропуски; `dense_rank` даёт одинаковый ранг без пропусков.
-
-### Что такое window frame?
-
-Это подмножество строк partition относительно текущей строки. `ROWS` считает физические строки, `RANGE` объединяет peers по значению сортировки; выбор влияет на running totals и last_value.
+`GROUP BY` схлопывает строки; window — нет. Удобно для пагинации «топ-N в группе» и дедупа.

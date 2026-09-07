@@ -1,38 +1,27 @@
 ---
-title: containing block
-summary: "containing block: Containing block — относительно чего считаются % и absolute. Важно на собесе и в проде в контексте «Position/z-index»."
+title: Containing block
+summary: Containing block — прямоугольник, относительно которого считают `width`/`left`/`absolute` и проценты позиции.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Каркас интерфейса: семантика, раскладка, формы и доступность. Упор на каскад, layout и доступность.
+Чтобы понимать, к кому «прилипает» `position: absolute` и от чего считаются проценты.
 
-## Как работает
+## Пример
 
-**containing block**: Containing block — относительно чего считаются % и absolute.
+`absolute` позиционируется к ближайшему предку с `position` ≠ `static` (или к initial containing block).  
+`transform` у предка тоже делает его containing block для fixed в современных браузерах.
 
-transform на предке делает его containing block для fixed — сюрприз.
+## Примечание
 
-Понимание нужно для sticky/absolute оверлеев.
+`fixed` обычно относительно viewport, но предок с transform/filter/perspective может «приклеить» fixed к себе.
 
-MDN: [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS).
+## Вопросы и ответы
 
-## Что спрашивают
+### К чему позиционируется absolute?
 
-- Объясните containing block своими словами на примере из «Position/z-index».
-- Какие ошибки и edge cases связаны с containing block?
-- Какие альтернативы containing block и когда они лучше?
+К nearest positioned ancestor; если нет — к initial containing block (часто viewport/html).
 
-## Ответы
+### Почему fixed елемент скроллится с блоком?
 
-### Объясните containing block своими словами на примере из «Position/z-index».
-
-Containing block — относительно чего считаются % и absolute. Держите структуру: проблема → механизм → пример. Понимание нужно для sticky/absolute оверлеев.
-
-### Какие ошибки и edge cases связаны с containing block?
-
-transform на предке делает его containing block для fixed — сюрприз. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы containing block и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Понимание нужно для sticky/absolute оверлеев.
+Предок создал containing block (часто через `transform`) — fixed ведёт себя относительно него.

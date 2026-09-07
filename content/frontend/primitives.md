@@ -1,36 +1,19 @@
 ---
-title: primitives
-summary: "primitives: Примитивы JS: string, number, boolean, null, undefined, symbol, bigint. Важно на собесе и в проде в контексте «Типы и переменные»."
+title: Primitives
+summary: Primitives — базовые значения JS: `string`, `number`, `boolean`, `null`, `undefined`, `symbol`, `bigint` (не объекты).
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Язык, runtime и асинхронность, на которых держится весь фронт. UX, bundle и архитектурные границы UI.
+Чтобы понимать копирование по значению и отличия от объектов/ссылок.
 
-## Как работает
+## Пример
 
-**primitives**: Примитивы JS: string, number, boolean, null, undefined, symbol, bigint.
+```js
+let a = 1, b = a; b = 2; // a всё ещё 1
+typeof null // "object" — исключение
+```
 
-typeof null === "object" — исторический баг.
+## Примечание
 
-Обёртки String/Number редко нужны явно.
-
-## Что спрашивают
-
-- Объясните primitives своими словами на примере из «Типы и переменные».
-- Какие ошибки и edge cases связаны с primitives?
-- Какие альтернативы primitives и когда они лучше?
-
-## Ответы
-
-### Объясните primitives своими словами на примере из «Типы и переменные».
-
-Примитивы JS: string, number, boolean, null, undefined, symbol, bigint. Держите структуру: проблема → механизм → пример. Обёртки String/Number редко нужны явно.
-
-### Какие ошибки и edge cases связаны с primitives?
-
-typeof null === "object" — исторический баг. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы primitives и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Обёртки String/Number редко нужны явно.
+У примитивов временно появляются методы через boxing (`"hi".toUpperCase()`), но результат — новый примитив/объект по случаю.

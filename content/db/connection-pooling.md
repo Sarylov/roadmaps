@@ -1,38 +1,16 @@
 ---
-title: connection pooling
-summary: "connection pooling: Пул ограничивает число соединений к БД. Важно на собесе и в проде в контексте «Data Access Patterns»."
+title: Connection pooling
+summary: Connection pooling — переиспользование ограниченного набора соединений к БД вместо open/close на каждый запрос.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Паттерны доступа к данным и контроль типичных проблем. Где уместно — Postgres, планы EXPLAIN и индексы.
+Чтобы не исчерпать `max_connections` Postgres и не платить за handshake на каждый HTTP-запрос.
 
-## Как работает
+## Пример
 
-**connection pooling**: Пул ограничивает число соединений к БД.
+PgBouncer / пул в `pg` / Prisma connection pool: 10–50 соединений на инстанс приложения делят тысячи коротких запросов.
 
-Pool exhaustion → таймауты API.
+## Примечание
 
-В serverless — внешний pooler (PgBouncer).
-
-Документация: [PostgreSQL](https://www.postgresql.org/docs/current/).
-
-## Что спрашивают
-
-- Объясните connection pooling своими словами на примере из «Data Access Patterns».
-- Какие ошибки и edge cases связаны с connection pooling?
-- Какие альтернативы connection pooling и когда они лучше?
-
-## Ответы
-
-### Объясните connection pooling своими словами на примере из «Data Access Patterns».
-
-Пул ограничивает число соединений к БД. Держите структуру: проблема → механизм → пример. В serverless — внешний pooler (PgBouncer).
-
-### Какие ошибки и edge cases связаны с connection pooling?
-
-Pool exhaustion → таймауты API. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы connection pooling и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. В serverless — внешний pooler (PgBouncer).
+Пулов несколько (каждый pod Nest = свой пул) → сумма ≤ лимит БД. В serverless часто нужен внешний pooler. Долгие транзакции держат соединение занятым.

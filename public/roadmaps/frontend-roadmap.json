@@ -152,7 +152,7 @@
           "items": [
             {
               "label": "transform",
-              "ref": "node/transform"
+              "ref": "css/transform"
             },
             {
               "label": "opacity",
@@ -299,7 +299,7 @@
           "items": [
             {
               "label": "events",
-              "ref": "node/events"
+              "ref": "js/dom-events"
             },
             {
               "label": "delegation",
@@ -446,11 +446,11 @@
           "items": [
             {
               "label": "conditional",
-              "ref": "ts/conditional"
+              "ref": "ts/conditional-types"
             },
             {
               "label": "mapped",
-              "ref": "ts/mapped"
+              "ref": "ts/mapped-types"
             },
             {
               "label": "infer",
@@ -506,7 +506,7 @@
           "items": [
             {
               "label": "guards",
-              "ref": "js/guards"
+              "ref": "ts/type-guards"
             },
             {
               "label": "discriminants",
@@ -653,7 +653,7 @@
           "items": [
             {
               "label": "routes",
-              "ref": "backend/routes"
+              "ref": "react/routes"
             },
             {
               "label": "loaders",
@@ -808,7 +808,7 @@
             },
             {
               "label": "events",
-              "ref": "node/events"
+              "ref": "http/ws-events"
             },
             {
               "label": "reconnect",
@@ -868,11 +868,11 @@
             },
             {
               "label": "storage",
-              "ref": "system-design/storage"
+              "ref": "auth/token-storage"
             },
             {
               "label": "refresh",
-              "ref": "auth/refresh"
+              "ref": "auth/refresh-tokens"
             }
           ]
         }
@@ -939,7 +939,7 @@
             },
             {
               "label": "Mutation",
-              "ref": "frontend/mutation"
+              "ref": "frontend/mutation-observer"
             }
           ]
         },
@@ -951,15 +951,15 @@
           "items": [
             {
               "label": "threads",
-              "ref": "node/threads"
+              "ref": "frontend/web-workers"
             },
             {
               "label": "messages",
-              "ref": "node/messages"
+              "ref": "frontend/worker-messages"
             },
             {
               "label": "offload",
-              "ref": "node/offload"
+              "ref": "frontend/offload"
             }
           ]
         },
@@ -975,11 +975,11 @@
             },
             {
               "label": "offline",
-              "ref": "node/offline"
+              "ref": "frontend/offline"
             },
             {
               "label": "updates",
-              "ref": "node/updates"
+              "ref": "frontend/sw-updates"
             }
           ]
         }

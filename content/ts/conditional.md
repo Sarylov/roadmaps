@@ -1,38 +1,36 @@
 ---
 title: conditional
-summary: "conditional: T extends U ? X : Y — ветвление на уровне типов. Важно на собесе и в проде в контексте «Продвинутые типы»."
+summary: "T extends U ? X : Y — это ветвление на уровне типов."
 ---
 
 ## Зачем нужно
 
-OPT-тема: отличает глубину кандидата. Типовая модель приложения и контрактов между слоями. Упор на систему типов, inference и дизайн публичного API.
+Чтобы явно выразить и переиспользовать поведение, связанное с «conditional», а не держать его зашитым в одном месте.
 
 ## Как работает
 
-**conditional**: T extends U ? X : Y — ветвление на уровне типов.
+T extends U ? X : Y — это ветвление на уровне типов.
 
-distributive conditional по naked type param.
-
-Основа многих utility types.
+Частая ошибка: distributive conditional по naked type param.
 
 Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
 
 ## Что спрашивают
 
-- Объясните conditional своими словами на примере из «Продвинутые типы».
-- Какие ошибки и edge cases связаны с conditional?
-- Какие альтернативы conditional и когда они лучше?
+- Что такое conditional простыми словами?
+- Зачем в коде нужен conditional?
+- Какие ошибки и ограничения связаны с conditional?
 
 ## Ответы
 
-### Объясните conditional своими словами на примере из «Продвинутые типы».
+### Что такое conditional простыми словами?
 
-T extends U ? X : Y — ветвление на уровне типов. Держите структуру: проблема → механизм → пример. Основа многих utility types.
+T extends U ? X : Y — это ветвление на уровне типов.
 
-### Какие ошибки и edge cases связаны с conditional?
+### Зачем в коде нужен conditional?
 
-distributive conditional по naked type param. Назовите симптом в проде и как поймать тестом или метрикой.
+Чтобы явно выразить и переиспользовать поведение, связанное с «conditional», а не держать его зашитым в одном месте.
 
-### Какие альтернативы conditional и когда они лучше?
+### Какие ошибки и ограничения связаны с conditional?
 
-Сравните минимум два подхода по сложности, perf и риску. Основа многих utility types.
+distributive conditional по naked type param. Имеет смысл сравнить с ближайшей альтернативой и понять, когда механизм избыточен.

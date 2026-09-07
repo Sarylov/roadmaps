@@ -1,36 +1,16 @@
 ---
-title: stateless services
-summary: "stateless services: Stateless app не хранит сессию локально. Важно на собесе и в проде в контексте «Scalability»."
+title: Stateless services
+summary: Stateless service — не хранит клиентское состояние в памяти процесса; сессии/файлы во внешнем store.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Масштабирование сервисов по мере роста нагрузки. Цифры, bottleneck и явные trade-offs.
+Чтобы любой инстанс мог обслужить любой запрос и свободно скейлиться/перезапускаться.
 
-## Как работает
+## Пример
 
-**stateless services**: Stateless app не хранит сессию локально.
+JWT или session в Redis, не `Map` в Node. Uploads — в S3, не на локальный диск пода.
 
-Проще rolling deploy и scale-out.
+## Примечание
 
-State в DB/Redis/object storage.
-
-## Что спрашивают
-
-- Объясните stateless services своими словами на примере из «Scalability».
-- Какие ошибки и edge cases связаны с stateless services?
-- Какие альтернативы stateless services и когда они лучше?
-
-## Ответы
-
-### Объясните stateless services своими словами на примере из «Scalability».
-
-Stateless app не хранит сессию локально. Держите структуру: проблема → механизм → пример. State в DB/Redis/object storage.
-
-### Какие ошибки и edge cases связаны с stateless services?
-
-Проще rolling deploy и scale-out. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы stateless services и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. State в DB/Redis/object storage.
+Кэш в памяти ок как ускорение, но не источник правды. Sticky sessions — костыль, не замена stateless.

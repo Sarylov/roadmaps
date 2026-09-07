@@ -1,36 +1,16 @@
 ---
 title: GitHub Actions
-summary: "GitHub Actions: CI в GitHub: workflows, runners, secrets. Важно на собесе и в проде в контексте «CI/CD»."
+summary: GitHub Actions — CI/CD в репозитории: workflows на события (push/PR) из YAML runners.
 ---
 
-## Зачем нужно
+## Для чего
 
-Частый KILLER-вопрос на собеседованиях. Автоматическая проверка, сборка и доставка backend-приложения. Операции, rollback и безопасность поставки.
+Чтобы на каждый PR автоматически собирать, тестировать и деплоить без ручного «у меня локально ок».
 
-## Как работает
+## Пример
 
-**GitHub Actions**: CI в GitHub: workflows, runners, secrets.
+`on: pull_request` → `npm test` + lint. На `main` → build image → push registry → deploy.
 
-Supply chain: pin actions, least privilege tokens.
+## Примечание
 
-Матрицы и кэш.
-
-## Что спрашивают
-
-- Объясните GitHub Actions своими словами на примере из «CI/CD».
-- Какие ошибки и edge cases связаны с GitHub Actions?
-- Какие альтернативы GitHub Actions и когда они лучше?
-
-## Ответы
-
-### Объясните GitHub Actions своими словами на примере из «CI/CD».
-
-CI в GitHub: workflows, runners, secrets. Держите структуру: проблема → механизм → пример. Матрицы и кэш.
-
-### Какие ошибки и edge cases связаны с GitHub Actions?
-
-Supply chain: pin actions, least privilege tokens. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы GitHub Actions и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Матрицы и кэш.
+Секреты — в GitHub Secrets, не в логах. Кеш зависимостей ускоряет. Self-hosted runners — для private сети/особых нужд.

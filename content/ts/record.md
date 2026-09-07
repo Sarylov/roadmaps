@@ -1,38 +1,40 @@
 ---
 title: Record
-summary: "Record: Record<K,V> — объект с ключами K и значениями V. Важно на собесе и в проде в контексте «Utility Types»."
+summary: `Record<K, V>` — utility type объекта с ключами типа K и значениями типа V.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Готовые типовые преобразования, постоянно используемые в проектах. Упор на систему типов, inference и дизайн публичного API.
+Чтобы описать словарь/мапу с известным набором ключей или произвольными string-ключами без ручной index signature.
 
-## Как работает
+## Пример
 
-**Record**: Record<K,V> — объект с ключами K и значениями V.
+```ts
+type Role = 'admin' | 'user'
 
-Часто Record<string, T> вместо index signature.
+type Permissions = Record<Role, boolean>
+// { admin: boolean; user: boolean }
 
-Ключи-литералы дают точные карты.
+const labels: Record<string, string> = {
+  ok: 'OK',
+  error: 'Error',
+}
+```
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
+## Примечание
 
-## Что спрашивают
+`Record<string, T>` ≈ index signature, но удобнее читать. `Record<'a' | 'b', T>` требует оба ключа. Пустой объект `{}` не удовлетворяет `Record<string, T>` при строгих проверках наличия индексной сигнатуры.
 
-- Как работает Record и какая у него семантика?
-- Чем Record отличается от близких API в «Utility Types»?
-- Какой edge case с Record чаще всего ловят на собесе?
+## Вопросы и ответы
 
-## Ответы
+### Чем Record отличается от `Map`?
 
-### Как работает Record и какая у него семантика?
+`Record` — тип обычного объекта JS. `Map` — runtime-структура с любыми ключами; тип `Map<K, V>` не заменяется `Record`.
 
-Record<K,V> — объект с ключами K и значениями V. Умейте показать крошечный пример и объяснить edge case. Ключи-литералы дают точные карты.
+### Когда лучше явный интерфейс?
 
-### Чем Record отличается от близких API в «Utility Types»?
+Когда ключи семантически разные поля (`id`, `name`) — интерфейс/type с именованными свойствами читаемее. `Record` — когда ключи однородны (роли, коды, id → value).
 
-Сравните контракт: успех/ошибка, идемпотентность, сложность, стоимость. Часто Record<string, T> вместо index signature.
+### Record и `keyof`?
 
-### Какой edge case с Record чаще всего ловят на собесе?
-
-Часто Record<string, T> вместо index signature. Добавьте, как тестировать и что будет в production под нагрузкой.
+`keyof Record<K, V>` даёт `K` (для union литералов — сами литералы). Удобно в generic-хелперах над словарями.

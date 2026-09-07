@@ -1,36 +1,18 @@
 ---
 title: TypeORM
-summary: "TypeORM: TypeORM — Active Record/Data Mapper гибрид. Важно на собесе и в проде в контексте «ORM»."
+summary: TypeORM — ORM для TypeScript/JavaScript: entities-декораторы, repository API, QueryBuilder, миграции.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Абстракция работы с БД внутри TypeScript-приложения. Слои приложения, DI и границы транзакций.
+Чтобы маппить таблицы на классы и работать через repository / QueryBuilder в Nest и похожих стеках.
 
-## Как работает
+## Пример
 
-**TypeORM**: TypeORM — Active Record/Data Mapper гибрид.
+```ts
+await userRepo.find({ where: { email }, relations: ['orders'] });
+```
 
-Декораторы и сюрпризы lazy relations.
+## Примечание
 
-Аккуратно с synchronize в проде (выкл).
-
-## Что спрашивают
-
-- Что такое TypeORM и какую задачу закрывает?
-- Какие ключевые абстракции TypeORM нужно знать на собесе?
-- Какие operational pitfalls у TypeORM?
-
-## Ответы
-
-### Что такое TypeORM и какую задачу закрывает?
-
-TypeORM — Active Record/Data Mapper гибрид. Опишите место в стеке «ORM». Аккуратно с synchronize в проде (выкл).
-
-### Какие ключевые абстракции TypeORM нужно знать на собесе?
-
-Назовите 3–5 сущностей/операций и как они стыкуются. Декораторы и сюрпризы lazy relations.
-
-### Какие operational pitfalls у TypeORM?
-
-Декораторы и сюрпризы lazy relations. Говорите про деплой, мониторинг, лимиты и failure modes, не только про happy path.
+Active Record и Data Mapper оба поддерживаются — выберите один стиль. DataSource/connection lifecycle и lazy relations легко дают N+1 и сюрпризы вне Nest scope.

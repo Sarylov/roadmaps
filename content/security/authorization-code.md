@@ -1,38 +1,16 @@
 ---
-title: authorization code
-summary: "authorization code: OAuth code flow: code → token на бэке. Важно на собесе и в проде в контексте «OAuth 2.0 / OpenID Connect»."
+title: Authorization Code
+summary: Authorization Code — OAuth 2.0 flow: пользователь логинится у IdP, клиент получает одноразовый `code` и меняет его на токены на back-channel.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Стандартные протоколы делегированной авторизации и identity. Кратко держите threat model: кто атакующий и что получает.
+Чтобы токены не светились в browser redirect URL так, как в устаревшем implicit flow.
 
-## Как работает
+## Пример
 
-**authorization code**: OAuth code flow: code → token на бэке.
+Redirect на IdP → user consent → redirect с `?code=` → backend `POST /token` с code + secret/PKCE → access/refresh/id token.
 
-Нельзя implicit для новых приложений.
+## Примечание
 
-State/PKCE против CSRF/перехвата.
-
-Ориентир: [OWASP Top 10](https://owasp.org/www-project-top-ten/).
-
-## Что спрашивают
-
-- Объясните authorization code своими словами на примере из «OAuth 2.0 / OpenID Connect».
-- Какие ошибки и edge cases связаны с authorization code?
-- Какие альтернативы authorization code и когда они лучше?
-
-## Ответы
-
-### Объясните authorization code своими словами на примере из «OAuth 2.0 / OpenID Connect».
-
-OAuth code flow: code → token на бэке. Держите структуру: проблема → механизм → пример. State/PKCE против CSRF/перехвата.
-
-### Какие ошибки и edge cases связаны с authorization code?
-
-Нельзя implicit для новых приложений. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы authorization code и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. State/PKCE против CSRF/перехвата.
+Для публичных клиентов (SPA/mobile) — Authorization Code + PKCE, без client secret. Code короткий и одноразовый.

@@ -1,24 +1,37 @@
 ---
-description: Structure and style for roadmap interview articles in content/
+description: Cheat-sheet format for roadmap articles in content/
 globs: content/**/*.md
 alwaysApply: false
 ---
 
 # Roadmap article format
 
-Path = `content/{ref}.md` where `ref` is `area/slug` linked from roadmap JSON items.
+Path = `content/{ref}.md` (`area/slug`), linked from roadmap JSON.
 
 ## Required shape
 
-1. Frontmatter: `title`, `summary`; optional `video`, `image`, `image_credit`
-2. `## Зачем нужно` — why it matters
-3. `## Как работает` (or 1–3 topic H2s like Виды / Защита) — mechanism + optional code/links
-4. `## Что спрашивают` — 2–4 bullet questions
-5. `## Ответы` — one `###` per question (same text); concise interview answers
+1. Frontmatter: `title`, `summary` (= **определение**, shown in UI); optional media
+2. `## Для чего` — какую проблему решает
+3. `## Пример` — минимальный практический пример
+4. `## Примечание` — только если есть важный нюанс
+5. `## Вопросы и ответы` — **обязательно для уровня 0** (2–4 `###` вопрос + ответ)
 
-## Style
+**Do not** use `## Определение` — definition is only `summary`.
 
-- Russian prose, English terms where natural
-- Short and interview-focused; no textbook padding
-- Every «Что спрашивают» bullet must have a matching «Ответы» `###`
-- Credit media in `image_credit` when `video`/`image` present
+**Level 0:** never drop Q&A when rewriting; update answers to match the new cheat-sheet. Higher levels: Q&A recommended for CORE/KILLER.
+
+No «Что спрашивают» list — only `## Вопросы и ответы` with `###`.
+
+## Style bar
+
+Коротко, по делу, без воды, легко произнести вслух.
+
+BAD summary: `Callback — функция продолжения; ад вложенности.`  
+GOOD summary: `Callback — это функция, которую передают другой функции, чтобы та вызвала её позже.`
+
+GOOD purpose: `Чтобы не зашивать действие внутрь функции, а передавать его снаружи.`
+
+BAD Q&A: generic stub («объясните тему из блока»).  
+GOOD Q&A: concrete interview question + short spoken answer.
+
+Rewrite **one roadmap level at a time** when asked.

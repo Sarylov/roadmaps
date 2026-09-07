@@ -1,32 +1,21 @@
 ---
-title: Controllers в NestJS
-summary: Controller в NestJS принимает транспортный запрос, извлекает входные данные и делегирует use case. Он не должен содержать SQL и основную бизнес-логику.
+title: Controllers (NestJS)
+summary: Controller в NestJS — класс с декораторами маршрутов (`@Get`, `@Post`): принимает HTTP и вызывает сервисы.
 ---
 
-## Зачем нужно
+## Для чего
 
-Тема регулярно встречается на backend-интервью: сильный ответ связывает механизм с наблюдаемым поведением, отказами и production-решением.
+Чтобы держать HTTP-границу тонкой: парсинг/статус/DTO → сервис, без SQL и бизнес-правил в контроллере.
 
-## Как работает
+## Пример
 
-Декораторы `@Controller`, `@Get`, `@Param` связывают метод с route. Guards выполняют допуск, pipes валидируют/преобразуют параметры, interceptors оборачивают вызов, filters отображают исключения в HTTP-ответ.
+```ts
+@Get(':id')
+findOne(@Param('id') id: string) {
+  return this.usersService.findById(id);
+}
+```
 
-## Что спрашивают
+## Примечание
 
-- Как работает Controllers в NestJS на практике?
-- Какой типичный failure mode связан с Controllers в NestJS?
-- Какие trade-offs важно назвать для Controllers в NestJS?
-
-## Ответы
-
-### Как работает Controllers в NestJS на практике?
-
-Декораторы `@Controller`, `@Get`, `@Param` связывают метод с route. Guards выполняют допуск, pipes валидируют/преобразуют параметры, interceptors оборачивают вызов, filters отображают исключения в HTTP-ответ.
-
-### Какой типичный failure mode связан с Controllers в NestJS?
-
-Толстый controller дублирует правила между HTTP, queue и CLI, плохо тестируется и смешивает статус-коды с доменом. Передача необработанного `Request` глубоко в сервис также связывает бизнес-слой с Nest/Express.
-
-### Какие trade-offs важно назвать для Controllers в NestJS?
-
-Controller отвечает за transport mapping: DTO → command и result → response. Use case отвечает за транзакцию и правила. Для нестандартного ответа можно использовать `@Res`, но это отключает часть платформенной абстракции.
+Толстый контроллер — smell. Валидация часто в pipes, доступ — в guards, обёртка ответа — в interceptors.

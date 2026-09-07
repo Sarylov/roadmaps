@@ -1,40 +1,16 @@
 ---
 title: CORS
-summary: Cross-Origin Resource Sharing — браузерный механизм: когда страница с origin A может читать ответ API с origin B. Сервер разрешает это заголовками; без них JS не увидит тело ответа.
+summary: CORS — браузерный механизм: какие чужие origins могут читать ответ вашего API из JS (через заголовки сервера).
 ---
 
-## Зачем нужно
+## Для чего
 
-Фронт на `localhost:5173`, API на `api.example.com` — классика. Без понимания CORS «чинят» кривым `*` с credentials или путают с CSRF.
+Чтобы легитимный фронт (`app.example.com`) ходил на API, а произвольный сайт не читал ответы с credentials.
 
-## Как работает
+## Пример
 
-**Origin** = scheme + host + port. Cross-origin XHR/`fetch` браузер либо блокирует чтение ответа, либо сначала шлёт **preflight** (`OPTIONS`), если запрос «непростой» (кастомные headers, метод не GET/POST/HEAD, atypical Content-Type).
+`Access-Control-Allow-Origin: https://app.example.com` + при cookies — `Allow-Credentials: true` (не `*`).
 
-Сервер отвечает, например:
+## Примечание
 
-- `Access-Control-Allow-Origin: https://app.example.com` (не `*` вместе с credentials)
-- `Access-Control-Allow-Credentials: true`
-- `Access-Control-Allow-Headers` / `Methods` для preflight
-
-MDN: [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS).
-
-## Что спрашивают
-
-- Что такое simple request и когда нужен preflight?
-- Почему нельзя `Allow-Origin: *` с cookies?
-- CORS защищает сервер или браузер?
-
-## Ответы
-
-### Что такое simple request и когда нужен preflight?
-
-**Simple** — метод GET/POST/HEAD + «простые» заголовки + простой Content-Type (`text/plain`, `multipart/form-data`, `application/x-www-form-urlencoded`). Иначе браузер сначала шлёт **OPTIONS** (preflight): «можно ли такой запрос?». Ответ preflight кэшируется (`Access-Control-Max-Age`).
-
-### Почему нельзя `Allow-Origin: *` с cookies?
-
-Спека запрещает: при `credentials: 'include'` сервер должен вернуть **конкретный** origin, не `*`. Иначе браузер не отдаст ответ JS. Это мешает случайно «открыть всем» cookie-сессии.
-
-### CORS защищает сервер или браузер?
-
-**Браузер / пользователя**: чужой сайт не читает ответы вашего API из JS жертвы. Сервер по-прежнему может принять curl/Postman без CORS — это не firewall. CSRF через form/simple request CORS не отменяет.
+CORS не заменяет auth. Preflight (`OPTIONS`) — для «непростых» запросов. Сервер без браузера CORS не ограничивает.

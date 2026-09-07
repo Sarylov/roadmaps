@@ -1,38 +1,37 @@
 ---
-title: interfaces
-summary: "interfaces: interface в TS описывает форму значения (структурная типизация). Важно на собесе и в проде в контексте «Основы TypeScript»."
+title: Interfaces
+summary: Interface в TypeScript описывает форму объекта — какие поля и методы должны быть у значения (структурная типизация).
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Типовая модель backend-приложения и его контрактов. Упор на систему типов, inference и дизайн публичного API.
+Чтобы задать контракт для объектов и функций и ловить несовпадения формы на этапе компиляции.
 
-## Как работает
+## Пример
 
-**interfaces**: interface в TS описывает форму значения (структурная типизация).
+```ts
+interface User {
+  id: number;
+  name: string;
+}
 
-Declaration merging у interface vs type alias.
+const u: User = { id: 1, name: "Ada" }; // ок без implements
+```
 
-Для объектов часто interface; для union — type.
+## Примечание
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
+`interface` можно дополнять declaration merging; у `type` — нет. Для union и mapped-типов чаще удобнее `type`.
 
-## Что спрашивают
+## Вопросы и ответы
 
-- Объясните interfaces своими словами на примере из «Основы TypeScript».
-- Какие ошибки и edge cases связаны с interfaces?
-- Какие альтернативы interfaces и когда они лучше?
+### Чем interface отличается от type?
 
-## Ответы
+Оба описывают форму. `interface` мерджится при повторном объявлении и удобен для объектов; `type` может быть union, intersection, mapped — и не мерджится.
 
-### Объясните interfaces своими словами на примере из «Основы TypeScript».
+### Нужен ли `implements`?
 
-interface в TS описывает форму значения (структурная типизация). Держите структуру: проблема → механизм → пример. Для объектов часто interface; для union — type.
+Нет. Достаточно совпадения формы (duck typing). `implements` явно фиксирует контракт у класса и полезен для документации.
 
-### Какие ошибки и edge cases связаны с interfaces?
+### Что такое declaration merging?
 
-Declaration merging у interface vs type alias. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы interfaces и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Для объектов часто interface; для union — type.
+Два `interface User` в одной области видимости сливаются в один тип. Удобно расширять типы библиотек, но легко случайно «размазать» контракт по файлам.

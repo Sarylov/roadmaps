@@ -1,36 +1,16 @@
 ---
-title: compute
-summary: "compute: Compute: VM/containers/functions. Важно на собесе и в проде в контексте «Cloud Basics»."
+title: Compute
+summary: Compute в облаке — ресурсы для запуска кода: VM, контейнеры, serverless (функции) с CPU/RAM по запросу.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Базовые строительные блоки cloud-инфраструктуры. Операции, rollback и безопасность поставки.
+Чтобы выбрать, где крутить приложение: всегда-on сервер, автоскейл подов или pay-per-invoke.
 
-## Как работает
+## Пример
 
-**compute**: Compute: VM/containers/functions.
+EC2/GCE — VM. EKS/GKE — контейнеры. Lambda — функция на событие SQS/HTTP.
 
-Холодные старты и лимиты serverless.
+## Примечание
 
-Right-sizing CPU/RAM.
-
-## Что спрашивают
-
-- Объясните compute своими словами на примере из «Cloud Basics».
-- Какие ошибки и edge cases связаны с compute?
-- Какие альтернативы compute и когда они лучше?
-
-## Ответы
-
-### Объясните compute своими словами на примере из «Cloud Basics».
-
-Compute: VM/containers/functions. Держите структуру: проблема → механизм → пример. Right-sizing CPU/RAM.
-
-### Какие ошибки и edge cases связаны с compute?
-
-Холодные старты и лимиты serverless. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы compute и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Right-sizing CPU/RAM.
+Serverless проще в ops на малых нагрузках, но холодный старт и лимиты. Stateful лучше не на «голом» эфемерном compute без диска.

@@ -1,32 +1,20 @@
 ---
-title: Transform stream
-summary: Transform stream — Duplex, где выход вычисляется из входных чанков. Он позволяет строить потоковые парсеры, компрессию и шифрование с backpressure.
+title: Transform
+summary: Transform — duplex, где выход вычисляется из входа (сжатие, шифрование, парсинг по мере чтения).
 ---
 
-## Зачем нужно
+## Для чего
 
-Тема регулярно встречается на backend-интервью: сильный ответ связывает механизм с наблюдаемым поведением, отказами и production-решением.
+Чтобы обрабатывать поток на лету в цепочке `readable → transform → writable`.
 
-## Как работает
+## Пример
 
-Node вызывает `_transform(chunk, encoding, callback)` последовательно; реализация отдаёт ноль или несколько чанков через `push`. `_flush` выпускает накопленный хвост. `pipeline` передаёт давление от конечного sink до source.
+```js
+import { createGzip } from 'node:zlib'
+import { pipeline } from 'node:stream/promises'
+await pipeline(src, createGzip(), dest)
+```
 
-## Что спрашивают
+## Примечание
 
-- Как работает Transform stream на практике?
-- Какой типичный failure mode связан с Transform stream?
-- Какие trade-offs важно назвать для Transform stream?
-
-## Ответы
-
-### Как работает Transform stream на практике?
-
-Node вызывает `_transform(chunk, encoding, callback)` последовательно; реализация отдаёт ноль или несколько чанков через `push`. `_flush` выпускает накопленный хвост. `pipeline` передаёт давление от конечного sink до source.
-
-### Какой типичный failure mode связан с Transform stream?
-
-Забытый `callback`, двойной callback или синхронная тяжёлая работа навсегда останавливают конвейер. Нельзя считать, что чанк совпадает со строкой/JSON-сообщением: границы протокола нужно буферизовать явно.
-
-### Какие trade-offs важно назвать для Transform stream?
-
-Transform выгоден для больших данных и ограниченной памяти. Для маленького payload обычная функция проще; CPU-тяжёлое преобразование следует вынести в worker, иначе потоковый API всё равно блокирует event loop.
+Ошибки transform нужно прокидывать, иначе `pipeline`/`pipe` зависнут или проглотят сбой. `objectMode` — когда chunk не Buffer/string.

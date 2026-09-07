@@ -1,38 +1,26 @@
 ---
-title: stacking
-summary: "stacking: Stacking context определяет порядок перекрытия слоёв. Важно на собесе и в проде в контексте «Position/z-index»."
+title: Stacking
+summary: Stacking context — слой, внутри которого сравнивают z-index детей; создаётся некоторыми свойствами (opacity, transform, position+z-index…).
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Каркас интерфейса: семантика, раскладка, формы и доступность. Упор на каскад, layout и доступность.
+Чтобы понимать, почему «z-index: 9999» не перекрыл элемент из другого контекста.
 
-## Как работает
+## Пример
 
-**stacking**: Stacking context определяет порядок перекрытия слоёв.
+Родитель с `opacity: 0.99` или `transform` создаёт контекст: внутренний z-index не вылезет выше соседа родителя.
 
-Новый context: opacity<1, transform, position+z-index, filter…
+## Примечание
 
-z-index «не работает» часто из-за другого stacking context.
+Сначала дерево контекстов, потом числа z-index. Fixed/sticky тоже участвуют в сложной модели.
 
-MDN: [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS).
+## Вопросы и ответы
 
-## Что спрашивают
+### Почему большой z-index не помогает?
 
-- Объясните stacking своими словами на примере из «Position/z-index».
-- Какие ошибки и edge cases связаны с stacking?
-- Какие альтернативы stacking и когда они лучше?
+Элемент сравнивается внутри своего stacking context с «соседями» родителя, не глобально со всей страницей.
 
-## Ответы
+### Что создаёт stacking context?
 
-### Объясните stacking своими словами на примере из «Position/z-index».
-
-Stacking context определяет порядок перекрытия слоёв. Держите структуру: проблема → механизм → пример. z-index «не работает» часто из-за другого stacking context.
-
-### Какие ошибки и edge cases связаны с stacking?
-
-Новый context: opacity<1, transform, position+z-index, filter… Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы stacking и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. z-index «не работает» часто из-за другого stacking context.
+Среди прочего: `position` + z-index не auto, `opacity < 1`, `transform`, `filter`, `isolation: isolate`.

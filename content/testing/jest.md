@@ -1,36 +1,20 @@
 ---
 title: Jest
-summary: Jest в блоке «Unit Testing» — нужно уметь объяснить механизм, риск и альтернативы.
+summary: Jest — test runner для JS/TS: describe/it, assertions, моки модулей, coverage из коробки.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Изолированная проверка бизнес-логики. Границы unit/integration/e2e и борьба с flaky.
+Чтобы быстро писать unit/integration тесты Node и фронта в одном знакомом API.
 
-## Как работает
+## Пример
 
-**Jest** — тема блока «Unit Testing» (testing). Изолированная проверка бизнес-логики.
+```ts
+test('adds', () => {
+  expect(sum(1, 2)).toBe(3);
+});
+```
 
-Типичная ошибка — использовать Jest «по привычке» без понимания границ и failure modes в «Unit Testing».
+## Примечание
 
-Границы unit/integration/e2e и борьба с flaky.
-
-## Что спрашивают
-
-- Что такое Jest и какую задачу закрывает?
-- Какие ключевые абстракции Jest нужно знать на собесе?
-- Какие operational pitfalls у Jest?
-
-## Ответы
-
-### Что такое Jest и какую задачу закрывает?
-
-**Jest** — тема блока «Unit Testing» (testing). Изолированная проверка бизнес-логики. Опишите место в стеке «Unit Testing». Границы unit/integration/e2e и борьба с flaky.
-
-### Какие ключевые абстракции Jest нужно знать на собесе?
-
-Назовите 3–5 сущностей/операций и как они стыкуются. Типичная ошибка — использовать Jest «по привычке» без понимания границ и failure modes в «Unit Testing».
-
-### Какие operational pitfalls у Jest?
-
-Типичная ошибка — использовать Jest «по привычке» без понимания границ и failure modes в «Unit Testing». Говорите про деплой, мониторинг, лимиты и failure modes, не только про happy path.
+Умеет mock'ать `node_modules` через `jest.mock`. В чистом ESM/Vite-проектах часто предпочитают Vitest с тем же API.

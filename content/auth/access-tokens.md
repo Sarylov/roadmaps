@@ -1,36 +1,16 @@
 ---
 title: Access tokens
-summary: Access token — короткоживущее полномочие для вызова API от имени субъекта. API обязано проверять issuer, audience, срок и разрешения, а не только подпись.
+summary: Access token — короткоживущий токен для доступа к API (часто JWT); им авторизуют конкретные запросы.
 ---
 
-## Зачем нужно
+## Для чего
 
-Токен отделяет authentication server от resource server и ограничивает доступ scopes/audience.
+Чтобы клиент вызывал защищённые эндпоинты, не таская пароль, с ограниченным окном компрометации.
 
-## Как работает
+## Пример
 
-Token может быть opaque с introspection или self-contained JWT. Client отправляет его как Bearer credential; любой владелец может использовать токен, поэтому TLS и безопасное хранение обязательны. Resource server валидирует алгоритм, ключ, `iss`, `aud`, `exp`/`nbf` и scopes.
+`Authorization: Bearer <access>` → API пускает на 5–15 минут. Истёк — нужен refresh или новый login.
 
-## Практические нюансы
+## Примечание
 
-Access token делают коротким и узким по audience. В браузере хранение в JavaScript повышает последствия XSS; BFF с HttpOnly cookie часто безопаснее. Логи, URL и analytics не должны получать token. Для высокого риска применяют sender-constrained tokens.
-
-## Что спрашивают
-
-- Чем access token отличается от ID token?
-- Почему проверки подписи JWT недостаточно?
-- Как отозвать access token?
-
-## Ответы
-
-### Чем access token отличается от ID token?
-
-Access token предназначен API и выражает делегированный доступ. ID token сообщает client о результате authentication; отправлять его как credential в произвольный API нельзя.
-
-### Почему проверки подписи JWT недостаточно?
-
-Корректно подписанный token может быть от другого issuer, для другого audience, истёкшим или без нужного scope. Все контекстные claims обязательны.
-
-### Как отозвать access token?
-
-Opaque token можно выключить в authorization server. JWT обычно делают короткоживущим; для срочного revoke используют denylist/version или key rotation с ценой состояния и нагрузки.
+Короткий TTL снижает ущерб при утечке. Не кладите access в `localStorage`, если можно httpOnly cookie / осторожный memory storage (зависит от клиента).

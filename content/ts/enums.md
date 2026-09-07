@@ -1,38 +1,37 @@
 ---
-title: enums
-summary: "enums: enum (особенно numeric) спорный в TS. Важно на собесе и в проде в контексте «Основы TypeScript»."
+title: Enums
+summary: Enum в TypeScript — именованный набор констант; numeric enum ещё и существует в runtime с reverse mapping.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Типовая модель backend-приложения и его контрактов. Упор на систему типов, inference и дизайн публичного API.
+Чтобы зафиксировать закрытый список значений (статусы, роли) с понятными именами вместо «магических» чисел и строк.
 
-## Как работает
+## Пример
 
-**enums**: enum (особенно numeric) спорный в TS.
+```ts
+enum Role {
+  Admin = "admin",
+  User = "user",
+}
 
-Numeric enum добавляет runtime и reverse mapping.
+const r: Role = Role.Admin;
+```
 
-Часто лучше union литералов.
+## Примечание
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
+Numeric enum компилируется в объект и даёт reverse mapping (`Role[0]`). Часто вместо enum берут `as const` + union литералов — без лишнего runtime.
 
-## Что спрашивают
+## Вопросы и ответы
 
-- Объясните enums своими словами на примере из «Основы TypeScript».
-- Какие ошибки и edge cases связаны с enums?
-- Какие альтернативы enums и когда они лучше?
+### Чем string enum лучше numeric?
 
-## Ответы
+Нет автоинкремента и reverse mapping, значения читаемы в логах и JSON. Numeric enum путают при сериализации.
 
-### Объясните enums своими словами на примере из «Основы TypeScript».
+### Enum vs union литералов?
 
-enum (особенно numeric) спорный в TS. Держите структуру: проблема → механизм → пример. Часто лучше union литералов.
+`type Status = "a" | "b"` — только типы, ноль runtime. `enum` — и тип, и значение в JS. Для многих команд union + `as const` предпочтительнее.
 
-### Какие ошибки и edge cases связаны с enums?
+### Что такое const enum?
 
-Numeric enum добавляет runtime и reverse mapping. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы enums и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Часто лучше union литералов.
+`const enum` инлайнит значения при компиляции и может не оставить объект в бандле. С `isolatedModules` / bundler’ами часто неудобен — используют осторожно.

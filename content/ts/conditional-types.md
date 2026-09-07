@@ -1,38 +1,37 @@
 ---
-title: conditional types
-summary: "conditional types: Условные типы ветвят по extends. Важно на собесе и в проде в контексте «Advanced Types»."
+title: Conditional Types
+summary: Conditional type — тип вида `T extends U ? X : Y`: ветвление на уровне типов по проверке совместимости.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Продвинутые средства построения типов. Упор на систему типов, inference и дизайн публичного API.
+Чтобы вывести разный результат в зависимости от формы входного типа (утилиты вроде `NonNullable`, ветки для union, адаптация API под вход).
 
-## Как работает
+## Пример
 
-**conditional types**: Условные типы ветвят по extends.
+```ts
+type IsString<T> = T extends string ? true : false
 
-distributive behavior на union.
+type A = IsString<'hi'>   // true
+type B = IsString<number> // false
 
-Тяжёлые типы замедляют tsc — мера.
+type NonNullable<T> = T extends null | undefined ? never : T
+```
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
+## Примечание
 
-## Что спрашивают
+Naked `T` в `T extends ...` **distributive** по union: `IsString<string | number>` → `true | false`. Чтобы отключить — обернуть в кортеж: `[T] extends [U] ? ...`.
 
-- Объясните conditional types своими словами на примере из «Advanced Types».
-- Какие ошибки и edge cases связаны с conditional types?
-- Какие альтернативы conditional types и когда они лучше?
+## Вопросы и ответы
 
-## Ответы
+### Что такое distributive conditional types?
 
-### Объясните conditional types своими словами на примере из «Advanced Types».
+Когда проверяемый тип — «голый» type parameter, TypeScript применяет условие к каждому члену union отдельно и склеивает результаты. Это база `Exclude`/`Extract`.
 
-Условные типы ветвят по extends. Держите структуру: проблема → механизм → пример. Тяжёлые типы замедляют tsc — мера.
+### Чем отличается от runtime `if`?
 
-### Какие ошибки и edge cases связаны с conditional types?
+Это только компиляция: в JS условия нет. Conditional types строят типы, не ветвят выполнение.
 
-distributive behavior на union. Назовите симптом в проде и как поймать тестом или метрикой.
+### Где это встречается в стандартной библиотеке?
 
-### Какие альтернативы conditional types и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Тяжёлые типы замедляют tsc — мера.
+`ReturnType`, `Parameters`, `NonNullable`, `Extract`, `Exclude` — все на conditional types (часто с `infer`).

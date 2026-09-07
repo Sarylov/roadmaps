@@ -1,38 +1,40 @@
 ---
-title: mapped types
-summary: "mapped types: Mapped types строят новые объектные типы из ключей. Важно на собесе и в проде в контексте «Advanced Types»."
+title: Mapped Types
+summary: Mapped type — объектный тип, построенный перебором ключей: `{ [K in Keys]: ... }`.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Продвинутые средства построения типов. Упор на систему типов, inference и дизайн публичного API.
+Чтобы из одного типа получить другой без копипасты полей: сделать всё optional/readonly, переименовать ключи, обернуть значения.
 
-## Как работает
+## Пример
 
-**mapped types**: Mapped types строят новые объектные типы из ключей.
+```ts
+type ReadonlyProps<T> = {
+  readonly [K in keyof T]: T[K]
+}
 
-Шаблон для Partial/Pick-подобных.
+type OptionalFlags<T> = {
+  [K in keyof T]?: boolean
+}
 
-key remapping — мощный инструмент.
+// Partial / Readonly / Pick — по сути готовые mapped types
+```
 
-Документация: [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html).
+## Примечание
 
-## Что спрашивают
+Модификаторы: `+readonly` / `-readonly`, `+?` / `-?`. С `as` можно фильтровать/переименовывать ключи (`key remapping`). `Partial` и `Required` — частные случаи mapped types.
 
-- Объясните mapped types своими словами на примере из «Advanced Types».
-- Какие ошибки и edge cases связаны с mapped types?
-- Какие альтернативы mapped types и когда они лучше?
+## Вопросы и ответы
 
-## Ответы
+### Чем mapped type отличается от index signature?
 
-### Объясните mapped types своими словами на примере из «Advanced Types».
+Index signature (`[key: string]: T`) описывает «любой строковый ключ». Mapped type перечисляет конкретный набор ключей из `keyof` или union литералов.
 
-Mapped types строят новые объектные типы из ключей. Держите структуру: проблема → механизм → пример. key remapping — мощный инструмент.
+### Как связаны с Pick/Partial?
 
-### Какие ошибки и edge cases связаны с mapped types?
+`Partial<T>` ≈ `{ [K in keyof T]?: T[K] }`. `Pick` сужает ключи, mapped type чаще меняет modifiers/значения по всем (или отфильтрованным) ключам.
 
-Шаблон для Partial/Pick-подобных. Назовите симптом в проде и как поймать тестом или метрикой.
+### Когда писать свой mapped type?
 
-### Какие альтернативы mapped types и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. key remapping — мощный инструмент.
+Когда стандартных utility не хватает: например, сделать все поля `Promise<T[K]>` или оставить только ключи, чьи значения — функции.

@@ -1,36 +1,16 @@
 ---
-title: service registry
-summary: "service registry: Реестр сервисов для discovery. Важно на собесе и в проде в контексте «Service Discovery и конфигурация»."
+title: Service registry
+summary: Service registry — каталог живых инстансов сервисов (имя → адреса), куда клиенты/балансировщики ходят за discovery.
 ---
 
-## Зачем нужно
+## Для чего
 
-OPT-тема: отличает глубину кандидата. Как сервисы находят друг друга и получают настройки. Слои приложения, DI и границы транзакций.
+Чтобы не хардкодить IP подов и узнавать, куда слать трафик после scale/restarts.
 
-## Как работает
+## Пример
 
-**service registry**: Реестр сервисов для discovery.
+Consul/Eureka: инстанс `orders` регистрируется на старте. Клиент получает список и балансирует. В K8s роль часто у DNS+Endpoints.
 
-DNS/k8s Service часто достаточно.
+## Примечание
 
-Health и stale records.
-
-## Что спрашивают
-
-- Объясните service registry своими словами на примере из «Service Discovery и конфигурация».
-- Какие ошибки и edge cases связаны с service registry?
-- Какие альтернативы service registry и когда они лучше?
-
-## Ответы
-
-### Объясните service registry своими словами на примере из «Service Discovery и конфигурация».
-
-Реестр сервисов для discovery. Держите структуру: проблема → механизм → пример. Health и stale records.
-
-### Какие ошибки и edge cases связаны с service registry?
-
-DNS/k8s Service часто достаточно. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы service registry и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Health и stale records.
+Нужен heartbeat/health: мёртвый инстанс вычёркивают. Stale registry → 502.

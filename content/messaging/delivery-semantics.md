@@ -1,36 +1,16 @@
 ---
-title: delivery semantics
-summary: "delivery semantics: at-most-once / at-least-once / exactly-once (ограниченно). Важно на собесе и в проде в контексте «Kafka Advanced»."
+title: Delivery semantics
+summary: Delivery semantics — контракт «как именно» доставляем и коммитим: ack, offset commit, идемпотентный produce/consume, транзакции брокера.
 ---
 
-## Зачем нужно
+## Для чего
 
-База уровня CORE. Глубокое понимание Kafka для высоконагруженных систем. Delivery guarantees, порядок и идемпотентность consumer’а.
+Чтобы согласовать поведение producer, брокера и consumer под требования бизнеса (деньги vs метрики).
 
-## Как работает
+## Пример
 
-**delivery semantics**: at-most-once / at-least-once / exactly-once (ограниченно).
+Kafka: produce acks=all + idempotent producer; consumer commit после записи в БД (или transactional outbox/EOS).
 
-Exactly-once = комбо продюсер+лог+консьюмер/транзакции.
+## Примечание
 
-Практически часто at-least-once + идемпотентность.
-
-## Что спрашивают
-
-- Объясните delivery semantics своими словами на примере из «Kafka Advanced».
-- Какие ошибки и edge cases связаны с delivery semantics?
-- Какие альтернативы delivery semantics и когда они лучше?
-
-## Ответы
-
-### Объясните delivery semantics своими словами на примере из «Kafka Advanced».
-
-at-most-once / at-least-once / exactly-once (ограниченно). Держите структуру: проблема → механизм → пример. Практически часто at-least-once + идемпотентность.
-
-### Какие ошибки и edge cases связаны с delivery semantics?
-
-Exactly-once = комбо продюсер+лог+консьюмер/транзакции. Назовите симптом в проде и как поймать тестом или метрикой.
-
-### Какие альтернативы delivery semantics и когда они лучше?
-
-Сравните минимум два подхода по сложности, perf и риску. Практически часто at-least-once + идемпотентность.
+Семантика на стороне брокера не спасает dual-write в вашу БД. Проектируйте эффект consumer'а под at-least-once по умолчанию.
