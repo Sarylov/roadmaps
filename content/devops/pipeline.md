@@ -1,34 +1,16 @@
 ---
-title: pipeline
-summary: "pipeline — это cI pipeline: build → test → scan → deploy."
+title: Pipeline
+summary: CI/CD pipeline — цепочка стадий: install → quality → build → (deploy) с артефактами и окружениями.
 ---
 
-## Зачем нужно
+## Для чего
 
-Чтобы явно выразить и переиспользовать поведение, связанное с «pipeline», а не держать его зашитым в одном месте.
+Чтобы доставка фронта была повторяемой: от коммита до staging/prod без ручных шагов.
 
-## Как работает
+## Пример
 
-pipeline — это cI pipeline: build → test → scan → deploy.
+PR pipeline: lint/test/build. Main: build → upload static на S3/CDN или image → deploy preview/prod.
 
-Частая ошибка: хрупкие flaky тесты подрывают доверие к CI.
+## Примечание
 
-## Что спрашивают
-
-- Что такое pipeline простыми словами?
-- Зачем в коде нужен pipeline?
-- Какие ошибки и ограничения связаны с pipeline?
-
-## Ответы
-
-### Что такое pipeline простыми словами?
-
-pipeline — это cI pipeline: build → test → scan → deploy.
-
-### Зачем в коде нужен pipeline?
-
-Чтобы явно выразить и переиспользовать поведение, связанное с «pipeline», а не держать его зашитым в одном месте.
-
-### Какие ошибки и ограничения связаны с pipeline?
-
-Хрупкие flaky тесты подрывают доверие к CI. Имеет смысл сравнить с ближайшей альтернативой и понять, когда механизм избыточен.
+Секреты — в CI secrets. Один артефакт промоутится по env, а не «пересобрали на проде иначе».

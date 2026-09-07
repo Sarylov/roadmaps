@@ -1018,11 +1018,11 @@
           "items": [
             {
               "label": "routes",
-              "ref": "backend/routes"
+              "ref": "frontend/lazy-routes"
             },
             {
               "label": "images",
-              "ref": "devops/images"
+              "ref": "frontend/images"
             },
             {
               "label": "prefetch",
@@ -1093,7 +1093,7 @@
             },
             {
               "label": "plugins",
-              "ref": "backend/plugins"
+              "ref": "tooling/plugins"
             }
           ]
         },
@@ -1192,7 +1192,7 @@
           "items": [
             {
               "label": "layers",
-              "ref": "architecture/layers"
+              "ref": "frontend/fsd-layers"
             },
             {
               "label": "slices",
@@ -1240,7 +1240,7 @@
             },
             {
               "label": "state",
-              "ref": "css/state"
+              "ref": "frontend/state-pattern"
             }
           ]
         }
@@ -1267,7 +1267,7 @@
             },
             {
               "label": "scope",
-              "ref": "js/scope"
+              "ref": "system-design/scope"
             }
           ]
         },
@@ -1299,7 +1299,7 @@
           "items": [
             {
               "label": "contracts",
-              "ref": "microservices/contracts"
+              "ref": "frontend/component-contracts"
             },
             {
               "label": "slots",
@@ -1334,7 +1334,7 @@
             },
             {
               "label": "timers",
-              "ref": "node/timers"
+              "ref": "testing/timers"
             }
           ]
         },
@@ -1374,7 +1374,7 @@
             },
             {
               "label": "flakiness",
-              "ref": "frontend/flakiness"
+              "ref": "testing/flaky-tests"
             }
           ]
         }
@@ -1441,7 +1441,7 @@
             },
             {
               "label": "alignment",
-              "ref": "css/alignment"
+              "ref": "frontend/team-alignment"
             },
             {
               "label": "ownership",
